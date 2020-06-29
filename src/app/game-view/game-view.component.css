@@ -1,0 +1,33 @@
+.snippet-container {
+    /* Center and scale the image nicely */
+    background-image: url("../../assets/img/paw-bg.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.snippet-active {
+    background-color: rgba(255, 132, 0, 0.92);
+    /*color: #fff;*/
+}
+
+#errorMessage {
+    position: absolute;
+    background-color: rgba(167, 40, 40, 0.92);
+    bottom: 120%;
+}
+
+.snippet {
+    background-color: rgba(255, 255, 255, 0.92);
+    color: rgba(129, 129, 129, 0.637)
+}
+
+.snippet-found {
+    background-color: rgba(40, 167, 70, 0.92);
+    color: #fff;
+}
+
+.snippet-missed {
+    background-color: rgba(167, 40, 40, 0.92);
+    color: #fff;
+}

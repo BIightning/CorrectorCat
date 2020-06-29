@@ -1,0 +1,29 @@
+<div class=background>
+    <nav class="navbar navbar-expand-md bg-white border-bottom shadow" id="header">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        <a class="navbar-brand mr-0" href="#">
+            <img src="../../assets/img/cc-logo.png" width="314" height="70" class="d-inline-block align-center rounded p-1" alt="">
+        </a>
+        <h2 class="ml-0"><img src="../../assets/img/kitty.svg" width="70" height="70" class="d-inline-block align-center rounded p-1" alt=""></h2>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a [routerLink]="['/login']" class="btn btn-primary mr-1" routerLinkActive="router-link-active">
+                              Login
+                            </a>
+                    <a [routerLink]="['/registrieren']" class="btn btn-success" routerLinkActive="router-link-active">
+                              Sign up
+                            </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="mx-auto my-auto p-5 d-block">
+        <img src="{{imgPath}}" width="500" height="500" class="mx-auto p-5 d-block">
+        <h2 class="text-center text-gamelet">You found {{ text }}. Were you looking for it?</h2>
+        <h1 class="text-center text-secondary">Error 404 - not found</h1>
+    </div>
+
+</div>

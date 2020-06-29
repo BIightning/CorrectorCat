@@ -1,0 +1,31 @@
+<div class=background>
+    <nav class="navbar">
+        <div>
+            <img src="../../assets/img/cc-logo.png" width="691" height="154" class="d-inline-block align-center rounded p-1">
+            <img src="../../assets/img/kitty.svg" width="140" height="140" class="d-inline-block">
+        </div>
+    </nav>
+    <img src="../../assets/img/kitty-avatars/svg/021-kitty-28.svg" width="200" height="200" class="float-left ml-4 mt-5">
+    <div id="logreg-forms" class="shadow">
+        <form class="form-signin">
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center; color: rgb(13, 12, 42)"> Sign in</h1>
+            <!--
+            <div class="social-login">
+                <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>
+                <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign in with Google+</span> </button>
+            </div>
+            -->
+            <br>
+            <input [(ngModel)]="email" name="email" type="email" class="form-control" placeholder="Email address" required="" autofocus="">
+            <input [(ngModel)]="password" name="password" type="password" class="form-control" placeholder="Password" required="">
+
+            <button (click)="checkUser()" class="btn btn-success btn-block" type="submit"><i class="fas fa-sign-in-alt"></i> Sign in</button>
+            <a href="#" id="forgot_pswd" style="color: #3C589C;">Forgot password?</a>
+            <hr>
+            <button routerLink="/registrieren" class="btn btn-primary btn-block" type="button" id="btn-signup"><i class="fas fa-user-plus"></i> Sign up New Account</button>
+        </form>
+    </div>
+    <div class="fixed-bottom">
+        <img src="../../assets/img/kitty-avatars/svg/016-kitty-33.svg" width="300" height="300" class="float-right mr-4">
+    </div>
+</div>

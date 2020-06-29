@@ -1,0 +1,92 @@
+<div class="col-12 mt-3 ml-3">
+    <label class="mb-0 p-0 font-weight-bold">Owned Books</label>
+    <div class="container-fluid rounded row bg-white p-3">
+
+        <div class="col-xl-3 col-md-6 d-inline dashboard-card" *ngFor="let book of bookList; index as i" (click)="navigate(book.id)">
+            <div class="card border-left-success bg-white text-dark shadow h-100 py-2">
+                <div class="card-header bg-white text-dark p-0">
+                    <h6 class="font-weight-bold text-center">{{book.title}}</h6>
+                </div>
+                <div class="card-body p-0 bg-light">
+                    <img class="card-img-top m-0 p-0" [src]="'../../assets/img/' + book.image" alt="Card image cap">
+                    <div class="row p-2 align-items-center">
+                        <div class="col mr-2">
+                            <div class="mb-2">
+                                <p class="text-center font-weight-bold">Difficulty: {{book.difficulty}}</p>
+                                <p style="height: 100px; overflow-y: scroll;">{{book.description }}</p>
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold">
+                                Progress: 10%
+                                <div class="progress progress-sm mr-2">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--
+<div class="col-12 mt-2">
+    <label class="mb-0 p-0 font-weight-bold">Medium</label>
+    <div class="container-fluid rounded bg-white p-3">
+
+        <div class="col-xl-3 col-md-6 dashboard-card">
+            <div class="card border-left-success bg-white text-dark shadow h-100 py-2">
+                <div class="card-header bg-white text-dark p-0">
+                    <h6 class="font-weight-bold text-center">The endless journey</h6>
+                </div>
+                <div class="card-body bg-light">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-uppercase mb-1">Progress:
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold">
+                                10%
+                                <div class="progress progress-sm mr-2">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <img src="./assets/img/placeholder.png" class="float-right m-0 align-top" width="60px" height="60px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-12 mt-2">
+    <label class="mb-0 p-0 font-weight-bold">Hard</label>
+    <div class="container-fluid rounded bg-white p-3">
+
+        <div class="col-xl-3 col-md-6 dashboard-card">
+            <div class="card border-left-success bg-white text-dark shadow h-100 py-2">
+                <div class="card-header bg-white text-dark p-0">
+                    <h6 class="font-weight-bold text-center">The art of war</h6>
+                </div>
+                <div class="card-body bg-light">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-uppercase mb-1">Progress:
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold">
+                                0%
+                                <div class="progress progress-sm mr-2">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: 0%" aria-valuenow="00" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <img src="./assets/img/placeholder.png" class="float-right m-0 align-top" width="60px" height="60px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+-->

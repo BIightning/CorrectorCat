@@ -1,0 +1,208 @@
+.dashboard-card {
+    min-height: 150px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dashboard-card-red {
+    background-image: url(../../assets/img/ribbon-red.png);
+}
+
+.dashboard-card-orange {
+    background-image: url(../../assets/img/ribbon-orange.png);
+}
+
+.dashboard-card-blue {
+    background-image: url(../../assets/img/ribbon-blue.png);
+}
+
+.dashboard-card:hover {
+    transform: scale(1.01);
+    transition-duration: 0.05s;
+    cursor: pointer;
+}
+
+.super-cat-wrapper {
+    transform: rotate(18deg);
+}
+
+.super-cat-wrapper:hover {
+    -webkit-animation: cat-movement 2s infinite;
+    animation: cat-movement 2s infinite;
+}
+
+@-webkit-keyframes cat-movement {
+    0% {
+        transform: rotate(18deg);
+    }
+    50% {
+        transform: rotate(6deg);
+    }
+    100% {
+        transform: rotate(18deg);
+    }
+}
+
+@keyframes cat-movement {
+    0% {
+        transform: rotate(18deg);
+    }
+    50% {
+        transform: rotate(6deg);
+    }
+    100% {
+        transform: rotate(18deg);
+    }
+}
+
+.super-cat-fly {
+    -webkit-animation: fly 1s alternate;
+    animation: fly 1s alternate;
+}
+
+@-webkit-keyframes fly {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-500px);
+    }
+}
+
+@keyframes fly {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-500px);
+    }
+}
+
+.prompt {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.prompt:hover {
+    cursor: pointer;
+}
+
+#scaling-bg {
+    position: absolute;
+    min-width: 100px;
+    min-height: 100px;
+    border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+}
+
+.prompt-animation {
+    z-index: 999;
+    background-color: rgba(255, 132, 0, 1);
+    animation: cover-everything 1s linear;
+}
+
+.prompt-content {
+    color: rgb(12, 106, 248);
+    z-index: 1000;
+}
+
+.prompt:hover .prompt-content {
+    color: #fff;
+    transition: 0.5s;
+}
+
+.prompt span:nth-child(1) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid rgba(255, 132, 0, 0.877);
+    border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+    transition: 0.5s;
+    animation: border-rotation 6s linear infinite;
+}
+
+.prompt:hover span:nth-child(1) {
+    background: rgba(255, 132, 0, 0.877);
+}
+
+.prompt span:nth-child(2) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid rgba(255, 132, 0, 0.877);
+    border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+    transition: 0.5s;
+    animation: border-rotation 4s linear infinite;
+}
+
+.prompt:hover span:nth-child(2) {
+    background: rgba(255, 132, 0, 0.877);
+}
+
+.prompt span:nth-child(3) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid rgba(255, 132, 0, 0.877);
+    border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+    transition: 0.5s;
+    animation: border-rotation 10s reverse linear infinite;
+}
+
+.prompt:hover span:nth-child(3) {
+    background: rgba(255, 132, 0, 0.877);
+}
+
+@keyframes border-rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes cover-everything {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(50);
+    }
+}
+
+.fade-out {
+    -webkit-animation: fade-out 0.5s ease-out both;
+    animation: fade-out 0.5s ease-out both;
+}
+
+@-webkit-keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

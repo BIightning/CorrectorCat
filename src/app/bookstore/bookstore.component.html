@@ -1,0 +1,86 @@
+<div>
+    <h3 class="pt-2 pl-2">Bookstore</h3>
+    <div class="d-inline-block p-4" *ngFor="let book of bookList ; index as i">
+        <div *ngIf="isowned(book.id); then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>
+            <div class="card shadow text-light p-0" style="width: 22rem; height: 38rem; background-color: gray;">
+                <img class="card-img-top m-0 p-0" [src]="'../../assets/img/' + book.image" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title text-white">{{book.title}} <br> <small class="text-light ml-2">{{book.author}}</small></h5>
+                    <hr>
+                    <p class="card-text ml-1 font-weight-bolder"> {{book.cost}}</p>
+                    <p class="card-text" style="height: 90px; overflow-y: scroll;">{{book.description}}</p>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-text">You already bought the book!</h5>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template #elseBlock>
+            <div class="card shadow" style="width: 22rem; height: 38rem;">
+                <img class="card-img-top" [src]="'../../assets/img/' + book.image" alt="Card image cap">
+                <div class="card-body mb-0">
+                    <h5 class="card-title">{{book.title}} <br> <small class="text-secondary ml-2">{{book.author}}</small></h5>
+                    <hr>
+                    <p class="card-text ml-1 font-weight-bolder"> {{book.cost}}</p>
+                    <p class="card-text" style="height: 90px; overflow-y: scroll;">{{book.description}}</p>
+                    <p class="card-text font-weight-bold">{{book.difficulty}}</p>
+                </div>
+                <div class="card-body mt-0 pt-0">
+                    <button (click)="openModal(book.id,book);" class="btn mt-0 btn-primary">Buy Book</button>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>
+
+<ng-template #bookBuy let-modal>
+    <div>
+        <div class="modal-header">
+            <h4 class="modal-title text-gamelet" id="modal-basic-title">{{selectedBook.title}}</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <h5 class="p-4 text-center text-secondary rounded">{{selectedBook.description}}</h5>
+                    <p>Cost of the book</p>
+                    <p>{{selectedBook.cost}}</p>
+                    <p>Receipt:</p>
+                    <p>{{user.points}}</p>
+                    <p>-{{selectedBook.cost}}</p>
+                    <hr>
+                    <p>{{user.points - selectedBook.cost}}</p>
+                    <button (click)="buyBook()">Buy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">Close</button>
+    </div>
+</ng-template>
+
+<ng-template #notAbleToBuy let-modal>
+    <div>
+        <div class="modal-header">
+            <h4 class="modal-title text-gamelet" id="modal-basic-title">Not enough credits</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <p>Dir fehlen {{(user.points - selectedBook.cost) *-1}} Punkte um das Buch zu kaufen</p>
+                    <p>Kauf ist fehlgeschlagen</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">Close</button>
+    </div>
+</ng-template>
