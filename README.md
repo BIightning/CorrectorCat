@@ -19,14 +19,14 @@ improving reading fluency. With the help of this concept the reader should devel
 of fluent reading. At the moment German- and English stories are available in the game. Furthermore,
 the implementation of other languages is preferable.
 
-===============================================================================
+=======================================================================
 
 Installation:
 You need Node.js and NPM installed.
 Open a Terminal/Windows command prompt/Powershell.
 and navigate to the project root directory. (correctorcat/correctorcat/)
 Run "npm install".
-After that run node "server/app.js".
+After that run "node server/app"
 Open another Terminal and run "ng serve".
 
 After compiling you can access the webpage in your webbrowser via localhost:4200
