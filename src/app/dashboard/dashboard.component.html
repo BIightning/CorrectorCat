@@ -1,43 +1,7 @@
 <h4 class="pl-2 pt-1 text-secondary">Dashboard</h4>
 <h3 class="text-gamelet font-weight-bold text-center">Welcome, {{user.name}}!</h3>
 <div class="row p-3">
-    <div class="row col-md-6">
-        <h4 class="ml-4 text-secondary">Your statistics:</h4>
-        <div class="col-12 mb-2">
-            <div class="dashboard-card pb-3 dashboard-card-red">
-                <h4 class="text-center mr-3 font-weight-bold text-light">Owned books: 1</h4>
-            </div>
-        </div>
-        <div class="col-12 mb-2">
-            <div class="dashboard-card pb-3 dashboard-card-orange">
-                <h4 class="text-center mr-3 font-weight-bold text-light">Unlocked Quizzes: 0</h4>
-            </div>
-        </div>
-        <div class="col-12 mb-2">
-            <div class="dashboard-card dashboard-card-blue">
-                <h4 class="text-center mr-3 font-weight-bold text-light">Finished books: 0</h4>
-            </div>
-        </div>
-        <div class="col-12 mb-2">
-            <img src="../../assets/img/kitty-avatars/svg/050-kitty.svg" width="200" height="200">
-        </div>
-    </div>
 
-    <div class="col-md-6 mt-2">
-        <div class="d-flex justify-content-center">
-            <div class="prompt" (click)="navigateToTutorial($event)">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span id="scaling-bg"></span>
-                <div class="prompt-content text-center">
-                    <div id="prompt-text" class="text-center">
-                        <h4 class="font-weight-bold pb-1">Need help?<br> Try the tutorial!</h4>
-                    </div>
-                    <div class="super-cat-wrapper">
-                        <img src="../../assets/img/kitty-avatars/svg/036-kitty-14.svg" id="super-cat">
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="col-md-12 mt-2">
+        <app-level-view></app-level-view>
     </div>

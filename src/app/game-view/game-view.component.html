@@ -29,13 +29,13 @@
         <div class="col-md-4 col-sm-6">
             <span id="errorMessage" class="text-center rounded p-3" [ngClass]="showErrorMessage ? 'visible' : 'd-none'">The current snippet is being read correctly!</span>
             <button (click)="onHelpButtonClick()" class="btn btn-info secondaryBtns mr-2">
-                <i id="btStopIcon" class="fas fa-question"></i>
+                <i id="btStopIcon" class="fa fa-redo"></i>
             </button>
             <button (click)="onStopBtnClick()" id="stopBtn" class="btn btn-lg">
                 <img class="img-hover" src="../../assets/img/stop-4375936__340.png" width="90" height="90">
             </button>
             <button (click)="onPauseBtnClick()" class="btn btn-light secondaryBtns ml-2 mr-5">
-                    <i [ngClass]="audioplayer.paused ? 'fa-play' : 'fa-pause'" class="fas text-dark"></i>
+                    <i [ngClass]="audioplayer.paused ? 'fa-angle-double-right' : 'fa-pause'" class="fas text-dark"></i>
             </button>
         </div>
         <div class="col-md-4 d-flex align-items-center col-sm-3">

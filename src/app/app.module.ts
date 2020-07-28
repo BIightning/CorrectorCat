@@ -25,6 +25,7 @@ import { BookService } from './book.service';
 import { StartingPageComponent } from './starting-page/starting-page.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { TutorialComponent } from './tutorial/tutorial.component';
+import { LevelViewComponent } from './level-view/level-view.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { TutorialComponent } from './tutorial/tutorial.component';
     GameViewComponent,
     GamePageComponent,
     NotFoundComponent,
-    TutorialComponent
+    TutorialComponent,
+    LevelViewComponent
   ],
   imports: [
     HttpClientModule,

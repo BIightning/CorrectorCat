@@ -1,6 +1,5 @@
 .snippet-container {
     /* Center and scale the image nicely */
-    background-image: url("../../assets/img/paw-bg.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
