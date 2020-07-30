@@ -1,0 +1,409 @@
+.level-1 {
+    margin-top: 1vh;
+}
+
+.level-2 {
+    margin-top: 10vh;
+}
+
+.level-3 {
+    margin-top: 3vh;
+}
+
+.level-4 {
+    margin-top: 22vh;
+}
+
+.prompt {
+    --level-1-color: 136, 255, 40;
+    --level-2-color: 0, 26, 255;
+    --level-3-color: 255, 132, 0;
+    --level-4-color: 255, 217, 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (min-width: 576px) {
+    .prompt {
+        width: 48vw;
+        height: 48vw;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .prompt {
+        width: 35vw;
+        height: 35vw;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .prompt {
+        width: 27vw;
+        height: 27vw;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .prompt {
+        width: 23vw;
+        height: 23vw;
+    }
+}
+
+.prompt:hover {
+    cursor: pointer;
+}
+
+.scaling-bg {
+    position: absolute;
+    min-width: 100px;
+    min-height: 100px;
+    border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+}
+
+.prompt-animation {
+    z-index: 999;
+    animation: cover-everything 1.3s linear;
+}
+
+.prompt:hover .prompt-content .fa-lock {
+    color: #f00;
+    transition: all 0.5s;
+}
+
+.prompt:hover .prompt-content .fa-check-circle {
+    color: rgb(0, 175, 0);
+    transition: all 0.5s;
+}
+
+.prompt-animation.level-1 {
+    background-color: rgb(var(--level-1-color));
+}
+
+.prompt-animation.level-2 {
+    background-color: rgb(var(--level-2-color));
+}
+
+.prompt-animation.level-3 {
+    background-color: rgb(var(--level-3-color));
+}
+
+.prompt-animation.level-4 {
+    background-color: rgb(var(--level-4-color));
+}
+
+.prompt-content {
+    color: rgb(12, 106, 248);
+}
+
+.prompt-content i {
+    color: #444;
+}
+
+.prompt:hover .prompt-content {
+    color: #fff;
+    z-index: 1000;
+    transition: all 0.5s;
+}
+
+.prompt:hover #prompt-text h3 {
+    font-size: 3em;
+    color: #fff;
+    transition: all 0.5s;
+}
+
+.prompt:hover .prompt-content i {
+    color: #fff;
+    transition: all 0.5s;
+}
+
+.prompt:hover .prompt-content i.fa-check-circle::after {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+    font-weight: bold;
+    width: 100%;
+    font-size: 24px;
+    bottom: 24%;
+    left: 0%;
+    position: absolute;
+    content: 'Complete!';
+    transition: all 0.5s;
+}
+
+.prompt:hover .prompt-content i.fa-lock::after {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+    font-weight: bold;
+    width: 100%;
+    font-size: 26px;
+    bottom: 24%;
+    left: 0%;
+    position: absolute;
+    content: 'Locked!';
+    transition: all 0.5s;
+}
+
+.prompt span:nth-child(1) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+    transition: all 0.5s;
+}
+
+.prompt span:nth-child(2) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+    border: 0px solid rgba(255, 255, 255, 0);
+    transition: all 0.5s;
+    animation: border-rotation 4s linear infinite;
+}
+
+.prompt span:nth-child(3) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 102%;
+    height: 102%;
+    border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+    border: 0px solid rgba(255, 255, 255, 0);
+    transition: all 0.5s;
+    animation: border-rotation 10s reverse linear infinite;
+}
+
+
+/* ================= level coloring ================= */
+
+
+/* level 1 border */
+
+.prompt.level-1 span:nth-child(1) {
+    border: 3px solid rgba(var(--level-1-color), 0.877);
+}
+
+.prompt.level-1 .active-prompt span:nth-child(2) {
+    border: 3px solid rgba(var(--level-1-color), 0.877);
+    transition: all 2s;
+}
+
+.prompt.level-1 .active-prompt span:nth-child(3) {
+    border: 3px solid rgba(var(--level-1-color), 0.877);
+    transition: all 2s;
+}
+
+
+/* level 2 border */
+
+.prompt.level-2 span:nth-child(1) {
+    border: 3px solid rgba(var(--level-2-color), 0.877);
+}
+
+.prompt.level-2.active-prompt span:nth-child(2) {
+    border: 3px solid rgba(var(--level-2-color), 0.877);
+    transition: all 2s;
+}
+
+.prompt.level-2.active-prompt span:nth-child(3) {
+    border: 3px solid rgba(var(--level-2-color), 0.877);
+    transition: all 2s;
+}
+
+
+/* level 3 border */
+
+.prompt.level-3 span:nth-child(1) {
+    border: 3px solid rgba(var(--level-3-color), 0.877);
+}
+
+.prompt.level-3 .active-prompt span:nth-child(2) {
+    border: 3px solid rgba(var(--level-3-color), 0.877);
+    transition: all 2s;
+}
+
+.prompt.level-3 .active-prompt span:nth-child(3) {
+    border: 3px solid rgba(var(--level-3-color), 0.877);
+    transition: all 2s;
+}
+
+
+/* level 4 border */
+
+.prompt.level-4 span:nth-child(1) {
+    border: 3px solid rgba(var(--level-4-color), 0.877);
+}
+
+.prompt.level-4.active-prompt span:nth-child(2) {
+    border: 3px solid rgba(var(--level-4-color), 0.877);
+    transition: all 2s;
+}
+
+.prompt.level-4.active-prompt span:nth-child(3) {
+    border: 3px solid rgba(var(--level-4-color), 0.877);
+    transition: all 2s;
+}
+
+
+/* level 1 hover */
+
+.prompt.level-1:hover span:nth-child(1) {
+    background: rgba(var(--level-1-color), 0.877);
+    transition: all 0.5s;
+    animation: border-rotation 6s linear infinite;
+}
+
+.prompt.level-1:hover span:nth-child(2) {
+    background: rgba(var(--level-1-color), 0.877);
+    transition: all 0.5s;
+}
+
+.prompt.level-1:hover span:nth-child(3) {
+    background: rgba(var(--level-1-color), 0.877);
+    transition: all 0.5s;
+}
+
+
+/* level 2 hover */
+
+.prompt.level-2:hover span:nth-child(1) {
+    background: rgba(var(--level-2-color), 0.877);
+    transition: all 0.5s;
+    animation: border-rotation 6s linear infinite;
+}
+
+.prompt.level-2:hover span:nth-child(2) {
+    background: rgba(var(--level-2-color), 0.877);
+    transition: all 0.5s;
+}
+
+.prompt.level-2:hover span:nth-child(3) {
+    background: rgba(var(--level-2-color), 0.877);
+    transition: all 0.5s;
+}
+
+
+/* level 3 hover */
+
+.prompt.level-3:hover span:nth-child(1) {
+    background: rgba(var(--level-3-color), 0.877);
+    transition: all 0.5s;
+    animation: border-rotation 6s linear infinite;
+}
+
+.prompt.level-3:hover span:nth-child(2) {
+    background: rgba(var(--level-3-color), 0.877);
+    transition: all 0.5s;
+}
+
+.prompt.level-3:hover span:nth-child(3) {
+    background: rgba(var(--level-3-color), 0.877);
+    transition: all 0.5s;
+}
+
+
+/* level 4 hover */
+
+.prompt.level-4:hover span:nth-child(1) {
+    background: rgba(var(--level-4-color), 0.877);
+    transition: all 0.5s;
+    animation: border-rotation 6s linear infinite;
+}
+
+.prompt.level-4:hover span:nth-child(2) {
+    background: rgba(var(--level-4-color), 0.877);
+    transition: all 0.5s;
+}
+
+.prompt.level-4:hover span:nth-child(3) {
+    background: rgba(var(--level-4-color), 0.877);
+    transition: all 0.5s;
+}
+
+@keyframes border-rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes cover-everything {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(55);
+    }
+}
+
+.super-cat-wrapper {
+    transition: all 0.5f;
+    transform: rotate(18deg);
+    width: 8vw;
+    height: 8vw;
+    transition: all 0.5s;
+}
+
+.prompt:hover .super-cat-wrapper {
+    width: 11vw;
+    height: 11vw;
+    transition: all 0.5s;
+    -webkit-animation: cat-movement 2s infinite;
+    animation: cat-movement 2s infinite;
+}
+
+@-webkit-keyframes cat-movement {
+    0% {
+        transform: rotate(18deg);
+    }
+    50% {
+        transform: rotate(6deg);
+    }
+    100% {
+        transform: rotate(18deg);
+    }
+}
+
+@keyframes cat-movement {
+    0% {
+        transform: rotate(18deg);
+    }
+    50% {
+        transform: rotate(6deg);
+    }
+    100% {
+        transform: rotate(18deg);
+    }
+}
+
+.super-cat-fly {
+    -webkit-animation: fly 1.3s alternate;
+    animation: fly 1.3s alternate;
+}
+
+@-webkit-keyframes fly {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-720px);
+    }
+}
+
+@keyframes fly {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-720px);
+    }
+}

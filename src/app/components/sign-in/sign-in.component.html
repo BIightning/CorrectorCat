@@ -1,0 +1,20 @@
+<div class="background position-relative">
+    <app-intro-carousel></app-intro-carousel>
+    <div id="logreg-forms" class="shadow">
+        <form class="form-signin">
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center; color: rgb(13, 12, 42)"> Sign in</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center; color: rgb(70, 70, 70)"> with your Gamelet Account</h1>
+            <!--
+            <div class="social-login">
+                <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>
+                <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign in with Google+</span> </button>
+            </div>
+            -->
+            <br>
+            <input [(ngModel)]="email" name="email" type="email" class="form-control" placeholder="Email address" required="">
+            <input [(ngModel)]="password" name="password" type="password" class="form-control mt-1" placeholder="Password" required="">
+            <button (click)="checkUser()" class="btn btn-success btn-block" type="submit"><i class="fas fa-sign-in-alt"></i> Sign in</button>
+            <a href="#" id="forgot_pswd" style="color: #3C589C;">Forgot password?</a>
+        </form>
+    </div>
+</div>
