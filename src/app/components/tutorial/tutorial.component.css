@@ -4,8 +4,8 @@
     --level-3-color: 255, 132, 0;
     --level-4-color: 255, 217, 0;
     position: absolute;
-    top: 60px;
-    left: 51%;
+    top: 45%;
+    left: 49%;
     min-width: 40px;
     min-height: 40px;
     border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
@@ -44,9 +44,13 @@
 
 .tutorial-text {
     color: #777;
-    max-height: 55%;
-    overflow-y: auto;
+    max-height: 80%;
     font-size: 1.4em;
+    position: relative;
+}
+
+.cat-right {
+    transform: rotateY(180deg);
 }
 
 .slide-container {
@@ -61,10 +65,49 @@
     opacity: 1;
 }
 
+.slide-right::after {
+    content: '';
+    background-color: white;
+    position: absolute;
+    right: 99%;
+    top: 63%;
+    height: 4vh;
+    width: 2vw;
+    clip-path: polygon(0% 50%, 100% 0%, 100% 100%, 0% 50%);
+}
+
+.slide-left::after {
+    content: '';
+    background-color: white;
+    position: absolute;
+    left: 99%;
+    top: 63%;
+    height: 4vh;
+    width: 2vw;
+    clip-path: polygon(0% 0%, 100% 50%, 0% 100%, 0% 50%);
+}
+
+.slide-upper::after {
+    content: '';
+    background-color: white;
+    position: absolute;
+    left: 50%;
+    top: 99%;
+    height: 3vh;
+    width: 2vw;
+    clip-path: polygon(0 0, 100% 0%, 50% 100%, 0% 0%);
+}
+
 .button-wrapper {
     width: 100%;
     position: absolute;
     bottom: 0;
+}
+
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .cat-land {
@@ -93,16 +136,14 @@
 @media only screen and (max-width: 768px) {
     .tutorial-text {
         font-size: 1em;
-        max-height: 55%;
-        overflow-y: scroll;
+        max-height: 60%;
     }
 }
 
 @media only screen and (max-width: 320px) {
     .tutorial-text {
         font-size: 0.7em;
-        max-height: 55%;
-        overflow-y: scroll;
+        max-height: 60%;
     }
 }
 
@@ -205,5 +246,35 @@
     }
     100% {
         opacity: 0;
+    }
+}
+
+.cat-super {
+    -webkit-animation: action 1.5s infinite alternate;
+    animation: action 1.5s infinite alternate;
+    cursor: pointer;
+}
+
+@-webkit-keyframes action {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(30px);
+    }
+    100% {
+        transform: translateY(-30px);
+    }
+}
+
+@keyframes action {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(30px);
+    }
+    100% {
+        transform: translateY(-30px);
     }
 }

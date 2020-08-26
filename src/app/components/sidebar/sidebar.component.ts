@@ -34,6 +34,6 @@ export class SidebarComponent implements OnInit {
   }
 
   goGameView(){
-    this.router.navigate(["game-view", 0], {relativeTo: this.route})
+    this.router.navigate(["game-view", 0], {relativeTo: this.route});
   }
 }

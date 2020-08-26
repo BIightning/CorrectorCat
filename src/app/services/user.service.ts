@@ -10,22 +10,25 @@ import {UpdateResponse} from "../../assets/classes/updateResponse";
 })
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  url: string = "http://localhost:8080";
 
+  constructor(private http: HttpClient) { 
+    this.url = "http://192.168.0.17:8080"; //for local debugging
+  }
   public getUserbyId(userId: number) : Observable<User>{
-    return this.http.get<User>("http://localhost:8080/api/userById/" + String(userId));
+    return this.http.get<User>(this.url+"/api/userById/" + String(userId));
   }
 
   public getUserbyUsername(userName: string) : Observable<User>{
-    return this.http.get<User>("http://localhost:8080/api/userByUserName/" + userName);
+    return this.http.get<User>(this.url+"/api/userByUserName/" + userName);
   }
 
   public createUser(user : User): Observable<CreateResponse>{
-    return this.http.post<CreateResponse>("http://localhost:8080/api/user", user);
+    return this.http.post<CreateResponse>(this.url+"/api/user", user);
   }
 
   public updateUser(user :User): Observable<UpdateResponse>{
-    return this.http.put<UpdateResponse>("http://localhost:8080/api/user/" + user.id , user);
+    return this.http.put<UpdateResponse>(this.url+"/api/user/" + user.id , user);
   }
 
 }

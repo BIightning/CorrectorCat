@@ -11,34 +11,33 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 export class TutorialComponent implements OnInit {
   currLevel: number;
   currentSlide: number = 0;
-  slideCount: number = 10;
   sequence: TutorialSequence = new TutorialSequence();
 
-  constructor(private route: ActivatedRoute, private tutorialSequenceService: TutorialSequenceService) {
+  constructor(private router: Router ,private route: ActivatedRoute, private tutorialSequenceService: TutorialSequenceService) {
   }
 
   ngOnInit() { 
     this.route.params.subscribe(param => { 
       this.currLevel = param.level;
     });
-    document.getElementById("scaling-bg").classList.add("level-" + this.currLevel.toString());
-    this.removeStartEffect();
     this.sequence = this.tutorialSequenceService.getSequence(this.currLevel);
-    console.log(this.sequence);
-    
+    this.removeStartEffect();
+    console.log(this.sequence.targetText);
+    document.getElementById("scaling-bg").classList.add("level-" + this.currLevel.toString());
 
   }
 
   async removeStartEffect() {
     await new Promise(resolve => setTimeout(()=> resolve(), 1000)).then(async () => {
       document.getElementById("scaling-bg").classList.remove("intro-animation");
-      document.getElementById("welcome-cat").classList.remove("cat-land");
-      document.getElementById("welcome-cat").classList.add("cat-move");
+      //document.getElementById("welcome-cat").classList.remove("cat-land");
+      //document.getElementById("welcome-cat").classList.add("cat-move");
     });
   }
 
   async clickBack() {
-    if(this.currentSlide > 0){
+    this.currentSlide--;
+    /*if(this.currentSlide > 0){
       document.getElementById("slide-"+this.currentSlide).classList.remove("fade-in");
       document.getElementById("slide-"+this.currentSlide).classList.add("fade-out");
       this.currentSlide--;
@@ -50,11 +49,12 @@ export class TutorialComponent implements OnInit {
           document.getElementById("slide-"+(this.currentSlide+1)).classList.add("d-none")
         });
       });
-    }
+    }*/
   }
 
   async clickNext() {
-    if(this.currentSlide < this.slideCount -1){
+    this.currentSlide++;
+    /*if(this.currentSlide < this.slideCount -1){
       document.getElementById("slide-"+this.currentSlide).classList.remove("fade-in");
       document.getElementById("slide-"+this.currentSlide).classList.add("fade-out");
       this.currentSlide++;
@@ -67,8 +67,6 @@ export class TutorialComponent implements OnInit {
         });
       });
     }
-  }
-
-
-
+  */
+ }
 }

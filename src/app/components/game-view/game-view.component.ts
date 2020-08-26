@@ -1,4 +1,6 @@
-import { Component, OnInit, HostBinding, ViewChild, Input } from '@angular/core';
+import { Observable, fromEvent } from 'rxjs';
+import { GameState } from './stateMachine';
+import { Component, OnInit, HostBinding, ViewChild, Input, ViewChildren, QueryList } from '@angular/core';
 import * as jQuery from 'jquery';
 import { BookService } from "../../services/book.service";
 import { ActivatedRoute, Router, NavigationEnd, NavigationStart } from '@angular/router';
@@ -14,10 +16,20 @@ import { User } from 'src/assets/classes/users';
 })
 
 export class GameViewComponent implements OnInit {
-  @ViewChild("startModal") private startModalContent;
-  @ViewChild("gameModal") private gameModalContent;
-  @ViewChild("settingsModal") private settingsModalContent;
-  @ViewChild("endModal") private endModalContent;
+
+  @ViewChild("startModal")
+  private startModalContent;
+
+  @ViewChild("gameModal")
+  private gameModalContent;
+
+  @ViewChild("settingsModal")
+  private settingsModalContent;
+
+  @ViewChild("endModal")
+  private endModalContent;
+
+  @ViewChildren("chunkPool") chunkPool;
 
   user: User;
   audioplayer: HTMLAudioElement;
@@ -44,8 +56,15 @@ export class GameViewComponent implements OnInit {
 
   mySubscription: any;
   skipImmediatly: boolean = true;
+  audioEndedEvent: Observable<Event>;
+  gameState: GameState = GameState.ChunkEnded;
+  bAutoPlay: boolean;
+  autoplayTimout: any; //property for holding a timout that can be cleared by user interaction
+
 
   constructor(private route: ActivatedRoute, private bookService: BookService, private userService: UserService, private modalService: NgbModal, private router: Router) {
+
+    //Stop playback when leaving page
     this.mySubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.audioplayer.pause();
@@ -76,65 +95,55 @@ export class GameViewComponent implements OnInit {
   /*############################################################ Game Process ############################################################*/
   private prepareGame() {
     console.log("[Game][Preparation] Preparing game logic");
+
+    //Create two arrays to store the wrong played indexes and the ones the player actually found during the game
     this.wrongReadIndexes = new Array();
     for (let i = 0; i < this.book.textChunks.length; i++) {
       this.wrongReadIndexes.push(false);
     }
     this.foundWrongIndexes = Object.assign([], this.wrongReadIndexes);
-    console.log(this.foundWrongIndexes);
   }
 
-  private async gameProcess() {
-    //Check if end of text was reached and stop+reset if it was
-    if (this.currentTextChunk == this.book.textChunks.length - 1) {
-      if (this.audioplayer.ended) {
-        this.highlightCurrentChunk(this.book.textChunks.length);
-        console.log("[Game] Text finished...highlighting missed errors...returning");
-
-        this.lookForMissedChunks();
-        this.addCreditsToPlayerAccount();
-        this.modalService.open(this.endModalContent, { windowClass: "game-modal", centered: true, backdrop: 'static', keyboard: false });
-        this.skipImmediatly = false;
+  //Register event that sets gamestate to ended after player finishes current chunk
+  private RegisterAudioFinishedEvent() {
+    this.audioEndedEvent = fromEvent(this.audioplayer, 'ended');
+    this.audioEndedEvent.subscribe(() => {
+      
+      this.gameState = GameState.ChunkEnded;
+      if (this.currentTextChunk == this.book.textChunks.length - 1) {
+        this.finishGame();
         return;
       }
-      else {
-        console.log("[Game] LAST CHUNK is playing or paused...waiting");
+      if (this.bAutoPlay) {
+        this.autoPlay();
       }
-    }
-    else if ((!this.paused && this.audioplayer.ended) || this.firstChunk || this.skipImmediatly) {
-      if (!this.skipImmediatly) {
-        await new Promise(resolve => setTimeout(() => resolve(), (this.progressDelay * 1000))).then(() => {
-          if (!this.paused) {
-            this.playNextChunk();
-          }
-          else {
-            this.skipImmediatly = true;
-          }
-        });
-      }
-      else {
-        if (!this.paused) {
-          this.playNextChunk();
-        }
-        else {
-          this.skipImmediatly = true;
-        }
-      }
-    }
-    else {
-      console.log("[Game]: Player is playing or being paused...waiting");
-    }
-    await new Promise(resolve => setTimeout(() => resolve(), (125))).then(async () => { this.gameProcess() });
-    return;
+    });
+  }
+
+  private finishGame() {
+    this.highlightCurrentChunk(this.book.textChunks.length);
+    console.log("[Game] Text finished...highlighting missed errors...returning");
+
+    this.lookForMissedChunks();
+    this.addCreditsToPlayerAccount();
+    this.modalService.open(this.endModalContent, { windowClass: "game-modal", centered: true, backdrop: 'static', keyboard: false });
+  }
+
+  private async autoPlay() {
+    await new Promise(resolve => this.autoplayTimout = setTimeout(() => resolve(), (this.progressDelay * 1000))).then(() => {
+      this.playNextChunk();
+    });
   }
 
   playNextChunk() {
+    this.gameState = GameState.Playing;
     this.currentTextChunk++;
     this.modalDisplayText = this.book.textChunks[this.currentTextChunk].text;
     this.highlightCurrentChunk(this.currentTextChunk);
     this.playChunkAudioAtRandom();
     this.firstChunk = false;
     this.skipImmediatly = false;
+    this.RegisterAudioFinishedEvent();
   }
 
   private async playChunkAudioAtRandom() {
@@ -148,7 +157,9 @@ export class GameViewComponent implements OnInit {
       this.audioplayer = new Audio('./assets/books/' + this.book.id + '/wrong/' + this.book.textChunks[this.currentTextChunk].audioWrong);
     }
     this.audioplayer.load();
-    await new Promise(resolve => setTimeout(() => resolve(), 150)).then(() => this.audioplayer.play());
+    let dataLoaded = fromEvent(this.audioplayer, 'canplaythrough');
+    dataLoaded.subscribe(() => this.audioplayer.play());
+    //await new Promise(resolve => setTimeout(() => resolve(), 150)).then(() => this.audioplayer.play());
   }
 
   private lookForMissedChunks() {
@@ -158,7 +169,6 @@ export class GameViewComponent implements OnInit {
       }
     }
   }
-
 
   private addCreditsToPlayerAccount() {
     this.user.points += (this.earnedCoins);
@@ -174,17 +184,20 @@ export class GameViewComponent implements OnInit {
 
   /*############################################################ DOM Manipulation ############################################################*/
   private highlightCurrentChunk(index) {
-    if (!this.firstChunk) {
-      document.getElementById('chunk-' + (index - 1)).classList.remove('snippet-active');
 
-      if (!document.getElementById('chunk-' + (index - 1)).classList.contains('bg-success')) {
-        document.getElementById('chunk-' + (index - 1)).classList.add('snippet');
+    let chunks = this.chunkPool.toArray();
+
+    if (!this.firstChunk) {
+      chunks[index - 1].nativeElement.classList.remove('snippet-active');
+
+      if (!chunks[index - 1].nativeElement.classList.contains('bg-success')) {
+        chunks[index - 1].nativeElement.classList.add('snippet');
       }
     }
     if (index < this.book.textChunks.length) {
       console.log("[Game][GUI] Active Chunk is being highlighted");
-      document.getElementById('chunk-' + index).classList.remove('snippet');
-      document.getElementById('chunk-' + index).classList.add('snippet-active');
+      chunks[index].nativeElement.classList.remove('snippet');
+      chunks[index].nativeElement.classList.add('snippet-active');
       this.scrollToActiveChunk();
     }
   }
@@ -227,6 +240,7 @@ export class GameViewComponent implements OnInit {
 
     document.getElementById('wrongAudioContainer').appendChild(wrongAudioPl);
   }
+
   private async attachModalAudioPlayer_correct() {
     await new Promise(resolve => setTimeout(() => resolve(), (75))).then(() => {
       let correctAudioPl = document.createElement('audio');
@@ -276,6 +290,9 @@ export class GameViewComponent implements OnInit {
   /*############################################################ Button interactions ############################################################*/
   public onStopBtnClick() {
     if (this.wrongReadIndexes[this.currentTextChunk] && !this.foundWrongIndexes[this.currentTextChunk]) {
+      if (this.bAutoPlay)
+        clearTimeout(this.autoplayTimout);
+
       console.log("[Game][GUI] User found an error");
       this.audioplayer.pause();
       this.paused = true;
@@ -294,30 +311,44 @@ export class GameViewComponent implements OnInit {
     }
   }
 
-  private resumeAfterStop() {
+  private replayAfterStop() {
+
     this.paused = false;
     this.hasAnswered = false;
     this.coinAnimation();
-    if (this.skipChunkAfterFoundError) {
-      this.skipImmediatly = true;
-    }
-    else {
-      this.audioplayer.play();
-    }
+    this.audioplayer = new Audio('./assets/books/' + this.book.id + '/correct/' + this.book.textChunks[this.currentTextChunk].audioCorrect);
+    this.RegisterAudioFinishedEvent();
+    this.audioplayer.load();
+    let dataLoaded = fromEvent(this.audioplayer, 'canplaythrough');
+    dataLoaded.subscribe(() => this.audioplayer.play());
   }
 
   //regular pause
-  public onPauseBtnClick() {
-    if (!this.audioplayer.paused) {
-      console.log("[Game][GUI] User paused game");
+  public onNextBtnClick() {
+    //Check if current playback has ended. Jump to next Chunk if it has
+    if (this.gameState == GameState.ChunkEnded) {
+      if (this.bAutoPlay)
+        clearTimeout(this.autoplayTimout);
+
+      this.playNextChunk();
+      return;
+    }
+    //Otherwise pause/unpause playback
+    if (this.gameState == GameState.Playing) {
       this.audioplayer.pause();
-      this.paused = true;
+      this.gameState = GameState.Paused;
+      return;
     }
-    else {
-      console.log("[Game][GUI] User unpaused game");
-      this.audioplayer.play();
-      this.paused = false;
-    }
+    this.audioplayer.play();
+    this.gameState = GameState.Playing;
+  }
+
+  public onRepeatBtnClick() {
+    if (this.bAutoPlay)
+      clearTimeout(this.autoplayTimout);
+
+    this.audioplayer.currentTime = 0;
+    this.audioplayer.play();
 
   }
 
@@ -333,14 +364,7 @@ export class GameViewComponent implements OnInit {
     this.attachModalAudioPlayer_correct();
   }
 
-  public onHelpButtonClick() {
-    console.log("[Game][GUI] User pressed help button");
-  }
-
   private progessDelay() {
-    if (this.progressDelay == 0) {
-      this.progressDelay = 0.25;
-    }
     console.log('Delay set to ' + this.progressDelay + ' seconds.');
   }
 

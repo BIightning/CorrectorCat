@@ -190,12 +190,12 @@
     border: 3px solid rgba(var(--level-1-color), 0.877);
 }
 
-.prompt.level-1 .active-prompt span:nth-child(2) {
+.prompt.level-1.active-prompt span:nth-child(2) {
     border: 3px solid rgba(var(--level-1-color), 0.877);
     transition: all 2s;
 }
 
-.prompt.level-1 .active-prompt span:nth-child(3) {
+.prompt.level-1.active-prompt span:nth-child(3) {
     border: 3px solid rgba(var(--level-1-color), 0.877);
     transition: all 2s;
 }
@@ -224,12 +224,12 @@
     border: 3px solid rgba(var(--level-3-color), 0.877);
 }
 
-.prompt.level-3 .active-prompt span:nth-child(2) {
+.prompt.level-3.active-prompt span:nth-child(2) {
     border: 3px solid rgba(var(--level-3-color), 0.877);
     transition: all 2s;
 }
 
-.prompt.level-3 .active-prompt span:nth-child(3) {
+.prompt.level-3.active-prompt span:nth-child(3) {
     border: 3px solid rgba(var(--level-3-color), 0.877);
     transition: all 2s;
 }

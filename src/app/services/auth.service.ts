@@ -9,10 +9,14 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
 
-  constructor(private http : HttpClient) { }
+  url: string = "http://localhost:8080";
+
+  constructor(private http: HttpClient) { 
+    this.url = "http://192.168.0.17:8080"; //for local debugging
+  }
 
   public loginUser(userName, password): Observable<LoginResponse>{
-    return this.http.post<LoginResponse>("http://localhost:8080/api/login", {username : userName, password: password});
+    return this.http.post<LoginResponse>(this.url+"/api/login", {username : userName, password: password});
   }
 
   public checkId(id : Number) : boolean{
@@ -25,7 +29,7 @@ export class AuthService {
   }
 
   public loginOverId(id : string): Observable<LoginResponse>{
-    return this.http.get<LoginResponse>("http://localhost:8080/api/login/" + id);
+    return this.http.get<LoginResponse>(this.url+"/api/login/" + id);
   }
 
 

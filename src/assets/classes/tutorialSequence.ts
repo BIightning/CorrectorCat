@@ -1,13 +1,21 @@
 export class TutorialSequence {
     slides: [{
         slideTitle?: string;
-        catPosition: number;
+        sceneType: number;
+        catAnimation?: string;
         catImage: string;
-        slideText: string;
-        specialAction?: number;
+        slideText: {
+            german: string;
+            english: string;
+            portuguese: string;
+            greek: string;
+        };
+        widgetID: number;
     }];
-    constructor(_slides?: any, targetText?: number){
-        this.slides = _slides;
-    }
     targetText?: number;
+
+    constructor(slides?: any, targetText?: number){
+        this.slides = slides;
+        this.targetText = targetText;
+    }
 }

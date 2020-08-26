@@ -1,17 +1,49 @@
-<div class="tutorial-wrapper bg-info">
-    <div class="bg-white rounded shadow slide-container" id="slide-0">
-        <h2 class="text-center font-weight-bold text-gamelet mt-3">Welcome to Corrector Cat!</h2>
-        <p class="text-center ml-5 mt-4 mr-5 tutorial-text">
-            My name is Corrector Cat and I am happy that you’re joining me on my adventure. <br>Let’s sink in into the world of stories. We will read and listen to different stories. <br>But the reader makes many mistakes. <br><br>Help me to correct him,
-            so he can become a purrrfect reader as well.
-        </p>
-        <div class="d-flex mt-3 justify-content-center position-relative">
-            <img src="../../assets/img/kitty-avatars/svg/050-kitty.svg" width="15%" height="15%" class="cat-land mt-4" id="welcome-cat">
-            <span id="scaling-bg" class="intro-animation"></span>
-        </div>
-        <div class="button-wrapper">
-            <!--<button class="m-1 btn btn-lg btn-outline-secondary">Back <i class="fa fa-chevron-circle-left"></i></button>-->
-            <button (click)="clickNext()" class="m-1 float-right btn btn-lg btn-outline-success">&nbsp;<i class="fa fa-chevron-circle-right"></i> Next&nbsp;</button>
+<div class="tutorial-wrapper bg-info position-relative">
+    <span id="scaling-bg" class="intro-animation"></span>
+    <!--NgVar is a custom Directive to shorten variable name-->
+    <div *ngVar="sequence.slides[currentSlide] as slide" class="fade-in slide-container" id="slide-{{currentSlide}}">
+        <h2 class="text-center font-weight-bold text-gamelet mt-3"><span *ngIf="!!slide.slideTitle">{{slide.slideTitle}}</span></h2>
+        <ng-container [ngSwitch]="slide.sceneType">
+            <ng-container *ngSwitchCase="0">
+                <div class="container-fluid center-content">
+                    <p class="text-center tutorial-text bg-white p-3 rounded shadow d-inline-block slide-upper" [innerHTML]="slide.slideText.german"></p>
+                </div>
+                <div class="d-flex mt-3 justify-content-center position-relative">
+                    <img src="../../assets/img/kitty-avatars/svg/{{slide.catImage}}.svg" width="15%" height="15%" class="mt-4" id="welcome-cat">
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="1">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="../../assets/img/kitty-avatars/svg/{{slide.catImage}}.svg" class="{{slide.catAnimation}} mt-4">
+                    </div>
+                    <div class="col-md-9">
+                        <p class="text-center full-width tutorial-text bg-white rounded p-3 shadow slide-right" [innerHTML]="slide.slideText.german"></p>
+                        <app-tutorial-widgets [widgetID]="slide.widgetID" [targetText]="sequence.targetText"></app-tutorial-widgets>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="2">
+                <div class="row">
+                    <div class="col-md-9">
+                        <p class="text-center full-width tutorial-text bg-white p-3 rounded shadow d-block slide-left" [innerHTML]="slide.slideText.german"></p>
+                        <app-tutorial-widgets [widgetID]="slide.widgetID" [targetText]="sequence.targetText"></app-tutorial-widgets>
+                    </div>
+                    <div class="col-md-3">
+                        <div class=" container-fluid cat-right">
+                            <img src="../../assets/img/kitty-avatars/svg/{{slide.catImage}}.svg" class="mt-4 {{slide.catAnimation}}">
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="3">
+                <app-tutorial-widgets [widgetID]="slide.widgetID" [targetText]="sequence.targetText"></app-tutorial-widgets>
+            </ng-container>
+        </ng-container>
+        <div class=" mt-5 pt-4 button-wrapper center-content">
+            <div class="container-fluid center-content">
+                <button *ngIf="currentSlide > 0" (click)="clickBack()" class="shadow m-5 btn btn-lg btn-secondary">Back <i class="fa fa-chevron-circle-left"></i></button>
+                <button *ngIf="sequence.slides.length -1 > currentSlide" (click)="clickNext()" class="shadow m-5 btn btn-lg btn-success">&nbsp;<i class="fa fa-chevron-circle-right"></i> Next&nbsp;</button>
+            </div>
         </div>
     </div>
-</div>

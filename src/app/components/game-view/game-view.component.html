@@ -9,7 +9,7 @@
         </h5>
     </div>
     <div class="snippet-container rounded" id="hoerspiel-content">
-        <div *ngFor="let chunk of book.textChunks; let i = index" class="snippet container-fluid shadow normal-text rounded p-3 m-2 mt-2" id="chunk-{{i}}">
+        <div #chunkPool *ngFor="let chunk of book.textChunks; let i = index" class="snippet container-fluid shadow normal-text rounded p-3 m-2 mt-2" id="chunk-{{i}}">
             {{chunk.text}}
             <div class="justify-content-center row border-top border-white pt-1 mt-1" *ngIf="chunksMissed > 0 && (wrongReadIndexes[i] && !foundWrongIndexes[i])">
                 <br>
@@ -28,13 +28,13 @@
         <div class="col-md-4 col-sm-3"></div>
         <div class="col-md-4 col-sm-6">
             <span id="errorMessage" class="text-center rounded p-3" [ngClass]="showErrorMessage ? 'visible' : 'd-none'">The current snippet is being read correctly!</span>
-            <button (click)="onHelpButtonClick()" class="btn btn-info secondaryBtns mr-2">
-                <i id="btStopIcon" class="fa fa-redo"></i>
+            <button (click)="onRepeatBtnClick()" class="btn btn-info secondaryBtns mr-2">
+                <i id="btStopIcon" class="fa fa-redo"></i> 
             </button>
             <button (click)="onStopBtnClick()" id="stopBtn" class="btn btn-lg">
                 <img class="img-hover" src="../../assets/img/stop-4375936__340.png" width="90" height="90">
             </button>
-            <button (click)="onPauseBtnClick()" class="btn btn-light secondaryBtns ml-2 mr-5">
+            <button (click)="onNextBtnClick()" class="btn btn-light secondaryBtns ml-2 mr-5">
                     <i [ngClass]="audioplayer.paused ? 'fa-angle-double-right' : 'fa-pause'" class="fas text-dark"></i>
             </button>
         </div>
@@ -112,9 +112,8 @@
             </div>
         </div>
     </div>
-    <div class="modal-footer">
-        <button *ngIf="!hasAnswered" type="button" class="btn btn-danger" (click)="modal.close('Skip click'); resumeAfterStop();">Skip</button>
-        <button *ngIf="hasAnswered" type="button" class="btn btn-success" (click)="modal.close('Continue click'); resumeAfterStop();">Continue</button>
+    <div *ngIf="hasAnswered" class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="modal.close('Continue click'); replayAfterStop();">Continue</button>
     </div>
 </ng-template>
 
@@ -128,12 +127,12 @@
             </button>
     </div>
     <div class="modal-body">
-        <div class="row text-secondary ml-2">
-            <div class="p-3 text-center" id="delayBar">
-                <span class="pb-2 font-weight-bold mr-3">Playback delay:</span> <input (change)="progessDelay()" class="align-bottom" [(ngModel)]="progressDelay" type="range" min="0" max="5" step="1.0"> <span class="ml-1">{{progressDelay}}s</span>
+        <div class="col-12 row text-secondary ml-2">
+            <div class="col-12">
+                <p class="align-baseline font-weight-bold mr-3">Autoplay: <input (change)="progessDelay()" class="align-baseline" [(ngModel)]="bAutoPlay" type="checkbox"></p>
             </div>
-            <div class="p-3 text-center">
-                <span class="align-baseline font-weight-bold mr-3">Skip Playback after finding an error:</span> <input (change)="progessDelay()" class="align-baseline" [(ngModel)]="skipChunkAfterFoundError" type="checkbox">
+            <div class="col-12" id="delayBar">
+                <p class="pb-2 font-weight-bold mr-3">Playback delay: <input (change)="progessDelay()" class="align-center" [(ngModel)]="progressDelay" type="range" min="1" max="7" step="1.0"><span class="ml-1">{{progressDelay}}s</span></p>
             </div>
         </div>
     </div>
@@ -154,7 +153,7 @@
     </div>
     <div class="modal-footer">
         <button (click)="openSettingsModal();" type="button" class="btn game-modal btn-warning">Settings</button>
-        <button (click)="gameProcess();" [ngClass]="bookLoaded ? 'visible' : 'hidden'" type="button" class="btn game-modal btn-success" (click)="modal.close('Skip click')">Start</button>
+        <button (click)="playNextChunk();" [ngClass]="bookLoaded ? 'visible' : 'hidden'" type="button" class="btn game-modal btn-success" (click)="modal.close('Skip click')">Start</button>
     </div>
 </ng-template>
 

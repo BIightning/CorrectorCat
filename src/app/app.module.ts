@@ -27,6 +27,10 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { TutorialComponent } from './components/tutorial/tutorial.component';
 import { LevelViewComponent } from './components/level-view/level-view.component';
 import { IntroCarouselComponent } from './components/intro-carousel/intro-carousel.component';
+import { TutorialWidgetsComponent } from './components/tutorial-widgets/tutorial-widgets.component';
+import { QuizWidgetComponent } from './components/widgets/quiz-widget/quiz-widget.component';
+import { WorldCanvasComponent } from './components/widgets/world-canvas/world-canvas.component';
+import { NgVarDirective } from './directives/ng-var.directive';
 
 @NgModule({
   declarations: [
@@ -47,6 +51,10 @@ import { IntroCarouselComponent } from './components/intro-carousel/intro-carous
     TutorialComponent,
     LevelViewComponent,
     IntroCarouselComponent,
+    TutorialWidgetsComponent,
+    QuizWidgetComponent,
+    WorldCanvasComponent,
+    NgVarDirective,
   ],
   imports: [
     HttpClientModule,

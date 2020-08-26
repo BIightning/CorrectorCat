@@ -12,7 +12,7 @@ import { resolve } from 'url';
 export class DashboardComponent implements OnInit {
 
  public user : User;
- currLevel: number = 2;
+ currLevel: number = 3;
 
   constructor( private router: Router, private userService: UserService, private route: ActivatedRoute) { }
 
