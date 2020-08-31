@@ -27,19 +27,22 @@
     <div class="row">
         <div class="col-md-4 col-sm-3"></div>
         <div class="col-md-4 col-sm-6">
-            <span id="errorMessage" class="text-center rounded p-3" [ngClass]="showErrorMessage ? 'visible' : 'd-none'">The current snippet is being read correctly!</span>
-            <button (click)="onRepeatBtnClick()" class="btn btn-info secondaryBtns mr-2">
+            <!--<span id="errorMessage" class="text-center rounded p-3" [ngClass]="showErrorMessage ? 'visible' : 'd-none'">The current snippet is being read correctly!</span>-->
+            <button (click)="onRepeatBtnClick()" [openDelay]="1000" ngbTooltip="Repeat the current textblock" class="btn btn-info secondaryBtns mr-2">
                 <i id="btStopIcon" class="fa fa-redo"></i> 
             </button>
             <button (click)="onStopBtnClick()" id="stopBtn" class="btn btn-lg">
                 <img class="img-hover" src="../../assets/img/stop-4375936__340.png" width="90" height="90">
             </button>
-            <button (click)="onNextBtnClick()" class="btn btn-light secondaryBtns ml-2 mr-5">
-                    <i [ngClass]="audioplayer.paused ? 'fa-angle-double-right' : 'fa-pause'" class="fas text-dark"></i>
+            <button (click)="onNextBtnClick()" [openDelay]="1000" ngbTooltip="Pause/unpause the current textblock or jump to the next one if it already played" class="btn btn-light secondaryBtns ml-2 mr-5">
+                    <i [ngClass]="{ 'fa-pause': !audioplayer.paused, 'fa-play': audioplayer.paused && !audioplayer.ended, 'fa-angle-double-right' : audioplayer.ended}" class="fas text-dark"></i>
             </button>
         </div>
         <div class="col-md-4 d-flex align-items-center col-sm-3">
-            <h3 class="border border-white p-2 rounded" id="coin-pool">credit pool: {{ earnedCoins }}</h3>
+            <h4 class="ml-4 p-2 align-text-bottom" ngbTooltip="Your currently earned coins. Be careful, you can loose them!" id="coin-pool">
+                <span>{{ earnedCoins }}</span><br>
+                <img class="" src="../../assets/img/coin.svg" width="30" height="30">
+            </h4>
         </div>
     </div>
 </div>
@@ -50,69 +53,55 @@
                 <img src="../../assets/img/kitty.svg" width="50" height="50" class="d-inline-block align-center rounded p-1" alt=""> You found an error!
             </h4>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" *ngVar="book.textChunks[currentTextChunk].question as question">
             <div class="row">
                 <div class="col-12">
-                    <h5 class="p-4 border text-center text-secondary rounded" id="dp-text">{{ modalDisplayText }}
-                        <p class='mt-3' id="wrongAudioContainer"></p>
+                    <h5 class="p-4 border text-center text-secondary rounded" id="dp-text">{{ modalDisplayText }}<br>
+                        <audio controls src="{{'./assets/books/' + book.id + '/wrong/' + book.textChunks[currentTextChunk].audioWrong}}"></audio>
                     </h5>
                 </div>
-                <div *ngIf="!hasAnswered">
+                <div *ngIf="!bHasAnswered">
                     <div class="row">
                         <div class="col-12 mb-4">
-                            <h4 class="text-center">What is the category of the mistake?</h4>
+                            <h4 class="text-center">What is the mistake?</h4>
                         </div>
-                        <div class="col-md-4 col-sm-6">
-                            <button (click)="onGameBtnClick('Semantic')" class="btn mx-auto d-block game-button btn-outline-info">Semantic</button><br>
+                        <div class="col-md-6 col-sm-6">
+                            <button (click)="onGameBtnClick(0)" class="btn mx-auto d-block game-button btn-outline-info">{{question.answers[0]}}</button><br>
                             <!--Semantic-->
-                            <button (click)="onGameBtnClick('Syntactic')" class="btn mx-auto d-block game-button btn-outline-success">Syntactic</button><br>
-                            <!--Syntax-->
-                            <button (click)="onGameBtnClick('Smoothness')" class="btn mx-auto my-auto d-md-none d-sm-block game-button btn-outline-secondary">Smoothness</button><br>
-                            <!--Flüssigkeit-->
+                            <button (click)="onGameBtnClick(1)" class="btn mx-auto d-block game-button btn-outline-success">{{question.answers[1]}}</button><br>
                         </div>
-                        <div class="col-md-4 col-sm-6">
-                            <button (click)="onGameBtnClick('Context')" class="btn mx-auto d-block game-button btn-outline-primary">Context</button><br>
+                        <div class="col-md-6 col-sm-6">
+                            <button (click)="onGameBtnClick(2)" class="btn mx-auto d-block game-button btn-outline-primary">{{question.answers[2]}}</button><br>
                             <!--Kontext-->
-                            <button (click)="onGameBtnClick('Phrasing')" class="btn mx-auto d-block game-button btn-outline-warning">Phrasing</button><br>
+                            <button (click)="onGameBtnClick(3)" class="btn mx-auto d-block game-button btn-outline-warning">{{question.answers[3]}}</button><br>
                             <!--Betonung-->
-                            <button (click)="onGameBtnClick('Tense')" class="btn mx-auto my-auto d-md-none d-sm-block game-button btn-outline-danger">Tense</button>
-                            <!--Tempus-->
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <button (click)="onGameBtnClick('Smoothness')" class="btn mx-auto my-auto d-none d-md-block game-button btn-outline-secondary">Smoothness</button><br>
-                            <!--Flüssigkeit-->
-                            <button (click)="onGameBtnClick('Tense')" class="btn mx-auto my-auto d-none d-md-block game-button btn-outline-danger">Tense</button>
-                            <!--Tempus-->
                         </div>
                     </div>
                 </div>
-                <div *ngIf="hasAnswered">
+                <div *ngIf="bHasAnswered">
                     <div class="row">
                         <div class="col-12 mb-4">
-                            <h4 *ngIf="answeredCorrect" class="text-center text-success">Correct answer!</h4>
-                            <h4 *ngIf="!answeredCorrect" class="text-center text-danger">Wrong answer...</h4>
+                            <h4 *ngIf="bAnsweredCorrect" class="text-center text-success">Correct answer!</h4>
+                            <h4 *ngIf="!bAnsweredCorrect" class="text-center text-danger">Wrong answer...</h4>
                         </div>
                         <div class="col-md-4 col-sm-6">
                             <button class="btn mx-auto  game-button hidden"></button>
                         </div>
                         <div class="col-md-4 col-sm-6 justify-content-center">
-                            <h5 *ngIf="!answeredCorrect" class="text-center text-danger">Correct is:</h5>
-                            <h5 class="text-center"> {{ getTranslatedErrorType(currentTextChunk) }}</h5>
-                            <h6 class="text-center">{{ this.book.textChunks[currentTextChunk].error[1] }}</h6><br>
+                            <h5 *ngIf="!bAnsweredCorrect" class="text-center text-danger">Correct is:</h5>
+                            <h5 class="text-center"> <u>{{ question.answers[question.correctIndex] }}</u></h5>
+                            <h6 class="text-center">{{ question.explanation }}</h6><br>
                             <h6 class="text-center">You earned {{ coinsToAdd }} credits!</h6>
                         </div>
                         <div class="col-md-4 col-sm-12">
                             <button class="btn mx-auto game-button hidden"></button>
                         </div>
                     </div>
-                    <h6 class="p-2 ml-3 mr-3 border-top text-center text-secondary">Correct Audio:
-                        <p class='mt-1' id="correctAudio"></p>
-                    </h6>
                 </div>
             </div>
         </div>
     </div>
-    <div *ngIf="hasAnswered" class="modal-footer">
+    <div *ngIf="bHasAnswered" class="modal-footer">
         <button type="button" class="btn btn-success" (click)="modal.close('Continue click'); replayAfterStop();">Continue</button>
     </div>
 </ng-template>
@@ -153,7 +142,7 @@
     </div>
     <div class="modal-footer">
         <button (click)="openSettingsModal();" type="button" class="btn game-modal btn-warning">Settings</button>
-        <button (click)="playNextChunk();" [ngClass]="bookLoaded ? 'visible' : 'hidden'" type="button" class="btn game-modal btn-success" (click)="modal.close('Skip click')">Start</button>
+        <button (click)="playNextChunk();" [ngClass]="bBookLoaded ? 'visible' : 'hidden'" type="button" class="btn game-modal btn-success" (click)="modal.close('Skip click')">Start</button>
     </div>
 </ng-template>
 
@@ -166,11 +155,10 @@
     <div class="modal-body text-center">
         <p class="font-weight-bold">Thank you for playing!</p>
         You earned {{earnedCoins}} Credits!
-        <div *ngIf="chunksMissed > 0">
-            <br>
-            <h4 class="text-warning text-center"> You missed {{chunksMissed}} errors!</h4>
-            <button class="btn btn-info d-block mx-auto" (click)="modal.close('ok click'); displayMissedChunks();">Display missed errors</button>
-        </div>
+        <br>
+        <h4 class="text-warning text-center"> You missed {{chunksMissed}} errors!</h4>
+        <h2 *ngIf="chunksMissed === 0" class="text-success text-center">Congratulations!</h2>
+        <button class="btn btn-info d-block mx-auto" (click)="modal.close('ok click'); displayMissedChunks();">Display missed errors</button>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="modal.close('ok click'); navigateToBookshelf();">Back to Bookshelf</button>

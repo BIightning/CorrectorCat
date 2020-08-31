@@ -4,7 +4,7 @@
         <div *ngIf="isowned(book.id); then thenBlock else elseBlock"></div>
         <ng-template #thenBlock>
             <div class="card shadow text-light p-0" style="width: 22rem; height: 38rem; background-color: gray;">
-                <img class="card-img-top m-0 p-0" [src]="'../../assets/img/' + book.image" alt="Card image cap">
+                <img class="card-img-top m-0 p-0" [src]="'../../assets/img/' + book.imagePath" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title text-white">{{book.title}} <br> <small class="text-light ml-2">{{book.author}}</small></h5>
                     <hr>

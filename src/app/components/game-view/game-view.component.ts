@@ -1,4 +1,4 @@
-import { Observable, fromEvent } from 'rxjs';
+import { Observable, fromEvent, Subscription } from 'rxjs';
 import { GameState } from './stateMachine';
 import { Component, OnInit, HostBinding, ViewChild, Input, ViewChildren, QueryList } from '@angular/core';
 import * as jQuery from 'jquery';
@@ -43,29 +43,25 @@ export class GameViewComponent implements OnInit {
   chunksMissed: number = 0;
 
   currentTextChunk: number = -1;
-  public firstChunk;
-  paused: boolean;
-  gameStopped: boolean;
-  skipChunkAfterFoundError: Boolean = true;
-  hasAnswered: boolean;
-  bookLoaded: boolean;
-  showErrorMessage: boolean = false;
-  answeredCorrect: boolean;
+
+  bFirstChunk: boolean = true;
+  bHasAnswered: boolean;
+  bBookLoaded: boolean;
+  bAnsweredCorrect: boolean;
+  bAutoPlay: boolean = true;
   wrongReadIndexes: boolean[];
   foundWrongIndexes: boolean[];
 
-  mySubscription: any;
-  skipImmediatly: boolean = true;
+  routerEvent: Subscription;
   audioEndedEvent: Observable<Event>;
   gameState: GameState = GameState.ChunkEnded;
-  bAutoPlay: boolean;
   autoplayTimout: any; //property for holding a timout that can be cleared by user interaction
 
 
   constructor(private route: ActivatedRoute, private bookService: BookService, private userService: UserService, private modalService: NgbModal, private router: Router) {
 
     //Stop playback when leaving page
-    this.mySubscription = this.router.events.subscribe((event) => {
+    this.routerEvent = this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.audioplayer.pause();
         modalService.dismissAll('navigation');
@@ -76,7 +72,6 @@ export class GameViewComponent implements OnInit {
   ngOnInit() {
     this.audioplayer = new Audio('../assets/sample.mp3');
     this.audioplayer.load();
-    this.firstChunk = true;
     this.book = new Book();
     let userId = Number(localStorage.getItem("user"));
     this.userService.getUserbyId(userId).subscribe((data) => {
@@ -86,7 +81,7 @@ export class GameViewComponent implements OnInit {
     this.route.params.subscribe(param => {
       this.bookService.getBookbyId(param.bookId).subscribe(data => {
         this.book = data;
-        this.bookLoaded = true;
+        this.bBookLoaded = true;
         this.prepareGame();
       });
     })
@@ -108,7 +103,7 @@ export class GameViewComponent implements OnInit {
   private RegisterAudioFinishedEvent() {
     this.audioEndedEvent = fromEvent(this.audioplayer, 'ended');
     this.audioEndedEvent.subscribe(() => {
-      
+
       this.gameState = GameState.ChunkEnded;
       if (this.currentTextChunk == this.book.textChunks.length - 1) {
         this.finishGame();
@@ -141,8 +136,7 @@ export class GameViewComponent implements OnInit {
     this.modalDisplayText = this.book.textChunks[this.currentTextChunk].text;
     this.highlightCurrentChunk(this.currentTextChunk);
     this.playChunkAudioAtRandom();
-    this.firstChunk = false;
-    this.skipImmediatly = false;
+    this.bFirstChunk = false;
     this.RegisterAudioFinishedEvent();
   }
 
@@ -168,6 +162,7 @@ export class GameViewComponent implements OnInit {
         this.chunksMissed++;
       }
     }
+    this.chunksMissed = 0;
   }
 
   private addCreditsToPlayerAccount() {
@@ -187,7 +182,7 @@ export class GameViewComponent implements OnInit {
 
     let chunks = this.chunkPool.toArray();
 
-    if (!this.firstChunk) {
+    if (!this.bFirstChunk) {
       chunks[index - 1].nativeElement.classList.remove('snippet-active');
 
       if (!chunks[index - 1].nativeElement.classList.contains('bg-success')) {
@@ -208,7 +203,7 @@ export class GameViewComponent implements OnInit {
     audioPl.src = './assets/books/' + this.book.id + '/wrong/' + this.book.textChunks[chunkIndex].audioWrong;
 
     let errorDescription = document.createElement('span');
-    errorDescription.innerHTML = this.getTranslatedErrorType(chunkIndex) + ': ' + this.book.textChunks[chunkIndex].error[1];
+    errorDescription.innerHTML = this.book.textChunks[chunkIndex].question.explanation;
 
     document.getElementById(('player-container-' + chunkIndex)).appendChild(audioPl);
     document.getElementById(('error-container-' + chunkIndex)).appendChild(errorDescription);
@@ -238,54 +233,9 @@ export class GameViewComponent implements OnInit {
     wrongAudioPl.controls = true;
     wrongAudioPl.src = './assets/books/' + this.book.id + '/wrong/' + this.book.textChunks[this.currentTextChunk].audioWrong;
 
-    document.getElementById('wrongAudioContainer').appendChild(wrongAudioPl);
+    //document.getElementById('wrongAudioContainer').appendChild(wrongAudioPl);
   }
 
-  private async attachModalAudioPlayer_correct() {
-    await new Promise(resolve => setTimeout(() => resolve(), (75))).then(() => {
-      let correctAudioPl = document.createElement('audio');
-      correctAudioPl.controls = true;
-      correctAudioPl.src = './assets/books/' + this.book.id + '/correct/' + this.book.textChunks[this.currentTextChunk].audioCorrect;
-      document.getElementById('correctAudio').appendChild(correctAudioPl);
-    });
-  }
-
-  private getTranslatedErrorType(index): string {
-    let errorType = this.book.textChunks[index].error[0];
-    if (this.book.language !== "en-EN") {
-      switch (errorType) {
-        case "Semantic": {
-          errorType = "Semantikfehler";
-          break;
-        }
-        case "Syntactic": {
-          errorType = "Syntaxfehler";
-          break;
-        }
-        case "Smoothness": {
-          errorType = "Flüssigkeitsfehler";
-          break;
-        }
-        case "Context": {
-          errorType = "Kontextfehler";
-          break;
-        }
-        case "Phrasing": {
-          errorType = "Betonungsfehler";
-          break;
-        }
-        case "Tense": {
-          errorType = "Tempusfehler";
-          break;
-        }
-      }
-    }
-    else {
-      errorType += " error";
-    }
-
-    return errorType;
-  }
 
   /*############################################################ Button interactions ############################################################*/
   public onStopBtnClick() {
@@ -295,7 +245,6 @@ export class GameViewComponent implements OnInit {
 
       console.log("[Game][GUI] User found an error");
       this.audioplayer.pause();
-      this.paused = true;
       this.foundWrongIndexes[this.currentTextChunk] = true;
       document.getElementById('chunk-' + this.currentTextChunk).classList.add('snippet-found');
 
@@ -313,8 +262,7 @@ export class GameViewComponent implements OnInit {
 
   private replayAfterStop() {
 
-    this.paused = false;
-    this.hasAnswered = false;
+    this.bHasAnswered = false;
     this.coinAnimation();
     this.audioplayer = new Audio('./assets/books/' + this.book.id + '/correct/' + this.book.textChunks[this.currentTextChunk].audioCorrect);
     this.RegisterAudioFinishedEvent();
@@ -352,25 +300,25 @@ export class GameViewComponent implements OnInit {
 
   }
 
-  public onGameBtnClick(type: string) {
-    this.hasAnswered = true;
-    if (type == this.book.textChunks[this.currentTextChunk].error[0]) {
+  public onGameBtnClick(index: number) {
+    this.bHasAnswered = true;
+    if (index === this.book.textChunks[this.currentTextChunk].question.correctIndex) {
       this.coinsToAdd += this.book.textChunks[this.currentTextChunk].points / 2;
-      this.answeredCorrect = true;
+      this.bAnsweredCorrect = true;
     }
     else {
-      this.answeredCorrect = false;
+      this.bAnsweredCorrect = false;
     }
-    this.attachModalAudioPlayer_correct();
   }
 
   private progessDelay() {
     console.log('Delay set to ' + this.progressDelay + ' seconds.');
   }
 
+
   async coinAnimation() {
     let $target = jQuery("#coin-pool");
-    let randomModifier = 100;
+    let randomModifier = 75;
     let $source = jQuery("#chunk-" + this.currentTextChunk);
     for (let i = 0; i < this.coinsToAdd; i++) {
       await new Promise(resolve => setTimeout(() => resolve(), (20 + Math.random() * randomModifier / 2))).then(() => {
@@ -383,7 +331,7 @@ export class GameViewComponent implements OnInit {
           })
           .animate({
             "top": ($target.offset().top - 90),
-            "left": $target.offset().left + 50 + (Math.random() * randomModifier / 3 - Math.random() * randomModifier / 3)
+            "left": $target.offset().left + 0 + (Math.random() * randomModifier / 3 - Math.random() * randomModifier / 3)
           }, 1000, function () {
             $coin.remove();
           });

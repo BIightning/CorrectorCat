@@ -8,13 +8,18 @@ import { Observable } from 'rxjs';
 })
 export class BookService {
 
-  constructor(private http: HttpClient) { }
+  url: string = "http://localhost:8080";
+
+  constructor(private http: HttpClient) { 
+    this.url = "http://192.168.0.17:8080"; //for local debugging
+  }
 
   public getBookbyId(bookId : number) : Observable<Book>{
-    return this.http.get<Book>("http://localhost:8080/api/bookById/" + String(bookId))
+    alert(this.url+ "/api/books/" + String(bookId))
+    return this.http.get<Book>(this.url+ "/api/bookByID/" + String(bookId));
   }
 
   public getAllBooks(){
-    return this.http.get<Book[]>("http://localhost:8080/api/books")
+    return this.http.get<Book[]>(this.url+ "/api/books");
   }
 }

@@ -30,3 +30,9 @@
     background-color: rgba(167, 40, 40, 0.92);
     color: #fff;
 }
+
+.game-button {
+    width: 250px;
+    height: 100px;
+    font-size: 1.5em;
+}

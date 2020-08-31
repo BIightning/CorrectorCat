@@ -28,8 +28,8 @@ export class BookstoreComponent implements OnInit {
   constructor(private route : ActivatedRoute ,private bookService : BookService, private router :Router, private modalService: NgbModal, private userService :UserService) {  }
 
   ngOnInit() {
-    this.initBook();
-
+    //this.initBook();
+    this.bookList = [];
     this.userId = Number(localStorage.getItem("user"));
     this.userService.getUserbyId(this.userId).subscribe((data)=>{
       this.user = data;
@@ -117,43 +117,20 @@ export class BookstoreComponent implements OnInit {
     // Diese würden aus der NoSql Datenbank kommen.
     //Dieser Teil Code ist Komplet getrickst.
     let ownedBooks : number[] = [];
-    let booksIds : string = localStorage.getItem("books");
+    let bookIds : string = localStorage.getItem("books");
+
+    if(!bookIds)
+      return ownedBooks;
+
     let offset : number = 0;
-    for(let i = 0; i < booksIds.length; i++){
-      if(booksIds[i] == ":"){
-        ownedBooks.push(Number(booksIds.substring(offset,i)));
+    for(let i = 0; i < bookIds.length; i++){
+      if(bookIds[i] == ":"){
+        ownedBooks.push(Number(bookIds.substring(offset,i)));
         offset = i +1;
       }
     }
     return ownedBooks;
   }
-
-  public initBook(){
-    this.bookList = [{
-      title:"",
-      author:"",
-      language: "",
-      starting:true,
-      cost:0,
-      difficulty:"",
-      image:"book.png",
-      description:"",
-      pointsNeededForQuiz: 100,
-      textChunks:[{
-        text:"",
-        audioCorrect:"",
-        audioWrong:"",
-        points:0,
-        error:[""]}],
-      quiz:[{
-        question:"",
-        points:0,
-        answers:["","","",""],
-        correctAnswer:""}],
-      id:0
-    }]
-  }
-
   /*############################################################ Modal logic  ############################################################*/
 
   private getDismissReason(reason: any): string {
