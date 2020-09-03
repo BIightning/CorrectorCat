@@ -5,6 +5,18 @@
     background-size: contain;
 }
 
+.snippet-container {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    min-height: 68vh;
+    max-height: 68vh;
+    background-color: #fdfdfd;
+}
+
+.controlbar {
+    min-height: 18vh;
+}
+
 .snippet-active {
     background-color: rgba(255, 132, 0, 0.92);
     /*color: #fff;*/

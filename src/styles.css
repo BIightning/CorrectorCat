@@ -49,18 +49,6 @@ body {
     overflow-y: hidden;
 }
 
-.snippet-container {
-    overflow-y: scroll;
-    overflow-x: hidden;
-    min-height: 70vh;
-    max-height: 70vh;
-    background-color: #fdfdfd;
-}
-
-.controlbar {
-    min-height: 18vh;
-}
-
 .record {
     height: 7.5vh;
     width: 7.5vh;
@@ -319,7 +307,7 @@ body {
 }
 
 .content_inner {
-    height: 99%;
+    height: 90%;
     background-color: #fff;
 }
 

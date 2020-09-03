@@ -44,12 +44,12 @@ function bookValidation(data) {
         imagePath: Joi.string().required(),
 
         textChunks: Joi.array().items(
-            Joi.object({
+            Joi.object().keys({
                 text: Joi.string().required(),
                 audioCorrect: Joi.string().required(),
                 audioWrong: Joi.string().required(),
                 points: Joi.number().required(),
-                question: Joi.object({
+                question: Joi.object().keys({
                     answers: Joi.array().items(Joi.string()),
                     correctIndex: Joi.number().required(),
                     explanation: Joi.string().required()
@@ -57,15 +57,14 @@ function bookValidation(data) {
             })).required(),
 
         quiz: Joi.array().items(
-            Joi.object({
+            Joi.object().keys({
                 question: Joi.string().required(),
-                points: Joi.number.required(),
+                points: Joi.number().required(),
                 answers: Joi.array().items(Joi.string()),
                 correctAnswer: Joi.string().required()
             })
         )
     });
-
     return schema.validate({
         title: data.title,
         author: data.author,
@@ -79,6 +78,7 @@ function bookValidation(data) {
         textChunks: data.textChunks,
         quiz: data.quiz
     });
+
 }
 
 module.exports.Book = Book;

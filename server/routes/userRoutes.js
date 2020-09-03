@@ -1,33 +1,38 @@
 var router = require("express").Router();
-
-const ObjectID = require('mongodb').ObjectID;
-const { User, userValidation } = require('../dbModels/user.js');
+const userController = require('../controllers/userController.js');
 const auth = require('../middleware/auth.js');
 
 router
     .route('/me')
     .get(auth, async(req, res) => {
-        let user = await User.findById(new ObjectID(req.user_id));
-        res.status(200).send(user);
+        if (req.error) {
+            res.status(req.error.code).send(req.error.msg);
+            return;
+        }
+        await userController
+            .getUserById(req.user._id)
+            .then(result => res.status(200).send(result))
+            .catch(reason => res.status(reason.code).send(reason.msg));
     });
-
+router
+    .route('/progress')
+    .post(async(req, res) => {
+        await userController
+            .getUserProgress(req.body.email)
+            .then(result => res.status(200).send(result))
+            .catch(reason => res.status(reason.code).send(reason.msg));
+    });
 router
     .route('/')
     .post(async(req, res) => {
-        let { error } = userValidation(req.body);
-        if (error) return res.status(400).send(error.details[0].message);
-
-        let user = await User.findOne({ email: req.body.email });
-        if (user) return res.status(400).send("A User with this Email already exists");
-        req.body.isAdmin = false;
-        user = new User(req.body);
-        user = await user.save();
-        if (!user) return res.status(502).send("An internal error occured.");
-
-        let token = user.generateAuthToken();
-        res.status(200).header('x-auth-token', token).send(user);
+        await userController
+            .createUser(req.body)
+            .then(result => {
+                let token = result.generateAuthToken();
+                res.status(200).header('x-auth-token', token).send(result);
+            })
+            .catch(reason => res.status(reason.code).send(reason.msg));
     });
 
 
 module.exports = router;
-jau

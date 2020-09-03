@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from "../../services/user.service";
 import { User } from 'src/assets/classes/users';
-import { resolve } from 'url';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +11,7 @@ import { resolve } from 'url';
 export class DashboardComponent implements OnInit {
 
  public user : User;
- currLevel: number = 3;
+ currLevel: number = 2;
 
   constructor( private router: Router, private userService: UserService, private route: ActivatedRoute) { }
 

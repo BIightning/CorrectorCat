@@ -15,7 +15,6 @@ export class BookService {
   }
 
   public getBookbyId(bookId : number) : Observable<Book>{
-    alert(this.url+ "/api/books/" + String(bookId))
     return this.http.get<Book>(this.url+ "/api/bookByID/" + String(bookId));
   }
 

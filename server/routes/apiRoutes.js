@@ -1,5 +1,6 @@
 var router = require("express").Router();
 
+router.use('/books', require('./bookRoutes.js'));
 router.use('/users', require('./userRoutes.js'));
 router.use('/auth', require('./authRoutes.js'))
 router.use('*', (req, res) => res.status(404).send("API endpoint does not exist"));
