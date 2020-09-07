@@ -6,7 +6,7 @@ which are made while reading out loud.
 The player reads and simultaneously listens to a text, which is shown on the screen. The
 text, which is read aloud features reading mistakes. Those mistakes are played randomly between
 passages of fluent reading. The player must recognize the mistake and in addition, he must classify
-it by selecting one out of six error types. For every correctly found mistake, the player gains points
+it by selecting one out of various types. For every correctly found mistake, the player gains points
 as well as for classifying them.
 
 Only a few texts are available at the beginning of the game. By collecting points, the player
