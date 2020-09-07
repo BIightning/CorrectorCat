@@ -3,14 +3,13 @@ const jwt = require('jsonwebtoken');
 function auth(req, res, next) {
     const token = req.header('x-auth-token');
     if (!token) {
-        req.error = { code: 401, msg: 'Access denied, no jwt token provided' }
-        return;
+        return res.status(401).send('Access denied, no jwt provided');
     }
     try {
-        let decoded = jwt.verify(token, process.env.JWT_AUTH_TOKEN_SECRET);
-        req.user = decoded;
+        req.user = jwt.verify(token, process.env.JWT_AUTH_TOKEN_SECRET);
+        console.log(req.user);
     } catch (err) {
-        req.error = { code: 403, msg: 'Access denied, no permission' }
+        return res.status(403).send('Access denied, no permission');
     }
     next();
 }

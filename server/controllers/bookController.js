@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const ObjectID = require('mongodb').ObjectID;
 const { Book, bookValidation } = require('../dbModels/book');
 const idValidation = require('../utils/objectidValidation');
@@ -58,12 +57,16 @@ async function updateBook(id, data) {
 
     return new Promise(async(resolve, reject) => {
         //Validate data before accessing db
-        let { error } = bookValidation(data);
-        if (error)
-            reject({ code: 400, msg: error.details[0].message });
+        let { idError } = idValidation(id);
+        if (idError)
+            reject({ code: 400, msg: idError.details[0].message });
+
+        let { bookError } = bookValidation(data);
+        if (bookError)
+            reject({ code: 400, msg: bookError.details[0].message });
 
         await Book
-            .findByIdAndUpdate(new ObjectID(id), data)
+            .findByIdAndUpdate(id, data)
             .then(result => {
                 if (result === null) reject({ code: 404, msg: "Book not found" });
                 else if (result === data) reject({ code: 400, msg: "No data updated" });

@@ -17,21 +17,11 @@ export class NavbarComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.user ={
-      email: "",
-      password: "",
-      name : "",
-      gender: "",
-      avatar: "",
-      points: 0,
-      pointsPerBook: undefined,
-      id : 0
-    }
-    this.route.params.subscribe(params => {
-      this.userService.getUserbyId(params.userId).subscribe(data =>{
+    this.user = new User();
+      this.userService.getCurrentUser().subscribe(data =>{
         this.user = data;
       })
-    })
+  
   }
 
   logout(){

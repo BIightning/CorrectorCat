@@ -1,0 +1,52 @@
+<div class="admin-page">
+    <nav class="navbar">
+        <h2>Navigation</h2>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a [routerLink]="['/admin/dashboard']" routerLinkActive="" class="nav-link">
+                    <i class="fas fa-2x fa-tachometer-alt"></i>
+                    <span class="link-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a [routerLink]="['/admin/usermanagement']" routerLinkActive="text-warning" class="nav-link">
+                    <i class="fas fa-2x fa-users"></i>
+                    <span class="link-text">Users</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a [routerLink]="['/admin/bookmanagement']" routerLinkActive="router-link-active" class="nav-link">
+                    <i class="fas fa-2x fa-book"></i>
+                    <span class="link-text">Books</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a [routerLink]="['/admin/tutorialmanagement']" routerLinkActive="router-link-active" class="nav-link">
+                    <i class="fas fa-2x fa-rocket"></i>
+                    <span class="link-text">Tutorials</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a [routerLink]="['/admin/tutorialmanagement']" routerLinkActive="router-link-active" class="nav-link">
+                    <i class="fas fa-2x fa-file-code"></i>
+                    <span class="link-text">Pages</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a [routerLink]="['/admin/tutorialmanagement']" routerLinkActive="router-link-active" class="nav-link">
+                    <i class="fas fa-2x fa-cogs"></i>
+                    <span class="link-text">Settings</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas text-danger fa-2x fa-sign-out-alt"></i>
+                    <span class="link-text">Exit</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <main>
+        <router-outlet></router-outlet>
+    </main>
+</div>

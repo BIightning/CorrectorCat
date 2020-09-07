@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import * as jQuery from 'jquery';
 import { ActivatedRoute, Router, NavigationEnd, NavigationStart } from '@angular/router';
 @Component({
   selector: 'app-game-page',
@@ -11,30 +10,29 @@ export class GamePageComponent implements OnInit {
   mySubscription: any;
   imgPath: string = '';
   text: string = ''
+  bMenuOpen: boolean;
 
   constructor(private route: ActivatedRoute, private router: Router) {
     this.mySubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
-        var $page = jQuery('.page');
-        $page.removeClass('shazam');
+        this.bMenuOpen = false;
       }
     });
   }
 
   ngOnInit() {
-    var $page = jQuery('.page');
+  }
 
-    jQuery('.menu_toggle').on('click', function () {
-      $page.toggleClass('shazam');
-    });
-    jQuery('.content_inner').on('click', function () {
-      $page.removeClass('shazam');
-    });
+  toggleMenu(){
+    this.bMenuOpen = !this.bMenuOpen;
+  }
+
+  closeMenu(){
+    this.bMenuOpen = false;
   }
 
   swapCat() {
-    let menuOpen = document.getElementById("gamePage");
-    if (!menuOpen.classList.contains("shazam")) {
+    if (this.bMenuOpen) {
       switch (Math.floor((Math.random() * 16))) {
         case 0: {
           this.imgPath = '../../assets/img/kitty-avatars/svg/023-kitty-26.svg';

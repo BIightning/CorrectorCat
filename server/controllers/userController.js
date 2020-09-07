@@ -1,6 +1,7 @@
 const ObjectID = require('mongodb').ObjectID;
 const { User, userValidation } = require('../dbModels/user.js');
 const emailValidation = require('../utils/emailValidation.js');
+const idValidation = require('../utils/objectidValidation');
 
 async function getUsers() {
     return new Promise(async(resolve, reject) => {
@@ -17,9 +18,12 @@ async function getUsers() {
 
 async function getUserById(id) {
     return new Promise(async(resolve, reject) => {
+        let { error } = idValidation(id);
+        if (error)
+            reject({ code: 400, msg: error.details[0].message });
 
         await User
-            .findById(new ObjectID(id))
+            .findById(id)
             .then(result => resolve(result))
             .catch((reason) => {
                 console.log(reason);

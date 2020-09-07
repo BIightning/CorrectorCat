@@ -1,0 +1,29 @@
+<h1 class="mb-0 pb-0">Book Management</h1>
+<div class="window container-fluid">
+    <div class="user-tile heading-tile">
+        <ul class="detail-list">
+            <li class="heading-detail"><button class="create-button"><i class="fa fa-user-plus"></i>Create Book</button></li>
+            <li class="heading-detail"><input type="text" #searchInput placeholder="Search" (input)="filterItem(searchInput.value)"></li>
+        </ul>
+    </div>
+    <ng-container *ngFor="let book of filteredBooks; even as isEven">
+        <div [ngClass]="{'uneven-tile': !isEven}" class="user-tile">
+            <ul class="detail-list">
+                <li class="detail">
+                    <h4>{{book.title}}</h4>
+                </li>
+                <li class="detail">
+                    <h4>{{book.series}}</h4>
+                </li>
+                <li class="detail">
+                    <h4>Level: {{book.difficulty}}</h4>
+                </li>
+                <li class="detail">
+                    <h4><a class="user-btn"><i class="fa fa-edit"></i></a><a class="user-btn"><i class="text-danger ml-1 fa fa-trash"></i></a></h4>
+                </li>
+            </ul>
+        </div>
+    </ng-container>
+
+
+</div>

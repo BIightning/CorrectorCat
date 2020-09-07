@@ -20,12 +20,16 @@ export class SignInComponent implements OnInit {
   }
 
   public checkUser(){
-      this.authService.loginUser(this.email, this.password).subscribe(data => {
-        console.log(data.msg)
-        if(data.isFound){
-          localStorage.setItem("user", String(data.userId));
-          this.router.navigate(["/LbT", data.userId]);
-        }
+      this.authService.loginUser(this.email, this.password).subscribe(res => {
+        console.log(res.user);
+        localStorage.setItem("jwt", String(res.jwt));
+        localStorage.setItem("user", String(res.user._id));
+        //this.router.navigate(["/LbT", res.user._id]);
+        this.router.navigate(["/game"]);
+      },
+      err => {
+        alert(err.error);
+        console.log(err.error)
       });
   }
   

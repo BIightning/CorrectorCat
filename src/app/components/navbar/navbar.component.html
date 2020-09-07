@@ -6,19 +6,14 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item row">
-                <div class="d-inline-block mr-0 pr-0 col">
-                    <img *ngIf="user.avatar" [src]="'../../assets/usericons/'+ user.avatar + '.svg'" class="rounded-circle h-auto border" width="60" height="60">
-                </div>
                 <div class="d-inline-block ml-0 pl-0 col">
-                    <a href="#" id="username" class="">
-                        <h4 class="d-inline align-top">{{user.name}}</h4>
-                    </a><br>
-                    <a routerLink="" (click)="logout()" class="float-right">Abmelden</a>
+                    <h5 class="text-center">{{user.name}}</h5>
+
+                    <a routerLink="" class="text-center d-block" (click)="logout()">Abmelden</a>
                 </div>
                 <div class="d-inline-block col">
                     <h5 class="text-center mt-1 text-align-center p-1 rounded bg-white" ngbTooltip="Your credits" id="user-credits">
-                        <span class="d-inline-block">{{user.points}}</span><img class="d-inline-block" src="../../assets/img/coin.svg" width="30" height="30" />
-
+                        <span class="d-inline-block">{{user.credits}}</span><img class="d-inline-block" src="../../assets/img/coin.svg" width="30" height="30" />
                     </h5>
                 </div>
             </li>

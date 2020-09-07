@@ -25,7 +25,7 @@ export class QuizComponent implements OnInit {
   ngOnInit() {
     this.book = new Book();
     this.route.params.subscribe(param => {
-      this.bookService.getBookbyId(param.bookId).subscribe(data => {
+      this.bookService.getBookByTitle(param.bookId).subscribe(data => {
         this.book = data;
         this.loadNextQuestion();
       });

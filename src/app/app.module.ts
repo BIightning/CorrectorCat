@@ -31,6 +31,12 @@ import { TutorialWidgetsComponent } from './components/tutorial-widgets/tutorial
 import { QuizWidgetComponent } from './components/widgets/quiz-widget/quiz-widget.component';
 import { WorldCanvasComponent } from './components/widgets/world-canvas/world-canvas.component';
 import { NgVarDirective } from './directives/ng-var.directive';
+import { AdminPageComponent } from './components/admin/admin-page/admin-page.component';
+import { AdminSidebarComponent } from './components/admin/admin-sidebar/admin-sidebar.component';
+import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
+import { BookManagementComponent } from './components/admin/book-management/book-management.component';
+import { UserManagementComponent } from './components/admin/user-management/user-management.component';
+import { TutorialManagementComponent } from './components/admin/tutorial-management/tutorial-management.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +61,12 @@ import { NgVarDirective } from './directives/ng-var.directive';
     QuizWidgetComponent,
     WorldCanvasComponent,
     NgVarDirective,
+    AdminPageComponent,
+    AdminSidebarComponent,
+    AdminDashboardComponent,
+    BookManagementComponent,
+    UserManagementComponent,
+    TutorialManagementComponent,
   ],
   imports: [
     HttpClientModule,

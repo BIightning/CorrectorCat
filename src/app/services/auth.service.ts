@@ -15,17 +15,20 @@ export class AuthService {
     this.url = "http://192.168.0.17:8080"; //for local debugging
   }
 
-  public loginUser(userName, password): Observable<LoginResponse>{
-    return this.http.post<LoginResponse>(this.url+"/api/login", {username : userName, password: password});
+  public loginUser(email, password) {
+    return this.http.post<any>(this.url+"/api/auth", {email : email, password: password});
   }
 
-  public checkId(id : Number) : boolean{
-    if(id == Number(localStorage.getItem("user"))){
+  public checkId(id : String) : boolean{
+    if(id == String(localStorage.getItem("user"))){
       return true
     }
     else{
       return false
     }
+  }
+  loggedIn(){
+    return !!localStorage.getItem("jwt");
   }
 
   public loginOverId(id : string): Observable<LoginResponse>{

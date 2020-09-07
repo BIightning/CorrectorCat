@@ -1,5 +1,5 @@
+import { User } from './../../../dist/correctorcat/assets/classes/users';
 export class LoginResponse{
-    userId : number;
-    isFound : boolean;
-    msg: string; 
+    jwt: string;
+    user: User;
 }

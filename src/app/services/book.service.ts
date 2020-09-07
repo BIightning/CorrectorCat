@@ -14,8 +14,12 @@ export class BookService {
     this.url = "http://192.168.0.17:8080"; //for local debugging
   }
 
-  public getBookbyId(bookId : number) : Observable<Book>{
+  public getBookById(bookId : number) : Observable<Book>{
     return this.http.get<Book>(this.url+ "/api/bookByID/" + String(bookId));
+  }
+
+  public getBookByTitle(title: string): Observable<Book>{
+    return this.http.get<Book>(this.url+ "/api/bytitle/" + title);
   }
 
   public getAllBooks(){

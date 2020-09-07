@@ -1,12 +1,12 @@
-<div class="page" id="gamePage">
-    <span (click)="swapCat()" class="menu_toggle">
+<div class="page" [ngClass]="{'shazam': bMenuOpen}">
+    <span (click)="toggleMenu(); swapCat();" class="menu_toggle">
         <i class="menu_open fa fa-bars fa-lg"></i>
         <i class="menu_close fa fa-times fa-lg"></i>
     </span>
     <app-sidebar></app-sidebar>
     <main class="content">
         <app-navbar></app-navbar>
-        <div class="content_inner bg-white m-0 p-0 shadow">
+        <div (click)="closeMenu()" class="content_inner bg-white m-0 p-0 shadow">
             <div class="row p-0" id="body-row">
                 <div class="col p-0 m-0" id="content-wrapper">
                     <router-outlet></router-outlet>

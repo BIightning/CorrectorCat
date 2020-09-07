@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class TutorialWidgetsComponent implements OnInit {
   
   @Input("widgetID") widgetID: number;
-  @Input("targetText") targetText: number;
+  @Input("targetText") targetTextTitle: number;
   audioplayer: HTMLAudioElement;
   constructor(private router: Router) { }
 
@@ -19,8 +19,8 @@ export class TutorialWidgetsComponent implements OnInit {
 
   goGameView(){
     console.log(this.widgetID);
-    console.log(this.targetText);
-    this.router.navigate(["/LbT/" + localStorage.getItem("user")+ "/game-view/" +this.targetText +"/"]);
+    console.log(this.targetTextTitle);
+    this.router.navigate(["/game/game-view/" +this.targetTextTitle +"/"]);
   }
 
   playAudio(){

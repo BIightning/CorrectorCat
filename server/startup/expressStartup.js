@@ -11,6 +11,12 @@ module.exports = function(app) {
         console.log('Application is in development environment.\n -> Morgan logger enabled.');
     }
 
+    app.use(function(req, res, next) {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE');
+        next();
+    });
     app.use(express.json());
     app.use('/api', apiRoutes);
     app.use(expressErrorHandler);

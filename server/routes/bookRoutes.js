@@ -1,7 +1,7 @@
+const router = require("express").Router();
 const bookController = require('../controllers/bookController.js');
 const auth = require('../middleware/auth.js');
-const router = require("express").Router();
-const adminPermission = require("../middleware/adminPermission");
+const adminPermission = require("../middleware/adminPermission.js");
 
 router
     .route('/')
@@ -11,17 +11,17 @@ router
             .then(result => res.status(200).send(result))
             .catch(reason => res.status(reason.code).send(reason.msg));
     })
-    .post(async(req, res) => {
+    .post([auth, adminPermission], async(req, res) => {
         await bookController
             .createBook(req.body)
             .then(result => res.status(200).send(result))
             .catch(reason => res.status(reason.code).send(reason.msg));
     });
 router
-    .route('/bytitle')
+    .route('/bytitle/:title')
     .get(async(req, res) => {
         await bookController
-            .getBookByTitle(req.body.title)
+            .getBookByTitle(req.params.title)
             .then(result => res.status(200).send(result))
             .catch(reason => res.status(reason.code).send(reason.msg));
     });

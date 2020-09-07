@@ -73,13 +73,13 @@ export class GameViewComponent implements OnInit {
     this.audioplayer = new Audio('../assets/sample.mp3');
     this.audioplayer.load();
     this.book = new Book();
-    let userId = Number(localStorage.getItem("user"));
+    let userId = localStorage.getItem("user");
     this.userService.getUserbyId(userId).subscribe((data) => {
       this.user = data;
       this.modalService.open(this.startModalContent, { centered: true, backdrop: 'static', keyboard: false });
     });
     this.route.params.subscribe(param => {
-      this.bookService.getBookbyId(param.bookId).subscribe(data => {
+      this.bookService.getBookByTitle(param.bookId).subscribe(data => {
         this.book = data;
         this.bBookLoaded = true;
         this.prepareGame();
@@ -166,7 +166,7 @@ export class GameViewComponent implements OnInit {
   }
 
   private addCreditsToPlayerAccount() {
-    this.user.points += (this.earnedCoins);
+    this.user.credits += (this.earnedCoins);
     this.userService.updateUser(this.user).subscribe(
       res => {
         console.log('success');
@@ -363,7 +363,7 @@ export class GameViewComponent implements OnInit {
   }
 
   navigateToBookshelf() {
-    this.router.navigate(["/LbT/" + this.user.id + "/bookshelf"]);
+    this.router.navigate(["/LbT/" + this.user._id + "/bookshelf"]);
   }
   async addPoint() {
     await new Promise(resolve => setTimeout(() => resolve(), 1000)).then(() => { this.earnedCoins++ });

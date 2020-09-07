@@ -9,14 +9,17 @@ function authenticate(data) {
         if (error)
             reject({ code: 400, msg: error.details[0].message });
 
-        let user = await User.findOne({ email: data.email })
+        await User
+            .findOne({ email: data.email })
+            .then(result => {
+                if (!result)
+                    reject({ code: 404, msg: "Invalid Email or password" })
+                    //TODO: Send email and password to recording studio.
+                    //Redirect for new users
+                let token = result.generateAuthToken();
+                resolve({ jwt: token, user: result });
+            })
             .catch(reason => reject({ code: 500, msg: 'internal server error!' }));
-        if (!user)
-            reject({ code: 404, msg: "Invalid Email or password" })
-            //TODO: Send email and password to recording studio.
-            //Redirect for new users
-        let token = user.generateAuthToken();
-        resolve({ token: token, user: user });
     });
 }
 

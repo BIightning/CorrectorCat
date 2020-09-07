@@ -19,7 +19,7 @@ export class BookstoreComponent implements OnInit {
   @ViewChild("notAbleToBuy") private notAbleToBuyContent;
   public bookList : Book[];
   public ownedBooks : number[] = [];
-  public userId : number
+  public userId : string
   public selectedBook : Book;
   public user :User;
 
@@ -30,7 +30,7 @@ export class BookstoreComponent implements OnInit {
   ngOnInit() {
     //this.initBook();
     this.bookList = [];
-    this.userId = Number(localStorage.getItem("user"));
+    this.userId = localStorage.getItem("user");
     this.userService.getUserbyId(this.userId).subscribe((data)=>{
       this.user = data;
     });
@@ -69,7 +69,7 @@ export class BookstoreComponent implements OnInit {
 
   public openModal(index: number, selectedBook : Book){
     this.selectedBook = selectedBook;
-    if(this.selectedBook.cost <= this.user.points){
+    if(this.selectedBook.cost <= this.user.credits){
       this.modalService.open(this.bookBuyContent,{backdrop : "static"});
     }
     else{
@@ -79,9 +79,9 @@ export class BookstoreComponent implements OnInit {
 
   public buyBook(){
     this.modalService.dismissAll();
-    this.user.points  = this.user.points - this.selectedBook.cost; 
+    this.user.credits  = this.user.credits - this.selectedBook.cost; 
     this.userService.updateUser(this.user).subscribe(data => {
-      console.log(data.msg);
+     // console.log(data.msg);
       this.saveBook(this.selectedBook.id);
     }) 
   }

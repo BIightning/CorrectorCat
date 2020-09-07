@@ -1,6 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
+:root {
+    font-size: 16px;
+}
+
 body {
+    color: rgb(90, 90, 90);
+    margin: 0;
+    padding: 0;
     overflow-x: hidden;
     overflow-y: hidden;
 }
@@ -9,6 +16,12 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
     max-height: 90vh;
+}
+
+.admin-page {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 99.9vh;
 }
 
 #body-row {
@@ -400,6 +413,7 @@ body {
 }
 
 .menu_items a .icon {
+    padding: 10px;
     position: relative;
     display: inline-block;
     margin-right: 25px;
@@ -422,7 +436,7 @@ body {
 }
 
 .menu_items a:hover {
-    color: #f0f0f0;
+    color: #f37272;
 }
 
 .menu_items a:hover .icon:after {

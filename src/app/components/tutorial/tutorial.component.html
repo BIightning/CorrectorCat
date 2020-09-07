@@ -1,6 +1,6 @@
 <div class="tutorial-wrapper bg-info position-relative">
     <span id="scaling-bg" class="intro-animation"></span>
-    <!--NgVar is a custom Directive to shorten variable name-->
+    <!--NgVar is a custom Directive to shorten a variable name-->
     <div *ngVar="sequence.slides[currentSlide] as slide" class="fade-in slide-container" id="slide-{{currentSlide}}">
         <h2 class="text-center font-weight-bold text-gamelet mt-3"><span *ngIf="!!slide.slideTitle">{{slide.slideTitle}}</span></h2>
         <ng-container [ngSwitch]="slide.sceneType">
@@ -19,7 +19,7 @@
                     </div>
                     <div class="col-md-9">
                         <p class="text-center full-width tutorial-text bg-white rounded p-3 shadow slide-right" [innerHTML]="slide.slideText.german"></p>
-                        <app-tutorial-widgets [widgetID]="slide.widgetID" [targetText]="sequence.targetText"></app-tutorial-widgets>
+                        <app-tutorial-widgets [widgetID]="slide.widgetID" [targetText]="sequence.targetTextTitle"></app-tutorial-widgets>
                     </div>
                 </div>
             </ng-container>
@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-md-9">
                         <p class="text-center full-width tutorial-text bg-white p-3 rounded shadow d-block slide-left" [innerHTML]="slide.slideText.german"></p>
-                        <app-tutorial-widgets [widgetID]="slide.widgetID" [targetText]="sequence.targetText"></app-tutorial-widgets>
+                        <app-tutorial-widgets [widgetID]="slide.widgetID" [targetText]="sequence.targetTextTitle"></app-tutorial-widgets>
                     </div>
                     <div class="col-md-3">
                         <div class=" container-fluid cat-right">
@@ -37,7 +37,7 @@
                 </div>
             </ng-container>
             <ng-container *ngSwitchCase="3">
-                <app-tutorial-widgets [widgetID]="slide.widgetID" [targetText]="sequence.targetText"></app-tutorial-widgets>
+                <app-tutorial-widgets [widgetID]="slide.widgetID" [targetText]="sequence.targetTextTitle"></app-tutorial-widgets>
             </ng-container>
         </ng-container>
         <div class=" mt-5 pt-4 button-wrapper center-content">

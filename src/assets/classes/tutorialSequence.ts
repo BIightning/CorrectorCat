@@ -1,4 +1,5 @@
 export class TutorialSequence {
+    position: number;
     slides: [{
         slideTitle?: string;
         sceneType: number;
@@ -12,10 +13,10 @@ export class TutorialSequence {
         };
         widgetID: number;
     }];
-    targetText?: number;
+    targetTextTitle: string;
 
-    constructor(slides?: any, targetText?: number){
+    constructor(slides?: any, targetText?: string){
         this.slides = slides;
-        this.targetText = targetText;
+        this.targetTextTitle = targetText;
     }
 }

@@ -16,13 +16,13 @@ export class BookshelfComponent implements OnInit {
 
   public bookList: Book[] = [];
   public ownedBooks: number[] = [];
-  public userId: number
+  public userId: string;
   public user: User;
 
   constructor(private route: ActivatedRoute, private bookService: BookService, private router: Router, private modalService: NgbModal, private userService: UserService) { }
 
   ngOnInit() {
-    this.userId = Number(localStorage.getItem("user"));
+    this.userId = localStorage.getItem("user");
     this.userService.getUserbyId(this.userId).subscribe((data) => {
       this.user = data;
     });

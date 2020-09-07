@@ -20,6 +20,10 @@
     animation: decover-everything 0.8s linear;
 }
 
+.intro-animation.paused {
+    animation-play-state: paused;
+}
+
 .intro-animation.level-1 {
     background-color: rgb(var(--level-1-color));
 }

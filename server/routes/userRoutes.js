@@ -24,6 +24,12 @@ router
     });
 router
     .route('/')
+    .get(async(req, res) => {
+        await userController
+            .getUsers()
+            .then(result => res.status(200).send(result))
+            .catch(reason => res.status(reason.code).send(reason.msg));
+    })
     .post(async(req, res) => {
         await userController
             .createUser(req.body)
@@ -32,7 +38,21 @@ router
                 res.status(200).header('x-auth-token', token).send(result);
             })
             .catch(reason => res.status(reason.code).send(reason.msg));
+    })
+    .put(async(req, res) => {
+        await userController
+            .updateUser(req.body)
+            .then(result => res.status(200).send(result))
+            .catch(reason => res.status(reason.code).send(reason.msg));
     });
+router
+    .route('/:id')
+    .get(async(req, res) => {
+        await userController
+            .getUserById(req.params.id)
+            .then(result => res.status(200).send(result))
+            .catch(reason => res.status(reason.code).send(reason.msg));
+    })
 
 
 module.exports = router;

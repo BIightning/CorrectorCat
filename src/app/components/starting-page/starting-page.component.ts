@@ -17,11 +17,11 @@ export class StartingPageComponent implements OnInit {
   private UrlName = "LbT";
 
   ngOnInit() {
-    this.isUserKnow()
+    this.isUserKnown()
   }
 
-  public isUserKnow(){
-    let userId = localStorage.getItem("user");
+  public isUserKnown(){
+  /*  let userId = localStorage.getItem("user");
     this.authService.loginOverId(userId).subscribe((data)=>{
       if(data.isFound){
         console.log("User Found");
@@ -30,7 +30,7 @@ export class StartingPageComponent implements OnInit {
       else{
         console.log("User not Found");
       }
-    });
+    });*/
   }
 
   async onSuperCatClick() {

@@ -1,3 +1,6 @@
+import { AdminGuard } from './admin.guard';
+import { UserManagementComponent } from './components/admin/user-management/user-management.component';
+import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SignInComponent } from './components/sign-in/sign-in.component';
@@ -13,8 +16,11 @@ import { AuthGuard } from './auth.guard';
 import { StartingPageComponent } from './components/starting-page/starting-page.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { TutorialComponent } from './components/tutorial/tutorial.component';
+import { AdminPageComponent } from './components/admin/admin-page/admin-page.component';
+import { BookManagementComponent } from './components/admin/book-management/book-management.component';
+import { TutorialManagementComponent } from './components/admin/tutorial-management/tutorial-management.component';
 
-const routes : Routes = [
+const routes: Routes = [
   {
     path: '',
     component: StartingPageComponent,
@@ -32,44 +38,67 @@ const routes : Routes = [
     component: NotFoundComponent,
   },
   {
-    path: 'LbT/:userId',
+    path: 'game',
     component: GamePageComponent,
-    canActivateChild : [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
-    {
-      path: 'dashboard',
-      component: DashboardComponent,
-    },
-    {
-      path: '',
-      redirectTo: 'dashboard',
-      pathMatch: 'full'
-    },
-    {
-      path: 'bookshelf',
-      component: BookshelfComponent,
-    },
-    {
-      path: 'game-view/:bookId',
-      component: GameViewComponent,
-    },
-    {
-      path: 'bookstore',
-      component: BookstoreComponent,
-    },
-    {
-      path: 'quiz/:bookId',
-      component: QuizComponent,
-    },
-    {
-      path: 'wiki',
-      component: WikiComponent,
-    },
-    {
-      path: 'tutorial/:level',
-      component: TutorialComponent,
-    },
-  ]
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+      },
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      },
+      {
+        path: 'bookshelf',
+        component: BookshelfComponent,
+      },
+      {
+        path: 'game-view/:bookId',
+        component: GameViewComponent,
+      },
+      {
+        path: 'bookstore',
+        component: BookstoreComponent,
+      },
+      {
+        path: 'quiz/:bookId',
+        component: QuizComponent,
+      },
+      {
+        path: 'wiki',
+        component: WikiComponent,
+      },
+      {
+        path: 'tutorial/:level',
+        component: TutorialComponent,
+      },
+    ]
+  },
+  {
+    path: 'admin',
+    component: AdminPageComponent,
+    canActivateChild: [AdminGuard],
+    children: [
+      {
+        path: 'dashboard',
+        component: AdminDashboardComponent
+      },
+      {
+        path: 'usermanagement',
+        component: UserManagementComponent
+      },
+      {
+        path: 'bookmanagement',
+        component: BookManagementComponent
+      },
+      {
+        path: 'tutorialmanagement',
+        component: TutorialManagementComponent
+      }
+    ]
   },
   {
     path: '**',

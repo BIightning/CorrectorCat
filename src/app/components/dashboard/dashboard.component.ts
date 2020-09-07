@@ -11,21 +11,22 @@ import { User } from 'src/assets/classes/users';
 export class DashboardComponent implements OnInit {
 
  public user : User;
- currLevel: number = 2;
+ currLevel: number = 1;
 
   constructor( private router: Router, private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit() {  
+    console.log("ngoninit");
     this.user = new User();
-    let userId = Number(localStorage.getItem("user"));
-    this.userService.getUserbyId(userId).subscribe((data) => {
+    this.userService.getCurrentUser().subscribe((data) => {
       this.user = data;
+      this.currLevel += this.user.completedLevels;
     });
   }
 
   onLevelSelected(eventArgs) {
     console.log(eventArgs);
-    this.router.navigate(["/LbT/" + this.user.id+ "/tutorial/" + eventArgs.selectedLevel.toString()+"/"]);
+    this.router.navigate(["/game/tutorial/" + eventArgs.selectedLevel.toString()+"/"]);
   }
 
 }
