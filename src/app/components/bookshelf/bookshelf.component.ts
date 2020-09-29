@@ -15,7 +15,7 @@ import { ViewChild } from '@angular/core';
 export class BookshelfComponent implements OnInit {
 
   public bookList: Book[] = [];
-  public ownedBooks: number[] = [];
+  public ownedBooks: string[] = [];
   public userId: string;
   public user: User;
 
@@ -32,23 +32,23 @@ export class BookshelfComponent implements OnInit {
       this.ownedBooks = this.getArrayOfBookIds();
 
       for (let i = 0; i < data.length; i++) {
-        if (this.isOwned(data[i].id) || data[i].starting) {
+        if (this.isOwned(data[i]._id) || data[i].starting) {
           this.bookList.push(data[i]);
         }
       }
     });
   }
 
-  public getArrayOfBookIds(): number[] {
+  public getArrayOfBookIds(): string[] {
     // Diese würden aus der NoSql Datenbank kommen.
     //Dieser Teil Code ist Komplet getrickst.
-    let ownedBooks: number[] = [];
+    let ownedBooks: string[] = [];
     let booksIds: string = localStorage.getItem("books");
     if (booksIds !== null) {
       let offset: number = 0;
       for (let i = 0; i < booksIds.length; i++) {
         if (booksIds[i] == ":") {
-          ownedBooks.push(Number(booksIds.substring(offset, i)));
+          ownedBooks.push(booksIds.substring(offset, i));
           offset = i + 1;
         }
       }
@@ -56,7 +56,7 @@ export class BookshelfComponent implements OnInit {
     return ownedBooks;
   }
 
-  public isOwned(index: number): boolean {
+  public isOwned(index: string): boolean {
     for (let i = 0; i < this.ownedBooks.length; i++) {
       if (index == this.ownedBooks[i]) {
         return true;

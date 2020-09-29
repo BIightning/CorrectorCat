@@ -1,30 +1,34 @@
-<div class="m-5 p-1 rounded">
+<div class="m-3 p-1 rounded">
     <h4 class="text-center text-light mt-2">
         <label>
             <small class="mb-2">Skript:</small>
-            <p class="bg-light text-gamelet rounded p-2 shadow">Die Tiefen des unerforschten Meeres scheinen immens. Wann wird wohl das nächste Tier entdeckt, das einen neuen Größenrekord aufstellt?</p>
+            <div class="bg-light d-flex text-left text-gamelet rounded p-2 shadow script">
+                <button (click)="playAudio()" class="inline-block audio-btn shadow btn btn-dark secondaryBtns"><i class="fa fa-lg fa-volume-up"></i></button>
+                <p class="inline-block m-1">
+                   {{quiz.text}}
+                </p>
+                </div>
         </label>
-        <button (click)="playAudio()" class="shadow btn btn-dark secondaryBtns"><span class="fa fa-lg fa-volume-up"></span></button>
     </h4>
-    <div class="center-content mt-2 text-center">
-        <label class="m-3 bg-light p-3 rounded shadow">
-            <p>Wörter vertauscht</p>
-            <input type="radio" name="optradio" id="" class="form-control">
-        </label>
-        <label class="m-3 bg-light p-3 rounded shadow">
-            <p>Wort falsch gelesen</p>
-            <input type="radio" name="optradio" id="" class="form-control">
-        </label>
-        <label class="m-3 bg-light p-3 rounded shadow">
-            <p>Wort ausgelassen</p>
-            <input type="radio" name="optradio" id="" class="form-control">
-        </label>
-        <!--<label class="m-3 bg-light p-3 rounded shadow">
-            <p>Answertext 04 to Question</p>
-            <input type="radio" name="optradio" id="" class="form-control">
-        </label>-->
+    <div *ngIf="!bAnswered; else elseTemplate" class="center-content mt-2 text-center">
+        <button *ngFor="let answer of quiz.answers; index as i" (click)="answerQuestion(i)" [ngClass]="{'btn-success': i === 0, 'btn-primary': i === 1, 'btn-warning': i === 2, 'btn-dark': i ===3}" class="btn btn-lg p-4 m-2">
+            {{answer}}
+        </button>
     </div>
-    <div class="center-content mt-3 container-fluid">
-        <button class="btn btn-lg btn-success shadow">Bestätigen</button>
-    </div>
+    <ng-template #elseTemplate>
+        <div class="bg-white rounded p-3">
+            <ng-container *ngIf="bAnsweredCorrect; else answeredWrong">
+                <h3 class="text-success text-center">Correct!</h3>
+                <h5 class="text-success text-center">{{quiz.explanation}}</h5>
+            </ng-container>
+            <ng-template #answeredWrong>
+                <h3 class="text-danger text-center">Wrong...</h3>
+                <button (click)="tryAgain()" class="btn btn-lg p-4 m-2 btn-primary">
+                    Try again!
+                </button>
+            </ng-template>
+        </div>
+
+
+    </ng-template>
 </div>

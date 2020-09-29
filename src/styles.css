@@ -5,6 +5,7 @@
 }
 
 body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: rgb(90, 90, 90);
     margin: 0;
     padding: 0;
@@ -16,6 +17,10 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
     max-height: 90vh;
+}
+
+.max-width {
+    width: 100%;
 }
 
 .admin-page {
@@ -450,33 +455,108 @@ body {
 
 /* Let's open up the menu */
 
-.shazam {
+.gamemenu {
     /*.content_inner {
 height: 100%;
 }*/
 }
 
-.shazam .content {
+.gamemenu .content {
     transform: rotate(-30deg);
 }
 
-.shazam .menu_open {
+.gamemenu .menu_open {
     transform: rotate(-20deg);
 }
 
-.shazam .menu_close {
+.gamemenu .menu_close {
     transform: rotate(0);
 }
 
-.shazam .menu_items li {
+.gamemenu .menu_items li {
     transform: translateX(0);
     transition: transform 0.35s 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.shazam .menu_items li:nth-child(2) {
+.gamemenu .menu_items li:nth-child(2) {
     transition-delay: 0.47s;
 }
 
-.shazam .menu_items li:nth-child(3) {
+.gamemenu .menu_items li:nth-child(3) {
     transition-delay: 0.48s;
+}
+
+
+/* modal in admin area */
+
+.admin-button {
+    font-size: 1.3rem;
+    width: 6rem;
+    padding: 1rem;
+    text-align: center;
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-weight: 700;
+    transition: 0.25s;
+}
+
+.admin-button:hover {
+    width: 8rem;
+}
+
+.admin-modal-bg {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .35);
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.15s;
+}
+
+.modal-active {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s, opacity 0.15s;
+}
+
+.admin-modal {
+    background: rgba(221, 221, 221, 0.9);
+    max-width: 80%;
+    min-width: 60%;
+    border-radius: 14px;
+    padding: 3rem;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    transform: translateY(100px);
+    transition: transform 0.4s;
+}
+
+.admin-modal-bg.modal-active .admin-modal {
+    transition: transform 0.25s;
+    transform: translateY(0px);
+}
+
+.yes-button {
+    background-color: rgba(4, 216, 4, 0.534);
+}
+
+.yes-button:hover {
+    background-color: rgba(4, 216, 4, 0.904);
+}
+
+.no-button {
+    background-color: rgba(216, 22, 4, 0.534);
+}
+
+.no-button:hover {
+    background-color: rgba(216, 22, 4, 0.904);
 }

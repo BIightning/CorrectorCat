@@ -11,6 +11,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 export class TutorialComponent implements OnInit {
   currLevel: number;
   currentSlide: number = 0;
+  bCanContinue: boolean = true;
   sequence: TutorialSequence = new TutorialSequence();
 
   constructor(private router: Router, private route: ActivatedRoute, private tutorialSequenceService: TutorialSequenceService) {
@@ -39,13 +40,18 @@ export class TutorialComponent implements OnInit {
     });
   }
 
-  async clickBack() {
+  clickBack() {
     this.currentSlide--;
 
   }
 
-  async clickNext() {
-    this.currentSlide++;
+  allowContinue(){
+    this.bCanContinue= true;
+  }
 
+  clickNext() {
+    this.currentSlide++;
+    if(this.sequence.slides[this.currentSlide].widgetID != -1)
+      this.bCanContinue = false;
   }
 }

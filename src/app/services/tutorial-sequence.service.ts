@@ -17,4 +17,8 @@ export class TutorialSequenceService {
   public getSequence(position: number): Observable<TutorialSequence> {
     return this.http.get<TutorialSequence>(this.url+'/api/tutorials/byposition/' + position);
   }
+
+  public getAllSequences(): Observable<TutorialSequence[]> {
+    return this.http.get<TutorialSequence[]>(this.url+'/api/tutorials/');
+  }
 }

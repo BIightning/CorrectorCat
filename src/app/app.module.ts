@@ -37,6 +37,14 @@ import { AdminDashboardComponent } from './components/admin/admin-dashboard/admi
 import { BookManagementComponent } from './components/admin/book-management/book-management.component';
 import { UserManagementComponent } from './components/admin/user-management/user-management.component';
 import { TutorialManagementComponent } from './components/admin/tutorial-management/tutorial-management.component';
+import { PageManagementComponent } from './components/admin/page-management/page-management.component';
+import { SettingsComponent } from './components/admin/settings/settings.component';
+import { BookEditorComponent } from './components/admin/book-editor/book-editor.component';
+import { TutorialEditorComponent } from './components/admin/tutorial-editor/tutorial-editor.component';
+import { UserEditorComponent } from './components/admin/user-editor/user-editor.component';
+import { LoadingAnimationComponent } from './components/admin/loading-animation/loading-animation.component';
+import { SummaryPipe } from './pipes/summary.pipe';
+import { CountryFromIsoPipe } from './pipes/country-from-iso.pipe';
 
 @NgModule({
   declarations: [
@@ -67,6 +75,14 @@ import { TutorialManagementComponent } from './components/admin/tutorial-managem
     BookManagementComponent,
     UserManagementComponent,
     TutorialManagementComponent,
+    PageManagementComponent,
+    SettingsComponent,
+    BookEditorComponent,
+    TutorialEditorComponent,
+    UserEditorComponent,
+    LoadingAnimationComponent,
+    SummaryPipe,
+    CountryFromIsoPipe,
   ],
   imports: [
     HttpClientModule,

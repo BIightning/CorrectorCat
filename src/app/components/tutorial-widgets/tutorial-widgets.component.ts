@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,18 +9,33 @@ import { Router } from '@angular/router';
 export class TutorialWidgetsComponent implements OnInit {
   
   @Input("widgetID") widgetID: number;
+  @Input("widgetData") widgetData: any;
   @Input("targetText") targetTextTitle: number;
+  @Output("allowContinue") allowContinue = new EventEmitter();
+
   audioplayer: HTMLAudioElement;
   constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.audioplayer = new Audio('./assets/sample.mp3');
+    if (!this.widgetData)
+      this.widgetData = {};
+    if(this.widgetID != 3 && this.widgetID != 5)
+      this.emitAllowContinue();
   }
 
   goGameView(){
     console.log(this.widgetID);
     console.log(this.targetTextTitle);
     this.router.navigate(["/game/game-view/" +this.targetTextTitle +"/"]);
+  }
+
+  emitAllowContinue() {
+    this.allowContinue.emit();
+  }
+
+  onQuizSuccede(){
+    this.emitAllowContinue();
   }
 
   playAudio(){

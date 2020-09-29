@@ -2,7 +2,12 @@
 <div class="window container-fluid">
     <div class="user-tile heading-tile">
         <ul class="detail-list">
-            <li class="heading-detail"><button class="create-button"><i class="fa fa-user-plus"></i>Create Book</button></li>
+            <li class="heading-detail">
+                <button [routerLink]="['/admin/bookeditor/new']" class="create-button">
+                    <i class="fa fa-user-plus"></i> 
+                    Create Book
+                </button>
+            </li>
             <li class="heading-detail"><input type="text" #searchInput placeholder="Search" (input)="filterItem(searchInput.value)"></li>
         </ul>
     </div>
@@ -19,11 +24,26 @@
                     <h4>Level: {{book.difficulty}}</h4>
                 </li>
                 <li class="detail">
-                    <h4><a class="user-btn"><i class="fa fa-edit"></i></a><a class="user-btn"><i class="text-danger ml-1 fa fa-trash"></i></a></h4>
+                    <h4><a [routerLink]="['/admin/bookeditor', book._id]" class="user-btn"><i class="fa fa-edit"></i></a>
+                        <a class="user-btn" (click)="onDeleteClick(book)"><i class="text-danger ml-1 fa fa-trash"></i></a>
+                    </h4>
                 </li>
             </ul>
         </div>
     </ng-container>
+    <app-loading-animation *ngIf="!this.loaded"></app-loading-animation>
 
 
+</div>
+
+<div [ngClass]="{'modal-active': bShowModal}" class="admin-modal-bg">
+    <div class="admin-modal shadow">
+        <h3>Do you really want to delete the book "{{currentBook?.title}}"? You can't restore the data afterwards!</h3>
+        <div class="row mt-4">
+            <div class="col-sm-1 col-md-4"></div>
+            <div class="col-sm-5 col-md-2"><button (click)="hideModal()" class="shadow m-1 yes-button admin-button">Yes</button></div>
+            <div class="col-sm-5 col-md-2"><button (click)="hideModal()" class="shadow m-1 no-button admin-button">No</button></div>
+            <div class="col-sm-1 col-md-4"></div>
+        </div>
+    </div>
 </div>

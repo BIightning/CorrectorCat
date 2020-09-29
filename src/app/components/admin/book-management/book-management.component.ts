@@ -1,6 +1,7 @@
 import { BookService } from './../../../services/book.service';
 import { Book } from './../../../../assets/classes/book';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-management',
@@ -11,20 +12,23 @@ export class BookManagementComponent implements OnInit {
 
   books: Book[];
   filteredBooks: Book[];
+  currentBook: Book;
+  loaded: boolean = false;
+  bShowModal: boolean = false;
 
-  constructor(private bookService: BookService) { }
+  constructor(private router: Router, private bookService: BookService) { }
 
   ngOnInit(): void {
     this.books = [];
     this.filteredBooks = [];
     this.bookService.getAllBooks().subscribe(res=> {
       this.books = res;
-      console.log(res);
       this.copyOriginal();
+      this.loaded = true;
     })
 
   }
-  filterItem(value){
+  filterItem(value): void{
     if(!value){
         this.copyOriginal();
     }
@@ -33,7 +37,21 @@ export class BookManagementComponent implements OnInit {
     )
  }
 
-  copyOriginal(){
+ onDeleteClick(book: Book): void{
+   this.bShowModal = true;
+   this.currentBook = book
+   console.log(`show delete modal for book: ${book._id}`);
+ }
+
+ onDeleteConfirm(): void {
+
+ }
+
+ hideModal(): void {
+  this.bShowModal = false;
+ }
+
+  copyOriginal(): void {
     this.filteredBooks = Object.assign([], this.books);
   }
   

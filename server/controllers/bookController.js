@@ -20,7 +20,8 @@ async function getBookById(id) {
         await Book
             .findById(id)
             .then(result => {
-                if (result === null) reject({ code: 404, msg: "Book not found" });
+                if (result === null)
+                    reject({ code: 404, msg: "Book not found" });
                 else
                     resolve(result);
             })
@@ -66,7 +67,19 @@ async function updateBook(id, data) {
             reject({ code: 400, msg: bookError.details[0].message });
 
         await Book
-            .findByIdAndUpdate(id, data)
+            .findByIdAndUpdate(id, {
+                title: data.title,
+                author: data.author,
+                series: data.series,
+                language: data.language,
+                starting: data.starting,
+                cost: data.cost,
+                difficulty: data.difficulty,
+                imagePath: data.imagePath,
+                description: data.description,
+                textChunks: data.textChunks,
+                quiz: data.quiz
+            })
             .then(result => {
                 if (result === null) reject({ code: 404, msg: "Book not found" });
                 else if (result === data) reject({ code: 400, msg: "No data updated" });

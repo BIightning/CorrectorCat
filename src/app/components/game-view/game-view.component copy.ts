@@ -60,13 +60,13 @@ export class GameViewComponent implements OnInit {
     this.audioplayer.load();
     this.firstChunk = true;
     this.book = new Book();
-    let userId = Number(localStorage.getItem("user"));
+    let userId = localStorage.getItem("user");
     this.userService.getUserbyId(userId).subscribe((data) => {
       this.user = data;
       this.modalService.open(this.startModalContent, { centered: true, backdrop: 'static', keyboard: false });
     });
     this.route.params.subscribe(param => {
-      this.bookService.getBookbyId(param.bookId).subscribe(data => {
+      this.bookService.getBookById(param.bookId).subscribe(data => {
         this.book = data;
         this.bookLoaded = true;
         this.prepareGame();

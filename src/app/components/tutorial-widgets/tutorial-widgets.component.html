@@ -15,7 +15,7 @@
         </div>
     </ng-container>
     <ng-container *ngSwitchCase="3">
-        <app-quiz-widget></app-quiz-widget>
+        <app-quiz-widget [quiz]="widgetData?.quiz" (succede)="onQuizSuccede()"></app-quiz-widget>
     </ng-container>
     <ng-container *ngSwitchCase="4">
         <div class="center-content container-fluid mt-3">

@@ -19,6 +19,11 @@ import { TutorialComponent } from './components/tutorial/tutorial.component';
 import { AdminPageComponent } from './components/admin/admin-page/admin-page.component';
 import { BookManagementComponent } from './components/admin/book-management/book-management.component';
 import { TutorialManagementComponent } from './components/admin/tutorial-management/tutorial-management.component';
+import { PageManagementComponent } from './components/admin/page-management/page-management.component';
+import { SettingsComponent } from './components/admin/settings/settings.component';
+import { BookEditorComponent } from './components/admin/book-editor/book-editor.component';
+import { TutorialEditorComponent } from './components/admin/tutorial-editor/tutorial-editor.component';
+import { UserEditorComponent } from './components/admin/user-editor/user-editor.component';
 
 const routes: Routes = [
   {
@@ -91,12 +96,32 @@ const routes: Routes = [
         component: UserManagementComponent
       },
       {
+        path: 'usereditor/:id',
+        component: UserEditorComponent
+      },
+      {
         path: 'bookmanagement',
         component: BookManagementComponent
       },
       {
+        path: 'bookeditor/:id',
+        component: BookEditorComponent
+      },
+      {
         path: 'tutorialmanagement',
         component: TutorialManagementComponent
+      },
+      {
+        path: 'tutorialeditor/:id',
+        component: TutorialEditorComponent
+      },
+      {
+        path: 'pagemanagement',
+        component: PageManagementComponent
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent
       }
     ]
   },

@@ -82,7 +82,7 @@ export class BookstoreComponent implements OnInit {
     this.user.credits  = this.user.credits - this.selectedBook.cost; 
     this.userService.updateUser(this.user).subscribe(data => {
      // console.log(data.msg);
-      this.saveBook(this.selectedBook.id);
+      //this.saveBook(this.selectedBook._id);
     }) 
   }
 

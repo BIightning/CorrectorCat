@@ -1,0 +1,102 @@
+<h1 class="mb-0 pb-0">Book Editor</h1>
+<div *ngIf="bLoaded" class="window container-fluid">
+    <div class="row user-tile heading-tile">
+        <div class="col-4 pl-0 ml-0">
+            <button (click)="onSaveClick()" class="create-button">
+                <i class="fa fa-save fa-lg"></i> 
+                Save Book
+            </button>
+        </div>
+        <div class="col-4">
+            <h2 class="text-center">{{book?.title}}</h2>
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <!--Book Details & Meta-->
+    <h4 class="input-heading mt-2">&nbsp;Title:</h4>
+    <input [(ngModel)]="book.title" name="title" type="text" required>
+    <h4 class="input-heading mt-2">&nbsp;Author:</h4>
+    <input [(ngModel)]="book.author" name="author" type="text" required>
+    <h4 class="input-heading mt-2">&nbsp;Series:</h4>
+    <input [(ngModel)]="book.series" name="series" type="text" required>
+
+    <h4 class="input-heading mt-2">&nbsp;Language:</h4>
+    <select name="language" type="string" [(ngModel)]="book.language" required>
+            <option *ngFor="let language of languages" value="{{language}}" [selected]="language === book.language">{{language | countryFromIso}}</option>
+        </select>
+    <h4 class="input-heading mt-2">&nbsp;Description:</h4>
+    <textarea [(ngModel)]="book.description" name="description" type="text" rows="2" required></textarea>
+
+    <h5 class="input-heading"><br>
+        <input class="check" [(ngModel)]="book.starting" name="starting" type="checkbox" name="starting">
+        <label for="starting">Starting or tutorial book</label>
+    </h5>
+    <ng-container *ngIf="!book.starting">
+        <h4 class="input-heading mt-2">&nbsp;Cost:</h4>
+        <input [(ngModel)]="book.cost" name="cost" type="number" required>
+        <h4 class="input-heading mt-2">&nbsp;Difficulty:</h4>
+        <select name="difficulty" type="string" [(ngModel)]="book.difficulty" required>
+                <option *ngFor="let difficulty of difficulties" value="{{difficulty}}" [selected]="difficulty === book.difficulty">{{difficulty}}</option>
+            </select>
+    </ng-container>
+    <!--Text Chunks-->
+    <div class="chunk-wrapper mt-2 mb-3 p-3">
+        <div class="max-width mb-3 row">
+            <div class="col-4">
+                <button type="button" (click)="onNewChunkClick()" class="create-button">
+                        <span><i class="fa fa-list-alt fa-lg"></i><i class="ml-1 fa fa-sm fa-plus"></i></span>
+                        New Chunk
+                    </button>
+            </div>
+            <div class="col-4">
+                <h3 class="text-center">Text Chunks</h3>
+            </div>
+            <div class="col-4">
+            </div>
+        </div>
+        <div class="chunk-tile shadow" *ngFor="let chunk of book?.textChunks; let i=index" [ngClass]="{'pb-2 pl-1': chunkExtended[i]}">
+            <h3 class="input-heading m-0 mt-2 ">
+                <button type="button" (click)="chunkExtended[i]=! chunkExtended[i] " class="expand-btn fa text-white " [ngClass]="{ 'fa-chevron-right': !chunkExtended[i], 'fa-chevron-down': chunkExtended[i]} "></button>
+                <span>&nbsp; Chunk {{i +1}}</span>
+                <small class="ml-5 text-center">"{{chunk.text | summary}}"</small>
+                <a type="button" *ngIf="book.textChunks.length > 1" (click)="onDeleteClick(i)" class="trash-btn float-right mr-1 p-1 text-right text-danger"><i class="fa fa-trash"></i></a>
+            </h3>
+            <ng-container *ngIf="chunkExtended[i]">
+                <h4 class="input-heading mt-2 ">&nbsp;Text:</h4>
+                <input class="mt-2 " [(ngModel)]="chunk.text " type="text" required=" ">
+                <h4 class="input-heading mt-2 ">&nbsp;Correct audio:</h4>
+                <input [(ngModel)]="chunk.audioCorrect " type="text" required=" ">
+                <h4 class="input-heading mt-2 ">&nbsp;Wrong audio:</h4>
+                <input [(ngModel)]="chunk.audioWrong " type="text" required=" ">
+                <h4 class="input-heading mt-2 ">&nbsp;Points:</h4>
+                <input [(ngModel)]="chunk.points" type="number" required=" ">
+                <div class="error-tile p-2 mt-3 mb-2 shadow ">
+                    <h3 class="input-heading mt-2 ">&nbsp;Chunk error:</h3>
+                    <input class="m-1" *ngFor="let answer of chunk.question.answers; let i=index" [(ngModel)]="chunk.question.answers[i] " type="text " required=" ">
+                    <h4 class="input-heading mt-2 ">&nbsp;Correct Index:</h4>
+                    <input [(ngModel)]="chunk.question.correctIndex" type="number" required=" ">
+                    <h4 class="input-heading mt-2 ">&nbsp;Explanation:</h4>
+                    <input [(ngModel)]="chunk.question.explanation" type="text" required=" ">
+                </div>
+            </ng-container>
+
+        </div>
+
+    </div>
+</div>
+<app-loading-animation *ngIf="!bLoaded">
+</app-loading-animation>
+
+<div [ngClass]="{'modal-active': bShowModal}" class="admin-modal-bg">
+    <div *ngIf="book?.textChunks" class="admin-modal shadow">
+        <h3>
+            Do you really want to delete chunk {{currentChunk +1}}?
+        </h3>
+        <div class="row mt-4">
+            <div class="col-sm-1 col-md-4"></div>
+            <div class="col-sm-5 col-md-2"><button (click)="hideModal(); onDeleteConfirm()" class="shadow m-1 yes-button admin-button">Yes</button></div>
+            <div class="col-sm-5 col-md-2"><button (click)="hideModal()" class="shadow m-1 no-button admin-button">No</button></div>
+            <div class="col-sm-1 col-md-4"></div>
+        </div>
+    </div>
+</div>

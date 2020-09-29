@@ -1,105 +1,111 @@
 <h1 class="mb-0 pb-0">Admin Dashboard</h1>
 <br><br><br><br>
-<h2>Statistics</h2>
-<div class="row">
-    <div class="tile tile-blue">
-        <p>Existing Users:</p>
-        <h2 class="full-width">3</h2>
+<ng-container *ngIf="!loaded; else elseTemplate">
+    <app-loading-animation></app-loading-animation>
+</ng-container>
+<ng-template #elseTemplate>
+    <h2>Status</h2>
+    <div class="row">
+        <div [ngClass]="this.gameletConnected ? 'tile-green' : 'tile-yellow heartbeat'" class="tile">
+            <p>Gamelet Main<br> Server:</p>
+            <h2 *ngIf="this.gameletConnected; else gameletDisconnected" class="text-success full-width">Connected</h2>
+            <ng-template #gameletDisconnected>
+                <h2 class="text-danger full-width">Disconnected</h2>
+                <h5 class="text-danger full-width">No user login possible!</h5>
+            </ng-template>
+        </div>
+        <div [ngClass]="this.dbConnected ? 'tile-green' : 'tile-yellow heartbeat'" class="tile">
+            <p>Database:</p>
+            <h2 *ngIf="this.dbConnected; else dbDisconnected" class="text-success full-width">Online</h2>
+            <ng-template #dbDisconnected>
+                <h2 class="text-danger full-width">Offline</h2>
+            </ng-template>
+
+        </div>
+        <div class="tile tile-blue">
+            <p>Server Load:</p>
+            <h2 class="text-success full-width">Low</h2>
+        </div>
+
     </div>
-    <div class="tile tile-red">
-        <p>Existing Books:</p>
-        <h2 class="full-width">4</h2>
+    <br><br><br><br>
+    <h2>User Management</h2>
+    <div class="row">
+        <div class="tile dynamic-tile">
+            <i class="fa fa-users fa-2x"></i>
+            <p>User Overview</p>
+        </div>
+        <div class="tile dynamic-tile">
+            <i class="fa fa-user-plus fa-2x"></i>
+            <p>User Creation</p>
+        </div>
     </div>
-    <div class="tile tile-yellow">
-        <p>Existing Tutorials:</p>
-        <h2 class="full-width">8</h2>
-    </div>
-    <div class="tile tile-green">
-        <p>Existing Static Pages:</p>
-        <h2 class="full-width">4</h2>
-    </div>
-    <div class="tile tile-grey">
-        <p>Gamelet<br> Connection Status:</p>
-        <h2 class="text-danger full-width">Disconnected</h2>
-    </div>
-</div>
-<br><br><br><br>
-<h2>User Management</h2>
-<div class="row">
-    <div class="tile dynamic-tile">
-        <i class="fa fa-users fa-2x"></i>
-        <p>User Overview</p>
-    </div>
-    <div class="tile dynamic-tile">
-        <i class="fa fa-user-plus fa-2x"></i>
-        <p>User Creation</p>
-    </div>
-</div>
-<br><br><br><br>
-<h2>Book Management</h2>
-<div class="row">
-    <div class="tile dynamic-tile">
-        <span>
+    <br><br><br><br>
+    <h2>Book Management</h2>
+    <div class="row">
+        <div [routerLink]="['/admin/bookmanagement']" class="tile dynamic-tile">
+            <span>
             <i class="mr-1 fa fa-book"></i>
             <i class="fa fa-book fa-2x"></i>
             <i class="ml-1 fa fa-book fa-lg"></i>
         </span>
-        <p>Book Overview</p>
+            <p>Book Overview</p>
+        </div>
+        <div [routerLink]="['/admin/bookeditor/new']" class="tile dynamic-tile">
+            <span><i class="fa fa-book fa-2x"></i><i class="ml-1 fa fa-plus"></i></span>
+            <p>Book Creation</p>
+        </div>
     </div>
-    <div class="tile dynamic-tile">
-        <span><i class="fa fa-book fa-2x"></i><i class="ml-1 fa fa-plus"></i></span>
-        <p>Book Creation</p>
-    </div>
-</div>
-<br><br><br><br>
-<h2>Tutorial Management</h2>
-<div class="row">
-    <div class="tile dynamic-tile">
-        <span>
+    <br><br><br><br>
+    <h2>Tutorial Management</h2>
+    <div class="row">
+        <div class="tile dynamic-tile">
+            <span>
             <i class="fa fa-rocket"></i>
             <i class="fa fa-rocket fa-3x"></i>
             <i class="fa fa-rocket fa-lg"></i>
         </span>
-        <p>Tutorial Overview</p>
+            <p>Tutorial Overview</p>
+        </div>
+        <div class="tile dynamic-tile">
+            <span><i class="fa fa-rocket fa-3x"></i><i class="ml-1 fa fa-plus"></i></span>
+            <p>Tutorial Creation</p>
+        </div>
+        <div class="tile dynamic-tile" [openDelay]="1000" ngbTooltip="Link Tutorials with their coherrant texts">
+            <span><i class="fa fa-rocket fa-3x"></i><i class="ml-1 fa fa-link"></i></span>
+            <p>Tutorial Linking</p>
+        </div>
     </div>
-    <div class="tile dynamic-tile">
-        <span><i class="fa fa-rocket fa-3x"></i><i class="ml-1 fa fa-plus"></i></span>
-        <p>Tutorial Creation</p>
+    <br><br><br><br>
+    <h2>Page Management</h2>
+    <div class="row">
+        <div class="tile dynamic-tile">
+            <span><i class="fa fa-code fa-3x"></i></span>
+            <p>Edit Startpage</p>
+        </div>
+        <div class="tile dynamic-tile">
+            <span><i class="fa fa-code fa-3x"></i></span>
+            <p>Edit Impress</p>
+        </div>
+        <div class="tile dynamic-tile">
+            <span><i class="fa fa-code fa-3x"></i></span>
+            <p>Edit Privacy Policy</p>
+        </div>
+        <div class="tile dynamic-tile">
+            <span><i class="fa fa-code fa-3x"></i></span>
+            <p>Edit User Dashboard</p>
+        </div>
     </div>
-    <div class="tile dynamic-tile" [openDelay]="1000" ngbTooltip="Link Tutorials with their coherrant texts">
-        <span><i class="fa fa-rocket fa-3x"></i><i class="ml-1 fa fa-link"></i></span>
-        <p>Tutorial Linking</p>
+    <br><br><br><br>
+    <h2>Settings</h2>
+    <div class="row">
+        <div class="tile dynamic-tile">
+            <span><i class="fa fa-cog fa-3x"></i></span>
+            <p>General Settings</p>
+        </div>
+        <div class="tile dynamic-tile">
+            <span><i class="fa fa-globe fa-3x"></i><i class="ml-1 fa fa-link"></i></span>
+            <p>App Environment</p>
+        </div>
     </div>
-</div>
-<br><br><br><br>
-<h2>Page Management</h2>
-<div class="row">
-    <div class="tile dynamic-tile">
-        <span><i class="fa fa-code fa-3x"></i></span>
-        <p>Edit Startpage</p>
-    </div>
-    <div class="tile dynamic-tile">
-        <span><i class="fa fa-code fa-3x"></i></span>
-        <p>Edit Impress</p>
-    </div>
-    <div class="tile dynamic-tile">
-        <span><i class="fa fa-code fa-3x"></i></span>
-        <p>Edit Privacy Policy</p>
-    </div>
-    <div class="tile dynamic-tile">
-        <span><i class="fa fa-code fa-3x"></i></span>
-        <p>Edit User Dashboard</p>
-    </div>
-</div>
-<br><br><br><br>
-<h2>Settings</h2>
-<div class="row">
-    <div class="tile dynamic-tile">
-        <span><i class="fa fa-cog fa-3x"></i></span>
-        <p>General Settings</p>
-    </div>
-    <div class="tile dynamic-tile">
-        <span><i class="fa fa-globe fa-3x"></i><i class="ml-1 fa fa-link"></i></span>
-        <p>App Environment</p>
-    </div>
-</div>
+</ng-template>

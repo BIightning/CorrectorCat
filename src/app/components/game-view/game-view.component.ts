@@ -143,12 +143,12 @@ export class GameViewComponent implements OnInit {
   private async playChunkAudioAtRandom() {
     if (Math.floor((Math.random() * 100)) > 45) {
       console.log("[Game][Playback][RNG] Correct file is being played");
-      this.audioplayer = new Audio('./assets/books/' + this.book.id + '/correct/' + this.book.textChunks[this.currentTextChunk].audioCorrect);
+      this.audioplayer = new Audio('./assets/books/' + this.book.title + '/correct/' + this.book.textChunks[this.currentTextChunk].audioCorrect);
     }
     else {
       console.log("[Game][Playback][RNG] Wrong file is being played");
       this.wrongReadIndexes[this.currentTextChunk] = true;
-      this.audioplayer = new Audio('./assets/books/' + this.book.id + '/wrong/' + this.book.textChunks[this.currentTextChunk].audioWrong);
+      this.audioplayer = new Audio('./assets/books/' + this.book.title + '/wrong/' + this.book.textChunks[this.currentTextChunk].audioWrong);
     }
     this.audioplayer.load();
     let dataLoaded = fromEvent(this.audioplayer, 'canplaythrough');
@@ -200,7 +200,7 @@ export class GameViewComponent implements OnInit {
   private attachChunkAudioPlayer(chunkIndex) {
     let audioPl = document.createElement('audio');
     audioPl.controls = true;
-    audioPl.src = './assets/books/' + this.book.id + '/wrong/' + this.book.textChunks[chunkIndex].audioWrong;
+    audioPl.src = './assets/books/' + this.book.title + '/wrong/' + this.book.textChunks[chunkIndex].audioWrong;
 
     let errorDescription = document.createElement('span');
     errorDescription.innerHTML = this.book.textChunks[chunkIndex].question.explanation;
@@ -231,7 +231,7 @@ export class GameViewComponent implements OnInit {
   private attachModalAudioPlayer_wrong() {
     let wrongAudioPl = document.createElement('audio');
     wrongAudioPl.controls = true;
-    wrongAudioPl.src = './assets/books/' + this.book.id + '/wrong/' + this.book.textChunks[this.currentTextChunk].audioWrong;
+    wrongAudioPl.src = './assets/books/' + this.book.title + '/wrong/' + this.book.textChunks[this.currentTextChunk].audioWrong;
 
     //document.getElementById('wrongAudioContainer').appendChild(wrongAudioPl);
   }
@@ -264,7 +264,7 @@ export class GameViewComponent implements OnInit {
 
     this.bHasAnswered = false;
     this.coinAnimation();
-    this.audioplayer = new Audio('./assets/books/' + this.book.id + '/correct/' + this.book.textChunks[this.currentTextChunk].audioCorrect);
+    this.audioplayer = new Audio('./assets/books/' + this.book.title + '/correct/' + this.book.textChunks[this.currentTextChunk].audioCorrect);
     this.RegisterAudioFinishedEvent();
     this.audioplayer.load();
     let dataLoaded = fromEvent(this.audioplayer, 'canplaythrough');
