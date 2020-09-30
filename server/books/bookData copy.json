@@ -1,0 +1,922 @@
+[{
+        "title": "Meerestiere",
+        "author": "Corrector Cat Team",
+        "language": "de-DE",
+        "starting": true,
+        "cost": 0,
+        "difficulty": "Easy",
+        "image": "underwater.jpg",
+        "description": "Erstaunliche & interessante Fakten über die Fauna der Meere.",
+        "pointsNeededForQuiz": 100,
+        "textChunks": [{
+                "text": "Hast du dir jemals Gedanken dadrüber gemacht, welche gigantischen und unbekannten Lebewesen in den Tiefen der Weltmeere leben könnten?",
+                "audioCorrect": "Meereswesen01.mp3",
+                "audioWrong": "MeereswesenFehler01Semantikfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Semantic",
+                    "Das Wort ‘den’ wurde durch das Wort ‘der’ ersetzt."
+                ]
+            },
+            {
+                "text": "Wenn es um Meereslebewesen geht, befassen sich die meisten Erzählungen mit Riesenwalen oder Hammerhaien, die bekannterweise immer wieder in den Weltmeeren gesichtet werden.",
+                "audioCorrect": "Meereswesen02.mp3",
+                "audioWrong": "MeereswesenFehler02Semantikfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Semantic",
+                    "Das Wort ‘Meereslebewesen’ wurde falsch ausgesprochen."
+                ]
+            },
+            {
+                "text": "Aber hast du mal überlegt, was für andere gigantische Tiefseebewohner existieren könnten? ",
+                "audioCorrect": "Meereswesen03.mp3",
+                "audioWrong": "MeereswesenFehler03Fluessigkeitsfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Smoothness",
+                    "Das Wort ‘gigantisch’ wurde stockend vorgelesen."
+                ]
+            },
+            {
+                "text": "Der größte Wal -der Blauwal übrigens- kann bis zu über 30 Meter groß werden. Bedenkt man nun zusätzlich, dass der Großteil des Meeres nicht erforscht ist, kann man sich kaum ausmalen, welche Kreaturen in den tiefsten Meereszonen ihr Zuhause finden.",
+                "audioCorrect": "Meereswesen04.mp3",
+                "audioWrong": "MeereswesenFehler04Syntaxfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Syntactic",
+                    "Das Wort ‘zu’ wurde während des Vorlesens ausgelassen."
+                ]
+            },
+            {
+                "text": "Einige Forscher sind sich tatsächlich einig, dass der Mond besser erforscht ist als die Weltmeere.",
+                "audioCorrect": "Meereswesen05.mp3",
+                "audioWrong": "MeereswesenFehler05Tempusfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Tense",
+                    "Die falsche Zeitform wurde beim Vorlesen verwendet."
+                ]
+            },
+            {
+                "text": "Es werden auch heute noch immer wieder neue Tierarten entdeckt, unter anderem auch verschiedene Gattungen der Riesenkraken.",
+                "audioCorrect": "Meereswesen06.mp3",
+                "audioWrong": "MeereswesenFehler06Fluessigkeitsfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Smoothness",
+                    "Das Wort ‘verschiedene’ wurde nicht flüssig vorgelesen."
+                ]
+            },
+            {
+                "text": "Riesenkraken leben in den tiefsten, je erforschten Meereszonen und können die Länge eines Blauwals einfach übersteigen.",
+                "audioCorrect": "Meereswesen07.mp3",
+                "audioWrong": "MeereswesenFehler07Semantikfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Semantic",
+                    "Das Wort ‘übersteigen’ wurde falsch ausgesprochen."
+                ]
+            },
+            {
+                "text": " Fischer und Seemänner berichteten auch in den letzten Jahren immer wieder von riesigen Tieren gewaltiger Größe, die sie auf offenem Meer entdecken konnten.",
+                "audioCorrect": "Meereswesen08.mp3",
+                "audioWrong": "MeereswesenFehler08Tempusfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Tense",
+                    "Das Wort ‘berichteten’ wird in der falschen Zeitform vorgelesen."
+                ]
+            },
+            {
+                "text": "Angeblich sollen deren Tentakel bis zu 20 Meter lang gewesen sein, zusätzlich zu der reinen Körperlänge, die ebenfalls von imposanter Größe ist.",
+                "audioCorrect": "Meereswesen09.mp3",
+                "audioWrong": "MeereswesenFehler09Semantikfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Semantic",
+                    "Das Wort ‘lang’ wurde durch das Wort ‘groß’ ersetzt."
+                ]
+            },
+            {
+                "text": "In Anbetracht der Tatsachen ist es also nur schwierig vorstellbar, welche Größe gewisse Meerestiere annehmen könnten.",
+                "audioCorrect": "Meereswesen10.mp3",
+                "audioWrong": "MeereswesenFehler10Fluessigkeitsfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Smoothness",
+                    "Das Wort ‘Anbetracht’ wird nicht flüssig ausgesprochen."
+                ]
+            },
+            {
+                "text": " Die Tiefen des unerforschten Meeres scheinen immens. Wann wird wohl das nächste Tier entdeckt, das einen neuen Größenrekord aufstellt?",
+                "audioCorrect": "Meereswesen11.mp3",
+                "audioWrong": "MeereswesenFehler11Semantikfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Semantic",
+                    "Das Wort ‘unerforscht’ wurde durch das Wort ‘erforscht’ ersetzt. Hierdurch ändert sich der Kontext der Geschichte."
+                ]
+            }
+        ],
+        "quiz": [{
+                "question": "Was ist laut Forschern besser erforscht als das Meer?",
+                "points": 250,
+                "answers": [
+                    "der Mond",
+                    "die Sonne",
+                    "die Vulkane",
+                    "das Wetter"
+                ],
+                "correctAnswer": "0"
+            },
+            {
+                "question": "Welcher der folgenden Arten ist der größte Wal?",
+                "points": 250,
+                "answers": [
+                    "Blauwal",
+                    "Buckelwal",
+                    "Glattwal",
+                    "Orca"
+                ],
+                "correctAnswer": "0"
+            },
+            {
+                "question": "Wie groß kann ein Blauwal werden",
+                "points": 250,
+                "answers": [
+                    "100m",
+                    "10m",
+                    "5m",
+                    "30m"
+                ],
+                "correctAnswer": "3"
+            },
+            {
+                "question": "Wie groß sind Riesenkraken im Vergleich zum Blauwal",
+                "points": 250,
+                "answers": [
+                    "kleiner",
+                    "gleich groß",
+                    "größer",
+                    "es gibt keine Riesenkraken"
+                ],
+                "correctAnswer": "2"
+            }
+        ],
+        "id": 0
+    },
+    {
+        "title": "Momo: Erstes Kapitel",
+        "author": "Michael Ende",
+        "language": "de-DE",
+        "starting": false,
+        "cost": 350,
+        "difficulty": "Medium",
+        "image": "momo.jpg",
+        "description": "Momo, ein kleines struppiges Mädchen, lebt am Rande einer Großstadt in den Ruinen eines Amphitheaters. Sie besitzt nichts als das, was sie findet oder was man ihr schenkt, und eine außergewöhnliche Gabe: Sie hört Menschen zu und schenkt ihnen Zeit.",
+        "pointsNeededForQuiz": 100,
+        "textChunks": [{
+                "text": "In alten, alten Zeiten, als die Menschen noch in ganz anderen Sprachen redeten, gab es in den warmen Ländern schon große und prächtige Städte.",
+                "audioCorrect": "Momo1.mp3",
+                "audioWrong": "Momo1Syntaxfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Syntactic",
+                    "Richtig ist: In alten, alten Zeiten(…)"
+                ]
+            },
+            {
+                "text": "Da erhoben sich die Paläste der Könige und Kaiser, da gab es breite Straßen, enge Gassen und winkelige Gässchen, da standen herrliche Tempel mit goldenen Götterstatuen, da gab es bunte Märkte, wo Waren aus aller Herren Länder feilgeboten wurden, und weite schöne Plätze, wo die Leute sich versammelten, um Neuigkeiten zu besprechen und Reden zu halten oder anzuhören.",
+                "audioCorrect": "Momo2.mp3",
+                "audioWrong": "Momo2Semantikfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Semantic",
+                    "Es wurde freigeboten anstatt feilgeboten gesagt."
+                ]
+            },
+            {
+                "text": "Und vor allem gab es dort große Theater.",
+                "audioCorrect": "Momo3.mp3",
+                "audioWrong": "Momo3Syntaxfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Syntactic",
+                    "Die Satzfolge wurde verändert."
+                ]
+            },
+            {
+                "text": "Sie sahen ähnlich aus, wie ein Zirkus noch heute aussieht, nur dass sie ganz und gar aus Steinblöcken gefügt waren.",
+                "audioCorrect": "Momo4.mp3",
+                "audioWrong": "Momo4Kontextfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Context",
+                    "Die fragende Stimmhebung am Ende des Satzes ist unpassend."
+                ]
+            },
+            {
+                "text": "Die Sitzreihen für die Zuschauer lagen stufenförmig übereinander wie in einem gewaltigen Trichter.",
+                "audioCorrect": "Momo5.mp3",
+                "audioWrong": "Momo5Semantikfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Semantic",
+                    "Das Wort Trichter wurde falsch ausgepsrochen."
+                ]
+            },
+            {
+                "text": "Von oben gesehen waren manche dieser Bauwerke kreisrund, andere mehr oval und wieder andere bildeten einen weiten Halbkreis. Man nannte sie Amphitheater.",
+                "audioCorrect": "Momo6.mp3",
+                "audioWrong": "Momo6Syntaxfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Syntactic",
+                    "Zwei Wörter wurden vertauscht."
+                ]
+            },
+            {
+                "text": "Es gab welche, die groß waren, wie ein Fußballstadion, und kleinere, in die nur ein paar hundert Leute passten.",
+                "audioCorrect": "Momo7.mp3",
+                "audioWrong": "Momo7Tempusfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Tense",
+                    "Es wurde Präsens statt Perfekt benutzt."
+                ]
+            },
+            {
+                "text": "Es gab prächtige, mit Säulen und Figuren verzierte, und solche, die schlicht und schmucklos waren. Dächer hatten die Amphitheater nicht, alles fand unter freiem Himmel statt.",
+                "audioCorrect": "Momo8.mp3",
+                "audioWrong": "Momo8Flüssigkeitsfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Smoothness",
+                    "Das Gelesene wurde nicht flüssig ausgesprochen."
+                ]
+            },
+            {
+                "text": "In den prachtvollen Theatern waren deshalb golddurchwirkte Teppiche über die Sitzreihen gespannt, um das Publikum vor plötzlichen Regenschauern zu schützen.",
+                "audioCorrect": "Momo9.mp3",
+                "audioWrong": "Momo9Semantikfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Semantic",
+                    "Golddurchwirkt wurde falsch ausgesprochen."
+                ]
+            },
+            {
+                "text": "In den einfachen Theatern dienten Matten aus Binsen und Stroh dem gleichen Zweck.",
+                "audioCorrect": "Momo10.mp3",
+                "audioWrong": "Momo10Kontextfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Context",
+                    "Das Geschriebene wurde mit einer unpassenden Emotion vorgelesen."
+                ]
+            },
+            {
+                "text": "Mit einem Wort: Die Theater waren so, wie die Leute es sich leisten konnten.",
+                "audioCorrect": "Momo11.mp3",
+                "audioWrong": "Momo11Syntaxfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Syntactic",
+                    "Der erste Teil des Satzes wurde ausgelassen."
+                ]
+            },
+            {
+                "text": "Aber haben wollten sie alle eins, denn sie waren leidenschaftliche Zuhörer und Zuschauer.",
+                "audioCorrect": "Momo12.mp3",
+                "audioWrong": "Momo12Semantikfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Semantic",
+                    "Es wurde ein anderes Wort gesprochen, als geschrieben."
+                ]
+            }
+        ],
+        "quiz": [{
+                "question": "Welche Farbe hatten die Götterstatuen",
+                "points": 250,
+                "answers": [
+                    "Silber",
+                    "Gold",
+                    "Grau, Marmor",
+                    "Kupfer"
+                ],
+                "correctAnswer": "1"
+            },
+            {
+                "question": "Neben den schlichten und schmucklosen Theatern gab es auch prächtige mit…",
+                "points": 250,
+                "answers": [
+                    "goldenen Dächern",
+                    "Tieren und Kämpfen",
+                    "Säulen und Figuren",
+                    "riesigen Springbrunnen"
+                ],
+                "correctAnswer": "2"
+            },
+            {
+                "question": "An welche Form erinnern die Sitzreihen eines Amphitheaters?",
+                "points": 250,
+                "answers": [
+                    "Trapez",
+                    "Tetraeder",
+                    "Trichter",
+                    "Zylinder"
+                ],
+                "correctAnswer": "2"
+            },
+            {
+                "question": "Was wurde über die Amphitheater gespannt, um die Zuschauer vor Regen zu schützen?",
+                "points": 250,
+                "answers": [
+                    "Leinen",
+                    "Wolle",
+                    "Heu",
+                    "Teppiche"
+                ],
+                "correctAnswer": "3"
+            }
+        ],
+        "id": 1
+    },
+    {
+        "title": "Lina bei der Polizei",
+        "author": "Corrector Cat Team",
+        "language": "de-DE",
+        "starting": false,
+        "cost": 500,
+        "difficulty": "Hard",
+        "image": "police-car.jpg",
+        "description": "Linas aufregender erster Praktikumstag bei der Polizei!",
+        "pointsNeededForQuiz": 100,
+        "textChunks": [{
+                "text": "Lina kommt am Montagmorgen in die Polizeidienststelle, bei der sie für die nächsten Wochen ein Praktikum absolvieren wird.",
+                "audioCorrect": "erzaehler01.mp3",
+                "audioWrong": "ErzaehlerFehler1Fluessigkeitsfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Smoothness",
+                    "Das Wort ‘Polizeidienststelle’ wird stockend vorgelesen"
+                ]
+            },
+            {
+                "text": "Guten Tag, ich bin Lina. Ich mache hier ein Praktikum und soll mich bei dem Polizeikommissar Herr Maier melden.",
+                "audioCorrect": "lina1.mp3",
+                "audioWrong": "LinaFehler1Betonungsfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Phrasing",
+                    "Der Satz wird monoton vorgelesen und dementsprechend nicht ausreichend betont."
+                ]
+            },
+            {
+                "text": "In diesem Moment tritt Herr Maier in den Raum und erkennt Lina sofort. Er spricht sie unverzüglich an.",
+                "audioCorrect": "erzaehler02.mp3",
+                "audioWrong": "ErzaehlerFehler2Syntaxfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Syntactic",
+                    "In der Mitte des Satzes wurden die vorgelesenen Wörter verdreht. Dadurch entsteht ein falscher Satzbau."
+                ]
+            },
+            {
+                "text": "Hallo! Du musst Lina sein. Ich nehme dich heute mit durch unseren Polizeialltag.",
+                "audioCorrect": "Kommissar1.mp3",
+                "audioWrong": "Kommissar1syntax.mp3",
+                "points": 10,
+                "error": [
+                    "Syntactic",
+                    "Error description to be done"
+                ]
+            },
+            {
+                "text": "Direkt nachdem der Polizeikommissar Herr Maier Lina begrüßt hat, klingelt das Telefon. Herr Maier wird sofort davon unterrichtet, dass es ein Notfall sei und nun jede Sekunde zähle.",
+                "audioCorrect": "erzaehler03.mp3",
+                "audioWrong": "ErzaehlerFehler3Semantikfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Semantic",
+                    "Das Wort ‘klingelt’ wird während des Vorlesens durch das Wort ‘ringelt’ ersetzt."
+                ]
+            },
+            {
+                "text": "Lina, komm mit! Wir haben einen Notfall. Bei einem Juwelier in der Innenstadt wurde eingebrochen und laut Zeugenaussagen ist der vermeintliche Täter noch vor Ort.",
+                "audioCorrect": "Kommissar2.mp3",
+                "audioWrong": "Kommissar2kontext.mp3",
+                "points": 10,
+                "error": [
+                    "Context",
+                    "Error description to be done"
+                ]
+            },
+            {
+                "text": "Lina, die zuerst äußerst irritiert ist, rennt schließlich dem Polizeikommissar Herr Maier hinterher zum Polizeiwagen. Die beiden nehmen Platz und eilen los.",
+                "audioCorrect": "erzaehler04.mp3",
+                "audioWrong": "ErzaehlerFehler4Betonungsfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Phrasing",
+                    "Der Satz wird monoton vorgelesen und dementsprechend nicht ausreichend betont."
+                ]
+            },
+            {
+                "text": "Lina, entschuldige den hektischen Start aber du musst jetzt ganz genau zuhören. Wenn wir an der Einsatzstelle ankommen ist es ganz wichtig, dass wir vorsichtig handeln. Wir wissen nicht zu was der Täter fähig ist, geschweige denn ob er vielleicht sogar bewaffnet ist. Das heißt die oberste Priorität ist, dass wir nicht verletzt werden. Außerdem solltest du meine Anweisungen befolgen. ",
+                "audioCorrect": "Kommissar3.mp3",
+                "audioWrong": "Kommissar3semantik.mp3",
+                "points": 10,
+                "error": [
+                    "Semantic",
+                    "Error description to be done"
+                ]
+            },
+            {
+                "text": "Alles klar! Ich werde die ganze Zeit eher im Hintergrund bleiben und mich selbstverständlich nicht fahrlässig gefährden.",
+                "audioCorrect": "lina2.mp3",
+                "audioWrong": "LinaFehler2Fluessigkeitsfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Smoothness",
+                    "Error description to be done"
+                ]
+            },
+            {
+                "text": "Nach kurzer Zeit kommen die beiden am Tatort an. Vor Ort treffen sie auf den Zeugen, der die Polizei gerufen hat. Er steht vor dem Juweliergeschäft und winkt hektisch die Polizei herbei.",
+                "audioCorrect": "erzaehler05.mp3",
+                "audioWrong": "ErzaehlerFehler5Semantikfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Semantic",
+                    "Das Wort ‘kurz’ wird während des Vorlesens durch das Wort ‘lang’ ersetzt. Dies verändert den Kontext der Geschichte."
+                ]
+            },
+            {
+                "text": "Hier! Ich habe Sie gerufen! Hören Sie man hört Geräusche von innen. Ich habe sogar einen Schatten am Schaufenster vorbeihuschen sehen! Das Türschloss ist aufgebrochen! Und das ganze Geraschel (macht eine kurze Denkpause). Das ist eindeutig ein Einbrecher.",
+                "audioCorrect": "Zeuge1.mp3",
+                "audioWrong": "Zeuge1syntaxfluessigkeit.mp3",
+                "points": 10,
+                "error": [
+                    "Syntactic",
+                    "Error description to be done"
+                ]
+            },
+            {
+                "text": "Bleiben Sie hier ich schaue nach was es damit auf sich hat. Lina komm mit aber vorsichtig.",
+                "audioCorrect": "Kommissar4.mp3",
+                "audioWrong": "Kommissar4fluessigkeit.mp3",
+                "points": 10,
+                "error": [
+                    "Smoothness",
+                    "Error description to be done"
+                ]
+            },
+            {
+                "text": "Lina und der Polizeikommissar betreten langsam das aufgebrochene Geschäft. Beide bemerken schnell, dass alles durcheinander ist. Schubladen sind aufgerissen, zerstörte Teile liegen verstreut auf dem Boden und die Schmuckständer sind leergeräumt. Von hinten aus dem Lager des Schmuckgeschäftes hört man Sachen auf den Boden fallen und Glas zersplittern. Offensichtlich ist der Einbrecher noch vor Ort.",
+                "audioCorrect": "erzaehler06.mp3",
+                "audioWrong": "ErzaehlerFehler6Kontextfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Context",
+                    "Durch das Lachen während des Vorlesens wird eine Emotion vermittelt, die nicht zum Kontext der Geschichte passt."
+                ]
+            },
+            {
+                "text": "Von hinten aus dem Lager des Schmuckgeschäftes hört man Sachen auf den Boden fallen und Glas zersplittern. Offensichtlich ist der Einbrecher noch vor Ort.",
+                "audioCorrect": "erzaehler07.mp3",
+                "audioWrong": "ErzaehlerFehler7Kontextfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Context",
+                    "Durch das Lachen während des Vorlesens wird eine Emotion vermittelt, die nicht zum Kontext der Geschichte passt."
+                ]
+            },
+            {
+                "text": "Lina, wenn du den Einbrecher siehst dann sag mir schnell Bescheid.",
+                "audioCorrect": "Kommissar5.mp3",
+                "audioWrong": "Kommissar5syntax.mp3",
+                "points": 10,
+                "error": [
+                    "Syntactic",
+                    "Error description to be done"
+                ]
+            },
+            {
+                "text": "Ein Rascheln! Man sieht, dass sich dort hinten etwas bewegt. Hr. Maier, sehen sie das Tuch in der Vitrine? Es wird immer wieder bewegt.",
+                "audioCorrect": "lina3.mp3",
+                "audioWrong": "LinaFehler3Kontextfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Context",
+                    "Durch das Lachen während des Vorlesens wird eine Emotion vermittelt, die nicht zum Kontext der Geschichte passt."
+                ]
+            },
+            {
+                "text": "Du hast Recht! Ich kann es ebenfalls sehen! Ich zähle gleich leise bis drei und dann schnappe ich mir den Täter durch ein plötzliches Überraschungsmanöver. Du wartest hier hinten bis ich ihn komplett gesichert und gefangengenommen habe. Ich gebe dir Bescheid wenn alles sicher ist.",
+                "audioCorrect": "Kommissar6.mp3",
+                "audioWrong": "Kommissar6betonung.mp3",
+                "points": 10,
+                "error": [
+                    "Phrasing",
+                    "Error description to be done"
+                ]
+            },
+            {
+                "text": "Hr. Maier wartet einen günstigen Moment ab und fängt dann an, den Countdown für den Eingriff herunterzuzählen.",
+                "audioCorrect": "erzaehler08.mp3",
+                "audioWrong": "ErzaehlerFehler8Tempusfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Tense",
+                    "Das Wort ‘wartet’ wird im Präteritum vorgelesen, somit verändert sich die Zeitform der Geschichte."
+                ]
+            },
+            {
+                "text": "3…2…1… Jetzt!",
+                "audioCorrect": "Kommissar7.mp3",
+                "audioWrong": "Kommissar7fluessigkeit.mp3",
+                "points": 10,
+                "error": [
+                    "Smoothness",
+                    "Error description to be done"
+                ]
+            },
+            {
+                "text": "Hr. Maier stürzt sich nach vorne und rennt Richtung Vitrine, aus der die beiden die Geräusche gehört haben. Er hält seine Hand, bereit zum Angriff, an seinem Waffenholster.",
+                "audioCorrect": "erzaehler09.mp3",
+                "audioWrong": "ErzaehlerFehler9Semantikfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Semantic",
+                    "Das Wort ‘Hand’ wird während des Vorlesens durch das Wort Wand ersetzt."
+                ]
+            },
+            {
+                "text": "Plötzlich geht alles ganz schnell. Lina kann vom anderen Raum aus nur ein schnelles Handgemenge sehen. Hr. Maier stützt sich hinter die Vitrine und ruft dabei immer wieder.",
+                "audioCorrect": "erzaehler10.mp3",
+                "audioWrong": "ErzaehlerFehler10Fluessigkeit.mp3",
+                "points": 10,
+                "error": [
+                    "Smoothness",
+                    " Es wird stockend vorgelesen."
+                ]
+            },
+            {
+                "text": "Hände hoch Polizei!",
+                "audioCorrect": "Kommissar8.mp3",
+                "audioWrong": "Kommissar8betonung.mp3",
+                "points": 10,
+                "error": [
+                    "Phrasing",
+                    "Error description to be done"
+                ]
+            },
+            {
+                "text": "Nach einigen Sekunden Lärm und einem Hin und Her sitzt Herr Maier auf dem Rücken eines Mannes, hält mit einer Hand dessen Handgelenke fest und greift nach seinen Handschellen.",
+                "audioCorrect": "erzaehler11.mp3",
+                "audioWrong": "ErzaehlerFehler11Semantikfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Semantic",
+                    "Das Wort ‘einem’ wird durch falsch angeglichen. Hierdurch entsteht ein falscher Satzbau"
+                ]
+            },
+            {
+                "text": "Da habe ich doch den Übeltäter! Sie sind festgenommen. Sie haben das Recht zu schweigen alles was Sie sagen kann nun gegen Sie verwendet werden.",
+                "audioCorrect": "Kommissar9.mp3",
+                "audioWrong": "Kommissar9semantik.mp3",
+                "points": 10,
+                "error": [
+                    "Semantic",
+                    "Error description to be done"
+                ]
+            },
+            {
+                "text": "Nachdem der Polizeikommissar den Verbrecher fixiert hat, ruft er Lina zu sich.",
+                "audioCorrect": "erzaehler12.mp3",
+                "audioWrong": "ErzaehlerFehler12Tempusfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Tense",
+                    "Die Zeitform des Verbs ‘fixieren’ wurde verändert."
+                ]
+            },
+            {
+                "text": "Lina ich habe alles gesichert. Du kannst hier hinkommen ich habe den Übeltäter mit Handschellen erwischt.",
+                "audioCorrect": "Kommissar10.mp3",
+                "audioWrong": "Kommissar10syntax.mp3",
+                "points": 10,
+                "error": [
+                    "Syntactic",
+                    "Error description to be done"
+                ]
+            },
+            {
+                "text": "Das sah extrem gefährlich aus- ein richtiges Handgemenge!",
+                "audioCorrect": "lina4.mp3",
+                "audioWrong": "LinaFehler4Betonungsfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Phrasing",
+                    "Der Satz wird monoton vorgelesen und dementsprechend nicht ausreichend betont."
+                ]
+            },
+            {
+                "text": "Lina tritt näher an Hr. Maier und den am Boden liegenden Dieb. Hr. Maier kniet auf dem Rücken des Mannes und hält seine verbundenen Hände fest.",
+                "audioCorrect": "erzaehler13.mp3",
+                "audioWrong": "ErzaehlerFehler13Tempusfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Semantic",
+                    "Durch das Hinzufügen eines Wortes wird der Satzbau verändert."
+                ]
+            },
+            {
+                "text": "Als Lina näher tritt entweicht ihr ein Schrei. Man sieht, wie die Farbe aus ihrem Gesicht weicht und sich ein schockierter Blick auf ihrem Gesicht breit macht.",
+                "audioCorrect": "erzaehler14.mp3",
+                "audioWrong": "ErzaehlerFehler14Semantikfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Semantic",
+                    "Das Wort ‘Gesicht’ wird während des Vorlesens durch das Wort ‘Gewicht’ ersetzt. Dies verändert den Kontext der Geschichte."
+                ]
+            },
+            {
+                "text": "Herr Berger?! Was machen Sie denn hier? Ich habe Sie doch heute Morgen noch am Briefkasten gesehen. Herr Maier, ich kenne diesen Mann. Das ist mein Nachbar, Herr Berger. Wir kennen uns seit Jahren. Ich kann es nicht glauben, dass Sie so etwas tun!",
+                "audioCorrect": "lina5.mp3",
+                "audioWrong": "LinaFehler5Kontextfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Context",
+                    "Durch das Lachen während des Vorlesens wird eine Emotion vermittelt, die nicht zum Kontext der Geschichte passt."
+                ]
+            },
+            {
+                "text": "Lina? Ach du je ist das peinlich.",
+                "audioCorrect": "Taeter1.mp3",
+                "audioWrong": "Taeter1betonung.mp3",
+                "points": 10,
+                "error": [
+                    "Phrasing",
+                    "Error description to be done"
+                ]
+            },
+            {
+                "text": "Hr. Maier versteht langsam, dass Lina und der Verbrecher sich kennen. Man kann seinem Gesichtsausdruck entnehmen, dass auch er schockiert ist.",
+                "audioCorrect": "erzaehler15.mp3",
+                "audioWrong": "ErzaehlerFehler15Fluessigkeit.mp3",
+                "points": 10,
+                "error": [
+                    "Smoothness",
+                    "Das Wort ‘Gesichtsausdruck’ wird stockend vorgelesen."
+                ]
+            },
+            {
+                "text": "So, das ist also dein Nachbar? So etwas habe ich in meinen etlichen Berufsjahren noch nicht erlebt.",
+                "audioCorrect": "Kommissar11.mp3",
+                "audioWrong": "Kommissar11zeit.mp3",
+                "points": 10,
+                "error": [
+                    "Tense",
+                    "Error description to be done"
+                ]
+            },
+            {
+                "text": "Hr. Maier zieht den Einbrecher, der am Rücken mit Handschellen gefesselt ist, hoch. Man sieht den Schock in den Gesichtern aller Beteiligten.",
+                "audioCorrect": "erzaehler16.mp3",
+                "audioWrong": "ErzaehlerFehler16Fluessigkeit.mp3",
+                "points": 10,
+                "error": [
+                    "Smoothness",
+                    "Das Wort ‘Handschellen’ wird stockend vorgelesen."
+                ]
+            },
+            {
+                "text": "Herr Berger ich werde Sie nun zum Polizeiwagen bringen und sie über ihre Rechte informieren. Wir werden dann zusammen zur Wache fahren und weiteres Vorgehen besprechen. Bitte wehren Sie sich nicht und machen das Prozedere für uns angenehmer.",
+                "audioCorrect": "Kommissar12.mp3",
+                "audioWrong": "Kommissar12betonung.mp3",
+                "points": 10,
+                "error": [
+                    "Phrasing",
+                    "Error description to be done"
+                ]
+            },
+            {
+                "text": "Der Polizist verfrachtet ihn in das Auto und dreht sich abschließend zu Lina.",
+                "audioCorrect": "erzaehler17.mp3",
+                "audioWrong": "ErzaehlerFehler17Semantikfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Semantic",
+                    "Das Wort ‘verfrachtet’ wurde falsch ausgesprochen."
+                ]
+            },
+            {
+                "text": "Was ein aufregender erster Tag, oder Lina? (lacht) Freust du dich nach dem Trubel überhaupt noch auf deine restlichen Praktikumstage?",
+                "audioCorrect": "Kommissar13.mp3",
+                "audioWrong": "Kommissar13zeit.mp3",
+                "points": 10,
+                "error": [
+                    "Tense",
+                    "Error description to be done"
+                ]
+            },
+            {
+                "text": "Natürlich Herr Maier, genau das ist doch das aufregende an dem Beruf. Wenn ich in Zukunft weiterhin solchen Verbrechern wie meinem Nachbarn das Handwerk legen kann, dann bin ich zufrieden. Man weiß nie was einem beim nächsten Polizeiarbeitstag erwartet. (aufgeregt) Das ist spannender als ein Krimifilm!",
+                "audioCorrect": "lina6.mp3",
+                "audioWrong": "LinaFehler6Syntaxfehler.mp3",
+                "points": 10,
+                "error": [
+                    "Syntactic",
+                    "Durch das Hinzufügen von Wörtern entsteht ein falscher Satzbau."
+                ]
+            }
+        ],
+        "quiz": [{
+                "question": "Warum ist Lina bei der Polizei",
+                "points": 250,
+                "answers": [
+                    "sie besucht einen Freund",
+                    "sie arbeitet bei der Polizei",
+                    "sie macht ein Praktikum",
+                    "sie hat ein Vorstellungsgespräch"
+                ],
+                "correctAnswer": "2"
+            },
+            {
+                "question": "Wo wurde eingebrochen?",
+                "points": 250,
+                "answers": [
+                    "Im Einkaufszentrum",
+                    "In einem Restaurant",
+                    "Beim Juwellier",
+                    "In einer Villa"
+                ],
+                "correctAnswer": "2"
+            },
+            {
+                "question": "Wie heißt der Täter",
+                "points": 250,
+                "answers": [
+                    "Herr Berger",
+                    "Herr Maier",
+                    "Herr Kirch",
+                    "Herr Schmidt"
+                ],
+                "correctAnswer": "0"
+            },
+            {
+                "question": "Womit vergleicht Lina den erlebten Tag?",
+                "points": 250,
+                "answers": [
+                    "Mit einem Videospiel",
+                    "Mit Krimiroman",
+                    "Mit einem Krimifilm",
+                    "Mit einer Achterbahnfahrt"
+                ],
+                "correctAnswer": "2"
+            }
+        ],
+        "id": 2
+    },
+    {
+        "title": "Caution! Big waves",
+        "author": "Corrector Cat Team",
+        "language": "en-EN",
+        "starting": false,
+        "cost": 500,
+        "difficulty": "Medium",
+        "image": "surfwave.jpg",
+        "description": "Marc's first time surfing on ocean waves...",
+        "pointsNeededForQuiz": 100,
+        "textChunks": [{
+                "text": "Marc lived in the suburbs of Chicago. In the summertime, his family took trips to the beach, where he played in the waves.",
+                "audioCorrect": "Text1.mp3",
+                "audioWrong": "text1flow.mp3",
+                "points": 10,
+                "error": [
+                    "Smoothness",
+                    "The text was not read fluently."
+                ]
+            },
+            {
+                "text": "Sometimes he would ride a wave to the shore of the lake. He always looked forward to riding the waves. The bigger, the better! ",
+                "audioCorrect": "text2.mp3",
+                "audioWrong": "text2noerror.mp3",
+                "points": 10,
+                "error": [
+                    "Smoothness",
+                    "The text was not read fluently."
+                ]
+            },
+            {
+                "text": "One summer, Marc went to visit his cousin in California. There, he was introduced to the pacific ocean. This was the first time Marc experienced anything besides the enormous lake in Chicago.",
+                "audioCorrect": "text3.mp3",
+                "audioWrong": "text3flow.mp3",
+                "points": 10,
+                "error": [
+                    "Smoothness",
+                    "The text was not read fluently."
+                ]
+            },
+            {
+                "text": "He mistakenly believed that the lake and the ocean were the same in terms of power. When Marcs aunt told him to be careful, he laughed and assured her that he was an excellent swimmer.",
+                "audioCorrect": "text4.mp3",
+                "audioWrong": "text4flow.mp3",
+                "points": 10,
+                "error": [
+                    "Smoothness",
+                    "The text was not read fluently."
+                ]
+            },
+            {
+                "text": "She cautioned him that the ocean was rough and peerless. But Marc just shrugged. He knew how to surf, didn’t he? ",
+                "audioCorrect": "text5.mp3",
+                "audioWrong": "text5semantik.mp3",
+                "points": 10,
+                "error": [
+                    "Semantic",
+                    "Instead of ‚surf‘, ‚swim‘ was read.."
+                ]
+            },
+            {
+                "text": "Marc heard the gigantic wave before he saw it. He turned around and opened his mouth in horror.",
+                "audioCorrect": "text6.mp3",
+                "audioWrong": "text6noerror.mp3",
+                "points": 10,
+                "error": [
+                    "no error",
+                    "no error."
+                ]
+            },
+            {
+                "text": "This wave was mammoth, and it was thundering directly toward him. ",
+                "audioCorrect": "text7noerror.mp3",
+                "audioWrong": "text7.mp3",
+                "points": 10,
+                "error": [
+                    "Semantic",
+                    "The‘ was read instead of ‚This‘."
+                ]
+            },
+            {
+                "text": "Marc took a deep breath and cringed beneath the water. The wave crashed over him and carried him up to shore",
+                "audioCorrect": "text8.mp3",
+                "audioWrong": "text8flow.mp3",
+                "points": 10,
+                "error": [
+                    "Smoothness",
+                    "The text was not read fluently."
+                ]
+            },
+            {
+                "text": "Marc gained a new respect for the ocean after that.",
+                "audioCorrect": "text9.mp3",
+                "audioWrong": "text9noerror.mp3",
+                "points": 10,
+                "error": [
+                    "Smoothness",
+                    "The text was not read fluently."
+                ]
+            }
+        ],
+        "quiz": [{
+                "question": "Where did Marc grow up?",
+                "points": 250,
+                "answers": [
+                    "California",
+                    "Florida",
+                    "Chigaco",
+                    "New York"
+                ],
+                "correctAnswer": "2"
+            },
+            {
+                "question": "Who told Marc to be careful with the waves?",
+                "points": 250,
+                "answers": [
+                    "His mother",
+                    "His cousin",
+                    "his aunt",
+                    "his friend"
+                ],
+                "correctAnswer": "2"
+            },
+            {
+                "question": "What was Marc introduced to in California?",
+                "points": 250,
+                "answers": [
+                    "The lake",
+                    "The North sea",
+                    "The Atlantic Ocean",
+                    "the Pacific Ocean"
+                ],
+                "correctAnswer": "3"
+            }
+        ],
+        "id": 3
+    }
+]

@@ -1,0 +1,9 @@
+<div [ngClass]="{'msg-active': feedbackMessage.bShow}" class="msg-bg">
+    <div class="msg shadow warning" [ngClass]="
+        {'info': feedbackMessage.messageType === 0,
+        'success': feedbackMessage.messageType === 1,
+        'warning': feedbackMessage.messageType === 2,
+        'error': feedbackMessage.messageType === 3}">
+        <h3>{{ feedbackMessage.message }}</h3>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="wave-container">
+    <div class="ml-5 mr-5">
+        <h3 class="pt-5 ml-5">Quiz: {{book.title}}</h3>
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <div class="d-none d-lg-block col-lg-2"></div>
+            <div class="col-md-12 col-lg-8 container bg-light border rounded shadow">
+                <h3 class="text-center text-gamelet p-3">{{currentQuestion.question}}</h3>
+            </div>
+            <div class="d-none d-lg-block col-lg-2"></div>
+        </div>
+        <div class="row mt-4">
+            <div class="d-none d-lg-block col-lg-2"></div>
+            <div class="col-md-12 pl-5 row col-lg-8 container">
+                <div *ngFor="let answer of currentQuestion.answers; index as i;" class="col-6 p-3">
+                    <h5 class="p-2 text-center answer-button rounded shadow" id="answer-{{i}}" (click)="answerQuestion(i)">{{answer}}</h5>
+                </div>
+            </div>
+            <div class="d-none d-lg-block col-lg-2"></div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="d-none d-lg-block col-lg-4">
+            <img src="../../assets/img/kitty-avatars/svg/027-kitty-23.svg" width="250" height="250" class="float-right">
+        </div>
+        <div class="col-md-12 col-lg-4">
+            <h4 id="coin-pool" class="text-center text-secondary p-3">Earned credits: {{earnedCoins}}</h4>
+        </div>
+        <div class="d-none d-lg-block col-lg-4">
+            <img src="../../assets/img/kitty-avatars/svg/009-kitty-40.svg" width="220" height="220" class="float-right pb-5">
+        </div>
+    </div>
+
+    <div class="wave d-md-block d-lg-block pb-1"></div>
+</div>
+
+<ng-template #endModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title text-gamelet" id="modal-basic-title">
+            Quiz finished!
+        </h4>
+    </div>
+    <div class="modal-body text-center">
+        <p class="font-weight-bold">Thank you for playing!</p>
+        You earned {{earnedCoins}} Credits!
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.close('Skip click')">Ok</button>
+    </div>
+</ng-template>

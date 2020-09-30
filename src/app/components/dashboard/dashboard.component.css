@@ -1,0 +1,15 @@
+.dashboard-card {
+    min-height: 150px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dashboard-card:hover {
+    transform: scale(1.01);
+    transition-duration: 0.05s;
+    cursor: pointer;
+}

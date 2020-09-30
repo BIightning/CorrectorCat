@@ -1,0 +1,43 @@
+<h1 class="mb-0 pb-0">User Management</h1>
+<div class="window container-fluid">
+    <div class="user-tile heading-tile">
+        <ul class="detail-list">
+            <li class="heading-detail"><button [routerLink]="['/admin/usereditor/new']" class="create-button"><i class="fa fa-user-plus"></i> Create User</button></li>
+            <li class="heading-detail"><input type="text" #searchInput placeholder="Search" (input)="filterItem(searchInput.value)"></li>
+        </ul>
+    </div>
+    <ng-container *ngFor="let user of filteredUsers; even as isEven">
+        <div [ngClass]="{'uneven-tile': !isEven}" class="user-tile">
+            <ul class="detail-list">
+                <li class="detail">
+                    <h4>{{user.name}}</h4>
+                </li>
+                <li class="detail">
+                    <h4>{{user.email}}</h4>
+                </li>
+                <li class="detail">
+                    <h4 *ngIf="!user.isAdmin">Level: {{user.completedLevels}}</h4>
+                    <h4 class="text-success" *ngIf="user.isAdmin">Administrator</h4>
+                </li>
+                <li class="detail">
+                    <h4><a class="user-btn"><i class="fa fa-edit"></i></a><a (click)="onDeleteClick(user)" class="user-btn"><i class="text-danger ml-1 fa fa-trash"></i></a></h4>
+                </li>
+            </ul>
+        </div>
+    </ng-container>
+
+
+</div>
+<app-loading-animation *ngIf="!this.loaded"></app-loading-animation>
+
+<div [ngClass]="{'modal-active': bShowModal}" class="admin-modal-bg">
+    <div class="admin-modal shadow">
+        <h3>Do you really want to delete the user "{{currentUser?.name}}"? You can't restore the data afterwards!</h3>
+        <div class="row mt-4">
+            <div class="col-sm-1 col-md-4"></div>
+            <div class="col-sm-5 col-md-2"><button (click)="hideModal()" class="shadow m-1 yes-button admin-button">Yes</button></div>
+            <div class="col-sm-5 col-md-2"><button (click)="hideModal()" class="shadow m-1 no-button admin-button">No</button></div>
+            <div class="col-sm-1 col-md-4"></div>
+        </div>
+    </div>
+</div>

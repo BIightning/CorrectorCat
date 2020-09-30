@@ -1,0 +1,162 @@
+.window {
+    padding: 0;
+    background: rgba(221, 221, 221, 0.35);
+    box-shadow: 0 1rem 1rem rgba(0, 0, 0, .15);
+    backdrop-filter: blur(5px);
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    transition: 0.1s;
+    flex-direction: column;
+}
+
+.chunk-wrapper {
+    background: rgba(221, 221, 221, 0.5);
+    border-radius: 14px;
+    width: 95%;
+}
+
+.chunk-tile {
+    background: rgba(221, 221, 221, 0.65);
+    border-radius: 14px;
+    width: 95%;
+}
+
+.error-tile {
+    background: rgb(230, 230, 230);
+    border-radius: 14px;
+    width: 95%;
+}
+
+.heading-tile {
+    padding: 5px;
+    background: rgba(129, 129, 129, 0.4);
+}
+
+.input-heading {
+    text-align: left;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.expand-btn {
+    padding: 8px;
+    background: rgba(129, 129, 129, 0.4);
+    border-radius: 14px;
+    border: none;
+    transition: 0.2s;
+}
+
+.expand-btn:hover {
+    cursor: pointer;
+    background: rgba(129, 129, 129, 0.4);
+    transform: scale(0.9);
+    border-radius: 14px;
+}
+
+input {
+    width: 95%;
+    text-align: left;
+    padding: 14px;
+    border: 0;
+    background: rgba(68, 68, 68, 0.151);
+    border: none;
+    border-radius: 14px;
+    outline: none;
+    font-size: 20px;
+    transition: 0.25s;
+}
+
+input:focus {
+    width: 98%;
+    color: white;
+    background-color: rgba(68, 68, 68, 0.356);
+    border: none;
+}
+
+select {
+    width: 95%;
+    text-align: left;
+    padding: 14px;
+    border: 0;
+    background: rgba(68, 68, 68, 0.151);
+    border: none;
+    border-radius: 14px;
+    outline: none;
+    font-size: 20px;
+    transition: 0.25s;
+}
+
+select:focus {
+    width: 95%;
+    color: white;
+    background-color: rgba(68, 68, 68, 0.356);
+    border: none;
+}
+
+textarea {
+    width: 95%;
+    text-align: left;
+    padding: 14px;
+    border: 0;
+    background: rgba(68, 68, 68, 0.151);
+    border: none;
+    border-radius: 14px;
+    outline: none;
+    font-size: 20px;
+    transition: 0.25s;
+}
+
+textarea:focus {
+    width: 98%;
+    color: white;
+    background-color: rgba(68, 68, 68, 0.356);
+    border: none;
+}
+
+.check {
+    width: 2%;
+}
+
+.check:focus {
+    width: 2%;
+}
+
+.trash-btn:hover {
+    cursor: pointer;
+    background: rgba(129, 129, 129, 0.4);
+    transform: scale(0.9);
+    border-radius: 14px;
+}
+
+.trash-btn:hover i {
+    transition: 0.2s;
+    transform: scale(0.9);
+}
+
+.user-tile {
+    border-radius: 14px 14px 0 0;
+    width: 100%;
+    backdrop-filter: blur(3px);
+    /* border-radius: 14px;*/
+}
+
+.create-button {
+    width: 50%;
+    padding: 12px;
+    display: block;
+    text-align: center;
+    background-color: rgba(4, 216, 4, 0.534);
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-weight: 700;
+    transition: 0.25s;
+}
+
+.create-button:hover {
+    width: 55%;
+    background-color: rgba(4, 216, 4, 0.904);
+}

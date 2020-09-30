@@ -1,0 +1,31 @@
+<div *ngIf="widgetID !== -1" [ngSwitch]="widgetID" class="container-fluid">
+    <ng-container *ngSwitchCase="0">
+        <div class="center-content container-fluid">
+            <button (click)="goGameView()" class="btn btn-lg btn-primary">
+                <h2>Start</h2>
+            </button>
+        </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="1">
+
+    </ng-container>
+    <ng-container *ngSwitchCase="2">
+        <div class="center-content container-fluid">
+            <img class="rounded shadow" src="../../../assets/img/virus_NOLICENSE.jpg" width="30%">
+        </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="3">
+        <app-quiz-widget [quiz]="widgetData?.quiz" (succede)="onQuizSuccede()"></app-quiz-widget>
+    </ng-container>
+    <ng-container *ngSwitchCase="4">
+        <div class="center-content container-fluid mt-3">
+            <button (click)="playAudio()" class="shadow btn btn-dark secondaryBtns"><span class="fa fa-lg fa-volume-up"></span></button>
+        </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="5">
+        <div class="center-content container-fluid mt-3">
+            <app-world-canvas></app-world-canvas>
+        </div>
+
+    </ng-container>
+</div>

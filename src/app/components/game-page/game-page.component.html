@@ -1,0 +1,29 @@
+<div class="page" [ngClass]="{'gamemenu': bMenuOpen}">
+    <span (click)="toggleMenu(); swapCat();" class="menu_toggle">
+        <i class="menu_open fa fa-bars fa-lg"></i>
+        <i class="menu_close fa fa-times fa-lg"></i>
+    </span>
+    <app-sidebar></app-sidebar>
+    <main class="content">
+        <app-navbar></app-navbar>
+        <div (click)="closeMenu()" class="content_inner bg-white m-0 p-0 shadow">
+            <div class="row p-0" id="body-row">
+                <div class="col p-0 m-0" id="content-wrapper">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <div class="container-fluid rounded">
+                    <h5 class="text-center">
+                        <a class="footer-link text-light">Legal Disclosure </a> <a class="ml-5 footer-link text-light mr-5">Privacy policy</a> <a class="footer-link text-light">Contacts</a>
+                    </h5>
+                    <img src="{{imgPath}}" width="300" height="300" class="mx-auto p-5 d-block">
+                </div>
+            </div>
+            <div class="col-3"></div>
+        </div>
+    </main>
+</div>
