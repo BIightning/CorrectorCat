@@ -20,7 +20,7 @@
                     <h4>Target: {{tutorial.targetTextTitle}}</h4>
                 </li>
                 <li class="detail">
-                    <h4><a class="user-btn"><i class="fa fa-edit"></i></a><a class="user-btn"><i (click)="onDeleteClick(tutorial)" class="text-danger ml-1 fa fa-trash"></i></a></h4>
+                    <h4><a [routerLink]="['/admin/tutorialeditor', tutorial._id]" class="user-btn"><i class="fa fa-edit"></i></a><a class="user-btn"><i (click)="onDeleteClick(tutorial)" class="text-danger ml-1 fa fa-trash"></i></a></h4>
                 </li>
             </ul>
         </div>

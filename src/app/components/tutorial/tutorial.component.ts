@@ -1,6 +1,6 @@
 import { TutorialSequenceService } from './../../services/tutorial-sequence.service';
 import { TutorialSequence } from './../../../assets/classes/tutorialSequence';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
@@ -9,6 +9,8 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['./tutorial.component.css']
 })
 export class TutorialComponent implements OnInit {
+  @Input("tutorial") inputTutorial: TutorialSequence;
+  @Input("preview") bIsPreview: boolean;
   currLevel: number;
   currentSlide: number = 0;
   bCanContinue: boolean = true;
@@ -18,17 +20,23 @@ export class TutorialComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.inputTutorial) {
+      this.sequence = this.inputTutorial;
+      return;
+    }
     document.getElementById("scaling-bg").classList.add("paused");
     this.route.params.subscribe(param => {
-      this.currLevel = param.level;
-      document.getElementById("scaling-bg").classList.add("level-" + this.currLevel.toString());
+      if (param) {
+        this.currLevel = param.level;
+        document.getElementById("scaling-bg").classList.add("level-" + this.currLevel.toString());
 
-      this.tutorialSequenceService.getSequence(this.currLevel).subscribe(res => {
-        document.getElementById("scaling-bg").classList.remove("paused");
-        this.removeStartEffect();
-        this.sequence = res;
-        console.log(this.sequence.targetTextTitle);
-      });
+        this.tutorialSequenceService.getSequence(this.currLevel).subscribe(res => {
+          document.getElementById("scaling-bg").classList.remove("paused");
+          this.removeStartEffect();
+          this.sequence = res;
+          console.log(this.sequence.targetTextTitle);
+        });
+      }
 
     });
   }
@@ -42,16 +50,15 @@ export class TutorialComponent implements OnInit {
 
   clickBack() {
     this.currentSlide--;
-
   }
 
-  allowContinue(){
-    this.bCanContinue= true;
+  allowContinue() {
+    this.bCanContinue = true;
   }
 
   clickNext() {
     this.currentSlide++;
-    if(this.sequence.slides[this.currentSlide].widgetID != -1)
+    if (this.sequence.slides[this.currentSlide].widgetID != -1 && !this.bIsPreview)
       this.bCanContinue = false;
   }
 }

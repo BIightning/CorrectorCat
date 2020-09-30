@@ -96,8 +96,24 @@ async function createTutorial(data) {
     });
 }
 
+async function deleteTutorial(id) {
+    return new Promise(async(resolve, reject) => {
+        let { error } = idValidation(id);
+        if (error)
+            reject({ code: 400, msg: error.details[0].message });
+        await Tutorial
+            .findByIdAndRemove(id)
+            .then(result => resolve(result))
+            .catch((reason) => {
+                console.log(reason);
+                reject({ code: 500, msg: "internal server error" });
+            });
+    })
+}
+
 exports.createTutorial = createTutorial;
 exports.updateTutorial = updateTutorial;
+exports.deleteTutorial = deleteTutorial;
 exports.getTutorials = getTutorials;
 exports.getTutorialById = getTutorialById;
 exports.getTutorialByPosition = getTutorialByPosition;

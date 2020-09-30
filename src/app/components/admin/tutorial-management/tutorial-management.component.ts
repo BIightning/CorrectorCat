@@ -49,8 +49,8 @@ export class TutorialManagementComponent implements OnInit {
  
   onDeleteConfirm(): void {
     this.tutorialService.deleteSequence(this.currentTutorial._id).subscribe(
-      res => { },
-      err => { this.showFeedback(err.message, MessageType.Error)}
+      res => { this.showFeedback(`Deleted tutorial "${res.tutorialTitle}"`, MessageType.Success)},
+      err => { this.showFeedback(err.error, MessageType.Error)}
     )
   }
  

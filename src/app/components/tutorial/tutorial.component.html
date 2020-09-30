@@ -1,4 +1,5 @@
 <div class="tutorial-wrapper bg-info position-relative">
+    <h2 *ngIf="bIsPreview" class="pt-2 pl-2 position-absolute left-0 top-0 text-white">Slide {{currentSlide + 1}}</h2>
     <span id="scaling-bg" class="intro-animation"></span>
     <!--NgVar is a custom Directive to shorten a variable name-->
     <div *ngVar="sequence.slides[currentSlide] as slide" class="fade-in slide-container" id="slide-{{currentSlide}}">
@@ -9,17 +10,17 @@
                     <p class="text-center tutorial-text bg-white p-3 rounded shadow d-inline-block slide-upper" [innerHTML]="slide.slideText.german"></p>
                 </div>
                 <div class="d-flex mt-3 justify-content-center position-relative">
-                    <img src="../../assets/img/kitty-avatars/svg/{{slide.catImage}}.svg" width="15%" height="15%" class="mt-4" id="welcome-cat">
+                    <img src="../../assets/img/kitty-avatars/svg/{{slide.catImage}}" width="15%" height="15%" class="mt-4" id="welcome-cat">
                 </div>
             </ng-container>
             <ng-container *ngSwitchCase="1">
                 <div class="row">
                     <div class="col-md-3">
-                        <img src="../../assets/img/kitty-avatars/svg/{{slide.catImage}}.svg" class="{{slide.catAnimation}} mt-4">
+                        <img src="../../assets/img/kitty-avatars/svg/{{slide.catImage}}" class="{{slide.catAnimation}} mt-4">
                     </div>
                     <div class="col-md-9">
                         <p class="text-center full-width tutorial-text bg-white rounded p-3 shadow slide-right" [innerHTML]="slide.slideText.german"></p>
-                        <app-tutorial-widgets (allowContinue)="allowContinue()" [widgetData]="slide.widgetData" [widgetID]="slide.widgetID" [targetText]="sequence.targetTextTitle"></app-tutorial-widgets>
+                        <app-tutorial-widgets [isPreview]="bIsPreview" (allowContinue)="allowContinue()" [widgetData]="slide.widgetData" [widgetID]="slide.widgetID" [targetText]="sequence.targetTextTitle"></app-tutorial-widgets>
                     </div>
                 </div>
             </ng-container>
@@ -27,11 +28,11 @@
                 <div class="row">
                     <div class="col-md-9">
                         <p class="text-center full-width tutorial-text bg-white p-3 rounded shadow d-block slide-left" [innerHTML]="slide.slideText.german"></p>
-                        <app-tutorial-widgets (allowContinue)="allowContinue()" [widgetID]="slide.widgetID" [targetText]="sequence.targetTextTitle"></app-tutorial-widgets>
+                        <app-tutorial-widgets [isPreview]="bIsPreview" (allowContinue)="allowContinue()" [widgetID]="slide.widgetID" [targetText]="sequence.targetTextTitle"></app-tutorial-widgets>
                     </div>
                     <div class="col-md-3">
                         <div class=" container-fluid cat-right">
-                            <img src="../../assets/img/kitty-avatars/svg/{{slide.catImage}}.svg" class="mt-4 {{slide.catAnimation}}">
+                            <img [isPreview]="bIsPreview" src="../../assets/img/kitty-avatars/svg/{{slide.catImage}}" class="mt-4 {{slide.catAnimation}}">
                         </div>
                     </div>
                 </div>

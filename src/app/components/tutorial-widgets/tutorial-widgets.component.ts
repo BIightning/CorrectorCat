@@ -11,6 +11,7 @@ export class TutorialWidgetsComponent implements OnInit {
   @Input("widgetID") widgetID: number;
   @Input("widgetData") widgetData: any;
   @Input("targetText") targetTextTitle: number;
+  @Input("isPreview") bIsPreview: boolean;
   @Output("allowContinue") allowContinue = new EventEmitter();
 
   audioplayer: HTMLAudioElement;
@@ -27,7 +28,8 @@ export class TutorialWidgetsComponent implements OnInit {
   goGameView(){
     console.log(this.widgetID);
     console.log(this.targetTextTitle);
-    this.router.navigate(["/game/game-view/" +this.targetTextTitle +"/"]);
+    if(!this.bIsPreview)
+      this.router.navigate(["/game/game-view/" +this.targetTextTitle +"/"]);
   }
 
   emitAllowContinue() {

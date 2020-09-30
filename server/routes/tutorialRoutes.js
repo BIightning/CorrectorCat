@@ -38,6 +38,12 @@ router
             .updateTutorial(req.params.id, req.body)
             .then(result => res.status(200).send(result))
             .catch(reason => res.status(reason.code).send(reason.msg));
+    })
+    .delete([auth, adminPermission], async(req, res) => {
+        await tutorialController
+            .deleteTutorial(req.params.id)
+            .then(result => res.status(200).send(result))
+            .catch(reason => res.status(reason.code).send(reason.msg));
     });
 
 module.exports = router;
