@@ -17,7 +17,6 @@ router
             .then(result => res.status(200).send(result))
             .catch(reason => res.status(reason.code).send(reason.msg));
     });
-
 router
     .route('/bytitle/:title')
     .get(async(req, res) => {
@@ -26,7 +25,6 @@ router
             .then(result => res.status(200).send(result))
             .catch(reason => res.status(reason.code).send(reason.msg));
     });
-
 router
     .route('/:id')
     .get(async(req, res) => {
