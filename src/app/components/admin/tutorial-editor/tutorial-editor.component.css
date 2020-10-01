@@ -165,6 +165,27 @@ textarea:focus {
     width: 200px;
     height: 200px;
     border-radius: 10px;
+    transform: scale(0.85);
+    transition: all 0.2s;
+}
+
+.scene-image:hover {
+    cursor: pointer;
+    transform: scale(0.95);
+    transition: all 0.2s;
+}
+
+input[type=radio] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+input[type=radio]:checked+.scene-image {
+    border: 7px solid rgb(255, 145, 0);
+    transition: all 0.2s;
+    transform: scale(1.03);
 }
 
 .cat-land {

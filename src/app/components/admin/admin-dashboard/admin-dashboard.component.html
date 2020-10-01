@@ -11,7 +11,7 @@
             <h2 *ngIf="this.gameletConnected; else gameletDisconnected" class="text-success full-width">Connected</h2>
             <ng-template #gameletDisconnected>
                 <h2 class="text-danger full-width">Disconnected</h2>
-                <h5 class="text-danger full-width">No user login possible!</h5>
+                <h5 class="text-danger full-width">No remote login possible!</h5>
             </ng-template>
         </div>
         <div [ngClass]="this.dbConnected ? 'tile-green' : 'tile-yellow heartbeat'" class="tile">
@@ -31,7 +31,7 @@
     <br><br><br><br>
     <h2>User Management</h2>
     <div class="row">
-        <div class="tile dynamic-tile">
+        <div [routerLink]="['/admin/usermanagement']" class="tile dynamic-tile">
             <i class="fa fa-users fa-2x"></i>
             <p>User Overview</p>
         </div>

@@ -1,9 +1,8 @@
 <div class="tutorial-wrapper bg-info position-relative">
-    <h2 *ngIf="bIsPreview" class="pt-2 pl-2 position-absolute left-0 top-0 text-white">Slide {{currentSlide + 1}}</h2>
+    <h2 *ngIf="bIsPreview" class="pt-2 pl-2 position-absolute left-0 top-0 text-white">[Slide {{currentSlide + 1}} PREVIEW] </h2>
     <span id="scaling-bg" class="intro-animation"></span>
     <!--NgVar is a custom Directive to shorten a variable name-->
     <div *ngVar="sequence.slides[currentSlide] as slide" class="fade-in slide-container" id="slide-{{currentSlide}}">
-        <h2 class="text-center font-weight-bold text-gamelet mt-3"><span *ngIf="!!slide.slideTitle">{{slide.slideTitle}}</span></h2>
         <ng-container [ngSwitch]="slide.sceneType">
             <ng-container *ngSwitchCase="0">
                 <div class="container-fluid center-content">

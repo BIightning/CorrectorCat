@@ -33,7 +33,7 @@
             <div class="col-4">
             </div>
         </div>
-        <div class="chunk-tile shadow" *ngFor="let slide of tutorial?.slides; let i=index" [ngClass]="{'pb-2 pl-1': slideExtended[i]}">
+        <div class="chunk-tile shadow" *ngFor="let slide of tutorial?.slides; let i=index" [ngClass]="{'pb-4 pl-1': slideExtended[i]}">
             <h3 class="input-heading m-0 mt-2 ">
                 <button type="button" (click)="slideExtended[i]= !slideExtended[i] " class="expand-btn fa text-white " [ngClass]="{ 'fa-chevron-right': !slideExtended[i], 'fa-chevron-down': slideExtended[i]} "></button>
                 <span>&nbsp; Slide {{i +1}}</span>
@@ -47,33 +47,33 @@
                 <div class="row pt-2 pl-5 pr-5">
                     <div class="col-md-3">
                         <div class="p-1 rounded d-flex justify-content-center align-items-center" style="flex-direction: column;">
-                            <label for="scenetype">
-                                <img class="scene-image shadow" src="../../../../assets/img/cat-center.png">
+                            <label>
                                 <input [(ngModel)]="slide.sceneType" [checked]="slide.sceneType === 0" type="radio" [value]="0" name="scenetype">
+                                <img class="scene-image shadow" src="../../../../assets/img/cat-center.png">
                             </label>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="p-1 rounded d-flex justify-content-center align-items-center" style="flex-direction: column;">
-                            <label for="scenetype">
-                                <img class="scene-image shadow" src="../../../../assets/img/cat-left.png">
+                            <label>
                                 <input [(ngModel)]="slide.sceneType" [checked]="slide.sceneType === 1" type="radio" [value]="1" name="scenetype">
+                                <img class="scene-image shadow" src="../../../../assets/img/cat-left.png">
                             </label>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="p-1 rounded d-flex justify-content-center align-items-center" style="flex-direction: column;">
-                            <label for="scenetype">
-                                <img class="scene-image shadow" src="../../../../assets/img/cat-right.png">
+                            <label>
                                 <input [(ngModel)]="slide.sceneType" [checked]="slide.sceneType === 2" type="radio" [value]="2" name="scenetype">
+                                <img class="scene-image shadow" src="../../../../assets/img/cat-right.png">
                             </label>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="p-1 rounded d-flex justify-content-center align-items-center" style="flex-direction: column;">
-                            <label for="scenetype">
-                                <img class="scene-image shadow" src="../../../../assets/img/widget-only.png">
+                            <label>
                                 <input [(ngModel)]="slide.sceneType" [checked]="slide.sceneType === 3" type="radio" [value]="3" name="scenetype">
+                                <img class="scene-image shadow" src="../../../../assets/img/widget-only.png">
                             </label>
                         </div>
                     </div>
@@ -111,7 +111,7 @@
                     <h5 class="input-heading mt-2">&nbsp;Greek:</h5>
                     <input [(ngModel)]="slide.slideText.greek" name="title" type="text">
                 </div>
-                <h4 class="input-heading mt-2">&nbsp;Optional Widget:</h4>
+                <h4 class="input-heading mt-2">&nbsp;Widget:</h4>
                 <select name="catImage" type="string" [(ngModel)]="slide.widgetID" placeholder="none" required>
                     <option *ngFor="let widget of widgets" [ngValue]="widget.id" [selected]="widget.id === slide.widgetID">{{widget.name}}</option>
                 </select>
@@ -170,7 +170,7 @@
 <div [ngClass]="{'modal-active': bShowModal}" class="admin-modal-bg">
     <div *ngIf="tutorial?.slides" class="admin-modal shadow">
         <h3>
-            Do you really want to delete chunk {{currentSlide +1}}?
+            Do you really want to delete Slide {{currentSlide +1}}: "{{tutorial?.slides[currentSlide]?.slideTitle}}"?
         </h3>
         <div class="row mt-4">
             <div class="col-sm-1 col-md-4"></div>

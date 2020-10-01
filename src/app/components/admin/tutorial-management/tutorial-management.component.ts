@@ -22,11 +22,15 @@ export class TutorialManagementComponent implements OnInit {
   ngOnInit(): void {
     this.tutorials = [];
     this.filteredTutorials = [];
+    this.updateView();
+  }
+
+  updateView(): void {
     this.tutorialService.getAllSequences().subscribe(res => {
       this.tutorials = res;
       this.copyOriginal();
       this.loaded = true;
-    })
+    });
   }
 
   filterItem(value) {
@@ -49,7 +53,10 @@ export class TutorialManagementComponent implements OnInit {
  
   onDeleteConfirm(): void {
     this.tutorialService.deleteSequence(this.currentTutorial._id).subscribe(
-      res => { this.showFeedback(`Deleted tutorial "${res.tutorialTitle}"`, MessageType.Success)},
+      res => { 
+        this.showFeedback(`Deleted tutorial "${res.tutorialTitle}"`, MessageType.Success);
+        this.updateView();
+      },
       err => { this.showFeedback(err.error, MessageType.Error)}
     )
   }

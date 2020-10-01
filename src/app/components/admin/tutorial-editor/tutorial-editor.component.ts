@@ -24,8 +24,9 @@ export class TutorialEditorComponent implements OnInit {
   //static data
   catAnimations: string[] = ['none','cat-move', 'cat-super', 'cat-land'];
   catImages: string[] = CatImages;
-  widgets: any[] = [{name: 'Start Button', id: 0}, {name: 'Image', id: 2},
-                    {name: 'quiz', id: 3}, {name: 'audio player', id: 4},]
+  widgets: any[] = [{name: 'None', id: -1},{name: 'Start Button', id: 0}, 
+                    {name: 'Image', id: 2}, {name: 'quiz', id: 3}, 
+                    {name: 'audio player', id: 4},]
 
   constructor(
     private route: ActivatedRoute,
@@ -37,9 +38,13 @@ export class TutorialEditorComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       let title = params['saved']
       if(title)
-      this.showFeedback(`The tutorial "${title}" was saved successfully.`, MessageType.Success, 3000);
+        this.showFeedback(`The tutorial "${title}" was saved successfully.`, MessageType.Success, 3000);
     });
+    let delay = (Math.floor(Math.random() * 5) + 2) *  1000;
+    setTimeout(()=> {this.loadData()}, delay);
+  }
 
+  loadData(): void {
     let id = this.route.snapshot.paramMap.get("id");
     if (id === "new") {
       this.createEmptyTutorialTemplate();
@@ -51,9 +56,9 @@ export class TutorialEditorComponent implements OnInit {
     else {
       this.tutorialService.getSequenceById(id).subscribe(res => {
         this.tutorial = res;
-        console.log(res);
         this.slideExtended = new Array(this.tutorial.slides.length).fill(false);
         this.bLoaded = true;
+        this.bIsNew = false;
       },
       err => {
         this.showFeedback(`${err.error}`, MessageType.Error, 3000);
@@ -106,13 +111,15 @@ export class TutorialEditorComponent implements OnInit {
     if (id != "new") {
       this.tutorialService.updateSequence(this.tutorial).subscribe(res => {
         this.router.navigate([`admin/tutorialeditor/${res._id}`], {queryParams: { saved: this.tutorial.tutorialTitle}});
-        },
+        this.bIsNew = false;
+      },
         err => this.processError(err));
       return;
     }
     else
     this.tutorialService.createSequence(this.tutorial).subscribe(res =>{
       this.router.navigate([`admin/tutorialeditor/${res._id}`], {queryParams: { saved: this.tutorial.tutorialTitle}});
+      this.bIsNew = false;
     }, 
     err => this.processError(err))
   }
