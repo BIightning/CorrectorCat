@@ -6,6 +6,7 @@ router.use('/users', require('./userRoutes.js'));
 router.use('/auth', require('./authRoutes.js'))
 router.use('/status', require('./statusRoutes.js'));
 router.use('/settings', require('./settingRoutes.js'));
+router.use('/files', require('./fileRoutes.js'))
 router.use('*', (req, res) => res.status(404).send("API endpoint does not exist"));
 
 module.exports = router;

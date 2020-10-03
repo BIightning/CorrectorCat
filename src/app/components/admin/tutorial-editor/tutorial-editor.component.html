@@ -112,44 +112,47 @@
                     <input [(ngModel)]="slide.slideText.greek" name="title" type="text">
                 </div>
                 <h4 class="input-heading mt-2">&nbsp;Widget:</h4>
-                <select name="catImage" type="string" [(ngModel)]="slide.widgetID" placeholder="none" required>
-                    <option *ngFor="let widget of widgets" [ngValue]="widget.id" [selected]="widget.id === slide.widgetID">{{widget.name}}</option>
-                </select>
-                <ng-container [ngSwitch]="slide.widgetID">
-                    <ng-container *ngSwitchCase="-1">
+                <h5 *ngIf="slide.sceneType == 0" class="text-primary">&nbsp;The current Scene Type does not support widgets.</h5>
+                <ng-container *ngIf="!slide.sceneType == 0">
+                    <select name="Widget" type="string" [(ngModel)]="slide.widgetID" placeholder="none" required>
+                        <option *ngFor="let widget of widgets" [ngValue]="widget.id" [selected]="widget.id === slide.widgetID">{{widget.name}}</option>
+                    </select>
+                    <ng-container [ngSwitch]="slide.widgetID">
+                        <ng-container *ngSwitchCase="-1">
 
-                    </ng-container>
-                    <ng-container *ngSwitchCase="0">
+                        </ng-container>
+                        <ng-container *ngSwitchCase="0">
 
-                    </ng-container>
-                    <ng-container *ngSwitchCase="1">
+                        </ng-container>
+                        <ng-container *ngSwitchCase="1">
 
-                    </ng-container>
-                    <ng-container *ngSwitchCase="2">
-                        <h4 class="input-heading mt-2">&nbsp;Widget Image</h4>
-                        <input name="widget image" type="text">
-                    </ng-container>
-                    <ng-container *ngSwitchCase="3">
-                        <h4 class="input-heading mt-2">&nbsp;Quiz</h4>
-                        <div class="error-tile p-2 mt-3 mb-2 shadow ">
-                            <h3 class="input-heading mt-2 ">&nbsp;Errors:</h3>
-                            <input class="m-1" type="text" required>
-                            <input class="m-1" type="text" required>
-                            <input class="m-1" type="text" required>
-                            <input class="m-1" type="text" required>
-                            <h4 class="input-heading mt-2 ">&nbsp;Correct Index:</h4>
-                            <input type="number" required>
-                            <h4 class="input-heading mt-2 ">&nbsp;Explanation:</h4>
-                            <input type="text" required>
-                            <h4 class="input-heading mt-2 ">&nbsp;Audio File:</h4>
-                            <input type="text" required>
-                        </div>
-                    </ng-container>
-                    <ng-container *ngSwitchCase="4">
+                        </ng-container>
+                        <ng-container *ngSwitchCase="2">
+                            <h4 class="input-heading mt-2">&nbsp;Widget Image</h4>
+                            <input name="widget image" type="text">
+                        </ng-container>
+                        <ng-container *ngSwitchCase="3">
+                            <h4 class="input-heading mt-2">&nbsp;Quiz</h4>
+                            <div class="error-tile p-2 mt-3 mb-2 shadow ">
+                                <h3 class="input-heading mt-2 ">&nbsp;Errors:</h3>
+                                <input class="m-1" type="text" required>
+                                <input class="m-1" type="text" required>
+                                <input class="m-1" type="text" required>
+                                <input class="m-1" type="text" required>
+                                <h4 class="input-heading mt-2 ">&nbsp;Correct Index:</h4>
+                                <input type="number" required>
+                                <h4 class="input-heading mt-2 ">&nbsp;Explanation:</h4>
+                                <input type="text" required>
+                                <h4 class="input-heading mt-2 ">&nbsp;Audio File:</h4>
+                                <input type="text" required>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="4">
 
-                    </ng-container>
-                    <ng-container *ngSwitchCase="5">
+                        </ng-container>
+                        <ng-container *ngSwitchCase="5">
 
+                        </ng-container>
                     </ng-container>
                 </ng-container>
             </ng-container>

@@ -19,5 +19,5 @@ module.exports = function(app) {
     });
     app.use(express.json());
     app.use('/api', apiRoutes);
-    app.use(expressErrorHandler);
+    // app.use(expressErrorHandler);
 }

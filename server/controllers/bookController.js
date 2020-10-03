@@ -1,4 +1,3 @@
-const ObjectID = require('mongodb').ObjectID;
 const { Book, bookValidation } = require('../dbModels/book');
 const idValidation = require('../utils/objectidValidation');
 
@@ -7,7 +6,13 @@ async function getBooks() {
         await Book
             .find()
             .then(result => resolve(result))
-            .catch(reason => reject({ code: 500, msg: 'internal server error!' }));
+            .catch(reason => {
+                console.error(reason);
+                reject({
+                    code: 500,
+                    msg: 'internal server error!'
+                });
+            });
     });
 }
 
