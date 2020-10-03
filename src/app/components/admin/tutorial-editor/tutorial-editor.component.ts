@@ -1,9 +1,12 @@
+import { FileMeta } from './../../../../assets/classes/fileMeta';
+import { FileService } from './../../../services/file.service';
 import { CatImages } from '../../../../assets/classes/CatImages';
 import { TutorialSequenceService } from './../../../services/tutorial-sequence.service';
 import { TutorialSequence } from './../../../../assets/classes/tutorialSequence';
 import { Component, OnInit } from '@angular/core';
 import { FeedbackMessage, MessageType } from 'src/assets/classes/feedbackMessage';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-tutorial-editor',
@@ -18,8 +21,15 @@ export class TutorialEditorComponent implements OnInit {
   feedbackMessage: FeedbackMessage = new FeedbackMessage();
   slideExtended: boolean[];
 
+  possessedFiles: FileMeta[] = [];
+
   bShowModal: boolean;
   currentSlide: number = -1;
+
+  //Files for upload
+  singleFile: File;
+  multipleFiles: File[] = null;
+  uploadProgress: number = -1;
   
   //static data
   catAnimations: string[] = ['none','cat-move', 'cat-super', 'cat-land'];
@@ -31,7 +41,8 @@ export class TutorialEditorComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private tutorialService: TutorialSequenceService
+    private tutorialService: TutorialSequenceService,
+    private fileService: FileService
   ) { }
 
   ngOnInit(): void {
@@ -41,10 +52,9 @@ export class TutorialEditorComponent implements OnInit {
         this.showFeedback(`The tutorial "${title}" was saved successfully.`, MessageType.Success, 3000);
     });
     let delay = (Math.floor(Math.random() * 5) + 2) *  1000;
-    setTimeout(()=> {this.loadData()}, delay);
+    setTimeout(()=> {this.loadTutorial()}, delay);
   }
-
-  loadData(): void {
+  loadTutorial(): void {
     let id = this.route.snapshot.paramMap.get("id");
     if (id === "new") {
       this.createEmptyTutorialTemplate();
@@ -57,13 +67,25 @@ export class TutorialEditorComponent implements OnInit {
       this.tutorialService.getSequenceById(id).subscribe(res => {
         this.tutorial = res;
         this.slideExtended = new Array(this.tutorial.slides.length).fill(false);
-        this.bLoaded = true;
         this.bIsNew = false;
+        this.loadPossessedFileMeta();
       },
       err => {
         this.showFeedback(`${err.error}`, MessageType.Error, 3000);
       });
     }
+  }
+  loadPossessedFileMeta(): void {
+    this.fileService
+      .getPossessedFiles(this.tutorial._id)
+      .subscribe(res => {
+        this.possessedFiles = res;
+        this.bLoaded = true;
+        console.log(this.possessedFiles);
+      },
+      err => {
+        err => this.processError(err);
+      })
   }
 
   processError(error: any): void {
@@ -80,6 +102,48 @@ export class TutorialEditorComponent implements OnInit {
       slides: null,
       targetTextTitle: ''  
     }
+  }
+
+  selectSingleFileForUpload(event){
+    if(event.target.files.length > 0)
+      this.singleFile = event.target.files[0];
+    else{
+      this.singleFile = null;
+    }
+  }
+
+  singleFileUpload(): void {
+    if(!this.singleFile) {
+      this.showFeedback('Please select a file to upload!', MessageType.Warning);
+      return;
+    }
+    this.fileService
+      .uploadSingle(this.singleFile, this.tutorial._id)
+      .subscribe((event: HttpEvent<any>) => {
+        switch(event.type){
+          case HttpEventType.UploadProgress:
+            this.uploadProgress = Math.round(event.loaded / event.total * 100);
+            console.log(`Uploaded! ${this.uploadProgress}%`);
+            break;
+          case HttpEventType.Response:
+            this.loadPossessedFileMeta();
+            setTimeout(() => {
+              this.uploadProgress = -1;
+              this.showFeedback('File is uploaded and is now available in the selection.', MessageType.Success);
+            }, 1000);
+            break;
+        }
+      },
+      err => {
+        err => this.processError(err);
+      })
+        this.singleFile = null;
+  }
+  getPossessedAudioMeta(): FileMeta[] {
+    if(this.possessedFiles.length < 1)
+      return [];
+    console.log(this.possessedFiles.filter(file => file.fileType === 'audio'))
+    return this.possessedFiles.filter(file => file.fileType === 'audio')
   }
   onNewSlideClick(): void {
 

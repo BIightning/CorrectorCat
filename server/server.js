@@ -5,7 +5,7 @@ require('dotenv').config();
 const dbPath = process.env.DB_PATH;
 const app = express();
 
-//require('./startup/errorHandlerStartup.js')(dbPath);
+require('./startup/errorHandlerStartup.js')(dbPath);
 require('./startup/dbStartup.js')(dbPath);
 require('./startup/expressStartup.js')(app);
 

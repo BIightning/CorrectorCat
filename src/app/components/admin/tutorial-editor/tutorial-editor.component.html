@@ -90,7 +90,7 @@
                             <option *ngFor="let animation of catAnimations" value="{{animation}}" [selected]="animation === slide.catAnimation">{{animation}}</option>
                         </select>
                     </div>
-                    <div class="col-6 rounded border">
+                    <div class="col-6 rounded">
                         <label class="text-primary font-weight-bold">Cat Preview
                             <div class="max-width pt-1 d-flex position-relative justify-content-center align-items-center">
                                 <div class="bg-info p-5 shadow rounded">
@@ -100,7 +100,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="chunk-tile p-2">
+                <div class="inner-tile p-2">
                     <h4 class="input-heading mt-2">&nbsp;Slide Text:</h4>
                     <h5 class="input-heading mt-2">&nbsp;German:</h5>
                     <input [(ngModel)]="slide.slideText.german" name="title" type="text">
@@ -113,7 +113,7 @@
                 </div>
                 <h4 class="input-heading mt-2">&nbsp;Widget:</h4>
                 <h5 *ngIf="slide.sceneType == 0" class="text-primary">&nbsp;The current Scene Type does not support widgets.</h5>
-                <ng-container *ngIf="!slide.sceneType == 0">
+                <div class="inner-tile p-2" *ngIf="!slide.sceneType == 0">
                     <select name="Widget" type="string" [(ngModel)]="slide.widgetID" placeholder="none" required>
                         <option *ngFor="let widget of widgets" [ngValue]="widget.id" [selected]="widget.id === slide.widgetID">{{widget.name}}</option>
                     </select>
@@ -145,16 +145,37 @@
                                 <input type="text" required>
                                 <h4 class="input-heading mt-2 ">&nbsp;Audio File:</h4>
                                 <input type="text" required>
+
                             </div>
                         </ng-container>
                         <ng-container *ngSwitchCase="4">
+                            <ng-container *ngIf="uploadProgress < 0">
+                                <label for="file-upload-{{i}}" class="custom-file-upload">
+                                    <i class="fa fa-upload"></i><ng-container *ngIf="!singleFile; else selectedTemplate">
+                                        Select audio file
+                                    </ng-container>
+                                    <ng-template #selectedTemplate>
+                                        {{singleFile.name}}
+                                    </ng-template>
+                                </label>
+                                <input accept=".mp3" id="file-upload-{{i}}" type="file" (change)="selectSingleFileForUpload($event)">
+                                <button class="btn ml-1 btn-info" [disabled]="!singleFile" (click)="singleFileUpload()">upload</button>
+                            </ng-container>
+                            <div *ngIf="uploadProgress >= 0" class="m-2 progress-wrap rounded shadow position-relative">
+                                <div *ngIf="uploadProgress >= 0" class="p-1 position-absolute rounded progress-bar progress-bar-striped text-center bg-success" role="progressbar" [style.width.%]="uploadProgress">&nbsp;</div>
+                                <span class="text-white position-absolute left-0 top-0 p-1">Uploading: {{uploadProgress}}%</span>
+                            </div>
+                            <h4 class="input-heading mt-2 ">&nbsp;Audio to play:</h4>
+                            <select>
+                                <option *ngFor="let file of getPossessedAudioMeta()">{{file.fileName}}</option>
+                            </select>
 
                         </ng-container>
                         <ng-container *ngSwitchCase="5">
 
                         </ng-container>
                     </ng-container>
-                </ng-container>
+                </div>
             </ng-container>
         </div>
     </div>

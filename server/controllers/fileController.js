@@ -1,5 +1,6 @@
 const { File, fileValidation } = require("../dbModels/file");
 const multer = require('multer');
+const { ModuleKind } = require("typescript");
 /**
  * Returns data base entries of all files
  * regardless of owner or file type.
@@ -86,7 +87,7 @@ function getImageCatalogOfOwner(_ownerId) {
 function getAudioCatalog() {
     return new Promise(async(resolve, reject) => {
         await File
-            .find({ fileType: 'image' })
+            .find({ fileType: 'audio' })
             .then(result => resolve(result))
             .catch(reason => {
                 console.error(reason);
@@ -190,7 +191,7 @@ function determineFileEnding(file) {
         case 'image/png':
             fileEnding = '.png';
             break;
-        case 'image/gif':
+        case 'image/jpeg':
             fileEnding = '.jpeg';
             break;
     }
@@ -199,3 +200,11 @@ function determineFileEnding(file) {
 
 module.exports.fileUpload = multer({ storage: storage });
 module.exports.saveFileInformation = saveFileInformation;
+//Getters regardless of owner
+module.exports.getFileCatalog = getFileCatalog;
+module.exports.getAudioCatalog = getAudioCatalog;
+module.exports.getImageCatalog = getImageCatalog;
+//Getters for data of a specific owner
+module.exports.getFileCatalogOfOwner = getFileCatalogOfOwner;
+module.exports.getAudioCatalogOfOwner = getAudioCatalogOfOwner;
+module.exports.getImageCatalogOfOwner = getImageCatalogOfOwner;
