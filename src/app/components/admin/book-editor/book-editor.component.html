@@ -1,5 +1,5 @@
 <h1 class="mb-0 pb-0">Book Editor</h1>
-<div *ngIf="bLoaded" class="window container-fluid">
+<div *ngIf="bLoaded" (dragover)="onDragover($event)" (dragleave)="onDragLeave($event)" (drop)="onInvalidDrop($event)" class="window container-fluid">
     <div class="row user-tile heading-tile">
         <div class="col-4 pl-0 ml-0">
             <button (click)="onSaveClick()" class="create-button">
@@ -42,6 +42,20 @@
             <option *ngFor="let difficulty of difficulties" value="{{difficulty}}" [selected]="difficulty === book.difficulty">{{difficulty}}</option>
         </select>
     </ng-container>
+    <h4 class="input-heading mt-2">&nbsp;Audio Files:</h4>
+    <div class="inner-tile droparea" [ngClass]="{'highlight': bIsDragging}" (drop)="onDrop($event)">
+        <label class="custom-file-select text-white text-center mt-5" for="audioFileSelect">
+            <i class="fas fa-upload"></i>
+            Drop or select .mp3 files for upload here
+        </label>
+        <input type="file" (change)="selectMultipleFilesForUpload($event)" class="fileSelector" id="audioFileSelect" accept=".mp3" multiple>
+        <div [ngClass]="{'contains-files': multipleFiles.length > 0}" class="file-selection">
+            <h5 *ngFor="let file of multipleFiles; index as i" class="file-wrapper text-white text-left">
+                {{file.name}}
+                <a (click)="multipleFiles.splice(i, 1)" class="trash-btn text-danger float-right"><i class="fa fa-trash"></i></a>
+            </h5>
+        </div>
+    </div>
     <!--Text Chunks-->
     <div class="chunk-wrapper mt-2 mb-3">
         <div class="user-tile ml-1 heading-tile row">
@@ -57,9 +71,9 @@
             <div class="col-4">
             </div>
         </div>
-        <div class="chunk-tile shadow" *ngFor="let chunk of book?.textChunks; let i=index" [ngClass]="{'pb-2 pl-1': chunkExtended[i]}">
+        <div class="chunk-tile shadow" *ngFor="let chunk of book.textChunks; let i=index" [ngClass]="{'pb-2 pl-1': chunkExtended[i]}">
             <h3 class="input-heading m-0 mt-2 ">
-                <button type="button" (click)="chunkExtended[i]=! chunkExtended[i] " class="expand-btn fa text-white " [ngClass]="{ 'fa-chevron-right': !chunkExtended[i], 'fa-chevron-down': chunkExtended[i]} "></button>
+                <button type="button" (click)="chunkExtended[i]=! chunkExtended[i] " class="expand-btn fa text-white" [ngClass]="{ 'fa-chevron-right': !chunkExtended[i], 'fa-chevron-down': chunkExtended[i]} "></button>
                 <span>&nbsp; Chunk {{i +1}}</span>
                 <small class="ml-5 text-center">"{{chunk.text | summary}}"</small>
                 <a type="button" *ngIf="book.textChunks.length > 1" (click)="onDeleteClick(i)" class="trash-btn float-right mr-1 p-1 text-right text-danger"><i class="fa fa-trash"></i></a>

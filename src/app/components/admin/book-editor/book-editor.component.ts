@@ -1,8 +1,12 @@
-import { BookService } from './../../../services/book.service';
-import { Component, OnInit } from '@angular/core';
+
+import { FileService } from './../../../services/file.service';
+import { BookService } from 'src/app/services/book.service';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Book } from 'src/assets/classes/book';
 import { FeedbackMessage, MessageType } from 'src/assets/classes/feedbackMessage';
+import { FileMeta } from 'src/assets/classes/fileMeta';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-book-editor',
@@ -14,8 +18,15 @@ export class BookEditorComponent implements OnInit {
   public book: Book;
   public bLoaded: Boolean = false;
   public bShowModal: Boolean = false;
-  public chunkExtended: Boolean[];
+  public bIsDragging: Boolean = false;
+  public chunkExtended: boolean[];
   public currentChunk: number = -1;
+
+  possessedFiles: FileMeta[] = [];
+  //Files for upload
+  singleFile: File;
+  multipleFiles: File[] = [];
+  uploadProgress: number = -1;
 
   public languages: string[] = ['de-DE', 'en-GB', 'pt-PT', 'el-EL'];
   public difficulties: string[] = ['Tutorial', 'Easy', "Medium", "Hard", "Very Hard"];
@@ -25,15 +36,16 @@ export class BookEditorComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private bookService: BookService
+    private bookService: BookService,
+    private fileService: FileService
   ) { }
 
   ngOnInit(): void {
     //Query parameter for redirect after successful save
     this.route.queryParams.subscribe(params => {
       let title = params['saved']
-      if(title)
-      this.showFeedback(`The book "${title}" was saved successfully.`, MessageType.Success, 3000);
+      if (title)
+        this.showFeedback(`The book "${title}" was saved successfully.`, MessageType.Success, 3000);
     });
 
     let id = this.route.snapshot.paramMap.get("id");
@@ -45,24 +57,35 @@ export class BookEditorComponent implements OnInit {
     else {
       this.bookService.getBookById(id).subscribe(res => {
         this.book = res;
-        this.bLoaded = true;
         this.chunkExtended = new Array(this.book.textChunks.length).fill(false);
+        this.loadPossessedFileMeta();
       },
         err => {
           this.showFeedback(`${err.error}`, MessageType.Error, 3000);
         });
     }
-
+  }
+  loadPossessedFileMeta(): void {
+    this.fileService
+      .getPossessedFiles(this.book._id)
+      .subscribe(res => {
+        this.possessedFiles = res;
+        this.bLoaded = true;
+        console.log(this.possessedFiles);
+      },
+        err => {
+          err => this.processError(err);
+        })
   }
 
   hideModal(): void {
     this.bShowModal = false;
   }
 
-  showFeedback(message: string, type: MessageType, duration?: number){
+  showFeedback(message: string, type: MessageType, duration?: number) {
     this.feedbackMessage = new FeedbackMessage(message, type, duration, true);
   }
- 
+
   resetFeedbackMessage(): void {
     this.feedbackMessage = new FeedbackMessage();
   }
@@ -71,19 +94,19 @@ export class BookEditorComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get("id");
     if (id != "new") {
       this.bookService.updateBook(this.book).subscribe(res => {
-        this.router.navigate([`admin/bookeditor/${res._id}`], {queryParams: { saved: this.book.title}});
-        },
+        this.router.navigate([`admin/bookeditor/${res._id}`], { queryParams: { saved: this.book.title } });
+      },
         err => this.processError(err));
       return;
     }
     else
-    this.bookService.createBook(this.book).subscribe(res =>{
-      this.router.navigate([`admin/bookeditor/${res._id}`], {queryParams: { saved: this.book.title}});
-    }, 
-    err => this.processError(err))
+      this.bookService.createBook(this.book).subscribe(res => {
+        this.router.navigate([`admin/bookeditor/${res._id}`], { queryParams: { saved: this.book.title } });
+      },
+        err => this.processError(err))
   }
   processError(error: any): void {
-    if(error.status < 500)
+    if (error.status < 500)
       this.showFeedback(`${error.error}`, MessageType.Warning, 3000);
     else
       this.showFeedback(`${error.error}`, MessageType.Error, 3000);
@@ -96,7 +119,7 @@ export class BookEditorComponent implements OnInit {
 
   onDeleteConfirm(): void {
     this.book.textChunks.splice(this.currentChunk, 1);
-    this.showFeedback(`Chunk ${this.currentChunk +1 } deleted!`, MessageType.Info, 1000);
+    this.showFeedback(`Chunk ${this.currentChunk + 1} deleted!`, MessageType.Info, 1000);
     this.currentChunk = -1;
     this.chunkExtended = new Array(this.book.textChunks.length).fill(false);
   }
@@ -116,13 +139,132 @@ export class BookEditorComponent implements OnInit {
 
   trackByFn(index: any, item: any) {
     return index;
- }
+  }
 
-  onNewChunkClick(): void {
-    //create default values for points and fill in values of index 0 if they exist
-    let fillPoints = 0;
-    let fillAnswers = ['', '', '', ''];
+  
+  selectSingleFileForUpload(event) {
+    if (event.target.files.length > 0)
+    this.singleFile = event.target.files[0];
+    else {
+      this.singleFile = null;
+    }
+  }
 
+  selectMultipleFilesForUpload(event) {
+    if (event.target.files.length > 0)
+    this.multipleFiles += event.target.files;
+    else {
+      this.multipleFiles = [];
+    }
+  }
+  
+  singleFileUpload(): void {
+    if (!this.singleFile) {
+      this.showFeedback('Please select a file to upload!', MessageType.Warning);
+      return;
+    }
+    this.fileService
+    .uploadSingle(this.singleFile, this.book._id)
+    .subscribe((event: HttpEvent<any>) => {
+      switch (event.type) {
+        case HttpEventType.UploadProgress:
+          this.uploadProgress = Math.round(event.loaded / event.total * 100);
+          console.log(`Uploaded: ${this.uploadProgress}%`);
+          break;
+          case HttpEventType.Response:
+            this.loadPossessedFileMeta();
+            setTimeout(() => {
+              this.uploadProgress = -1;
+              this.showFeedback('File is uploaded and is now available in the selection.', MessageType.Success);
+            }, 1000);
+            break;
+          }
+        },
+        err => {
+          err => this.processError(err);
+        })
+        this.singleFile = null;
+      }
+
+      multiFileUpload(): void {
+        if (!this.multipleFiles) {
+          this.showFeedback('Please select the files to upload!', MessageType.Warning);
+          return;
+        }
+        this.fileService
+        .uploadMultiple(this.multipleFiles, this.book._id)
+        .subscribe((event: HttpEvent<any>) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              this.uploadProgress = Math.round(event.loaded / event.total * 100);
+              console.log(`Uploaded: ${this.uploadProgress}%`);
+              break;
+              case HttpEventType.Response:
+                this.loadPossessedFileMeta();
+                setTimeout(() => {
+                  this.uploadProgress = -1;
+                  this.showFeedback('Files are uploaded and are now available in the selection.', MessageType.Success);
+                }, 1000);
+                break;
+              }
+            },
+            err => {
+              err => this.processError(err);
+            })
+            this.multipleFiles = [];
+          }
+
+      onDragover(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.bIsDragging = true;
+      }
+
+      onInvalidDrop(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.bIsDragging = false;
+        this.showFeedback('Invalid drag & drop operation!', MessageType.Error);
+      }
+      
+      onDrop(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.bIsDragging = false;
+        if (event.dataTransfer.files.length > 0) {
+          for(let file of event.dataTransfer.files){
+            if(file.type != 'audio/mp3' && file.type != 'audio/mpeg'){
+              this.showFeedback('Only .mp3 files are supported!', MessageType.Error);
+              return;
+            }
+            for(let trackedFile of this.multipleFiles)
+            if(trackedFile.name === file.name){
+              this.showFeedback('A file with the same name was already added for upload!', MessageType.Error, 2000);
+              return;
+            }
+          }
+          for(let file of event.dataTransfer.files){      
+            this.multipleFiles.push(file);
+          }
+        }
+      }
+      onDragLeave(event: Event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.bIsDragging = false;
+      }
+      
+      
+      onDroppedFiles(droppedFiles: File[]) {
+        
+      }
+      
+      
+      onNewChunkClick(): void {
+        //create default values for points and fill in values of index 0 if they exist
+        let fillPoints = 0;
+        let fillAnswers = ['', '', '', ''];
+        
     if (this.book.textChunks) {
       fillPoints = this.book.textChunks[0].points;
       fillAnswers = this.book.textChunks[0].question.answers;
@@ -145,7 +287,7 @@ export class BookEditorComponent implements OnInit {
       this.book.textChunks = [chunk];
 
     this.chunkExtended = new Array(this.book.textChunks.length).fill(false);
-    this.showFeedback(`Chunk ${this.book.textChunks.length} created!`,MessageType.Info, 1000);
+    this.showFeedback(`Chunk ${this.book.textChunks.length} created!`, MessageType.Info, 1000);
   }
 
 }

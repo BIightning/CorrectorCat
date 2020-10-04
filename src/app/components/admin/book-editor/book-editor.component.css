@@ -2,7 +2,7 @@
     padding: 0;
     background: rgba(221, 221, 221, 0.35);
     box-shadow: 0 1rem 1rem rgba(0, 0, 0, .15);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(4px);
     margin-top: 0.5rem;
     display: flex;
     align-items: center;
@@ -54,6 +54,80 @@
     background: rgba(129, 129, 129, 0.4);
     transform: scale(0.9);
     border-radius: 14px;
+}
+
+.inner-tile {
+    background: rgba(215, 215, 215, 0.8);
+    border-radius: 14px;
+    width: 95%;
+    padding: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.custom-file-select {
+    width: 40%;
+    padding: 14px;
+    border: 0;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    background: rgba(0, 119, 255, 0.3);
+    border: none;
+    border-radius: 14px;
+    outline: none;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.droparea {
+    background: rgba(2, 115, 245, 0.15);
+    border-radius: 14px;
+    width: 95%;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.highlight {
+    background: rgba(0, 140, 255, 0.5);
+    transform: scale(0.97);
+    transition: all 0.3s;
+}
+
+.highlight .custom-file-select {
+    background: rgba(0, 255, 55, 0.616);
+    transition: all 0.3s;
+}
+
+.file-selection {
+    background: rgba(129, 129, 129, 0.2);
+    padding: 20px;
+    border-radius: 14px;
+    width: 40%;
+    opacity: 0;
+    transition: all 0.5s;
+}
+
+.contains-files {
+    opacity: 1;
+    transition: all 0.5s;
+}
+
+.file-wrapper {
+    background: rgba(0, 76, 255, 0.15);
+    min-height: 20px;
+    padding: 8px;
+    border-radius: 14px;
+    width: 99%;
+}
+
+input[type=file] {
+    display: none;
 }
 
 input {

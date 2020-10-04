@@ -21,22 +21,22 @@ export class TutorialEditorComponent implements OnInit {
   feedbackMessage: FeedbackMessage = new FeedbackMessage();
   slideExtended: boolean[];
 
-  possessedFiles: FileMeta[] = [];
-
+  
   bShowModal: boolean;
   currentSlide: number = -1;
-
+  
+  possessedFiles: FileMeta[] = [];
   //Files for upload
   singleFile: File;
   multipleFiles: File[] = null;
   uploadProgress: number = -1;
-  
+
   //static data
   catAnimations: string[] = ['none','cat-move', 'cat-super', 'cat-land'];
   catImages: string[] = CatImages;
   widgets: any[] = [{name: 'None', id: -1},{name: 'Start Button', id: 0}, 
                     {name: 'Image', id: 2}, {name: 'quiz', id: 3}, 
-                    {name: 'audio player', id: 4},]
+                    {name: 'audio player', id: 4}]
 
   constructor(
     private route: ActivatedRoute,

@@ -82,11 +82,11 @@
                 <div class="row">
                     <div class="col-6">
                         <h4 class="input-heading mt-2">&nbsp;Cat Image:</h4>
-                        <select name="catImage" class="preview-select" type="string" [(ngModel)]="slide.catImage">
+                        <select name="catImage" type="string" [(ngModel)]="slide.catImage">
                             <option *ngFor="let image of catImages" value="{{image}}" [selected]="image === slide.catImage">{{image}}</option>
                         </select>
                         <h4 class="input-heading mt-2">&nbsp;Cat Animation:</h4>
-                        <select name="catAnimation" class="preview-select" width="50%" type="string" [(ngModel)]="slide.catAnimation" required>
+                        <select name="catAnimation" type="string" [(ngModel)]="slide.catAnimation" required>
                             <option *ngFor="let animation of catAnimations" value="{{animation}}" [selected]="animation === slide.catAnimation">{{animation}}</option>
                         </select>
                     </div>
@@ -116,7 +116,7 @@
                 <div class="inner-tile p-2" *ngIf="!slide.sceneType == 0">
                     <select name="Widget" type="string" [(ngModel)]="slide.widgetID" placeholder="none" required>
                         <option *ngFor="let widget of widgets" [ngValue]="widget.id" [selected]="widget.id === slide.widgetID">{{widget.name}}</option>
-                    </select>
+                    </select><br>
                     <ng-container [ngSwitch]="slide.widgetID">
                         <ng-container *ngSwitchCase="-1">
 
@@ -128,7 +128,7 @@
 
                         </ng-container>
                         <ng-container *ngSwitchCase="2">
-                            <h4 class="input-heading mt-2">&nbsp;Widget Image</h4>
+                            <h4 class="input-heading mt-4">&nbsp;Widget Image</h4>
                             <input name="widget image" type="text">
                         </ng-container>
                         <ng-container *ngSwitchCase="3">
@@ -150,7 +150,7 @@
                         </ng-container>
                         <ng-container *ngSwitchCase="4">
                             <ng-container *ngIf="uploadProgress < 0">
-                                <label for="file-upload-{{i}}" class="custom-file-upload">
+                                <label for="file-upload-{{i}}" class="custom-file-upload mt-4">
                                     <i class="fa fa-upload"></i><ng-container *ngIf="!singleFile; else selectedTemplate">
                                         Select audio file
                                     </ng-container>

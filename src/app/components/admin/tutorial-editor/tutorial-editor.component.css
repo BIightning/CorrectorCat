@@ -83,7 +83,7 @@ input:focus {
 }
 
 select {
-    width: 95%;
+    width: 50%;
     text-align: left;
     padding: 14px;
     border: 0;
@@ -96,7 +96,7 @@ select {
 }
 
 select:focus {
-    width: 95%;
+    width: 50%;
     color: white;
     background-color: rgba(68, 68, 68, 0.356);
     border: none;
