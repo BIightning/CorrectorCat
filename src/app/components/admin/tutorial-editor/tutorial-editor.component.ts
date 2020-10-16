@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { FeedbackMessage, MessageType } from 'src/assets/classes/feedbackMessage';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-tutorial-editor',
@@ -20,6 +21,7 @@ export class TutorialEditorComponent implements OnInit {
   bIsNew: boolean = false;
   feedbackMessage: FeedbackMessage = new FeedbackMessage();
   slideExtended: boolean[];
+  baseUrl: string;
 
   
   bShowModal: boolean;
@@ -43,7 +45,10 @@ export class TutorialEditorComponent implements OnInit {
     private router: Router,
     private tutorialService: TutorialSequenceService,
     private fileService: FileService
-  ) { }
+  ) 
+  {
+    this.baseUrl = environment.baseUrl;
+   }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {

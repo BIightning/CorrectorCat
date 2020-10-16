@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IntroCarouselComponent implements OnInit {
 
-  constructor() { }
+  baseUrl: string;
+  constructor() { 
+    this.baseUrl = environment.baseUrl;
+  }
 
   ngOnInit(): void {
   }

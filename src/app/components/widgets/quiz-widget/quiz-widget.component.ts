@@ -1,3 +1,4 @@
+import { environment } from './../../../../environments/environment';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -13,13 +14,21 @@ export class QuizWidgetComponent implements OnInit {
   bAnsweredCorrect: boolean = false;
   audioplayer: HTMLAudioElement;
   answers: Array<boolean> = [true, false];
-  constructor() { }
+
+  baseUrl: string;
+  constructor() { 
+    this.baseUrl = environment.baseUrl;
+  }
 
   ngOnInit(): void {
+    console.log(`${this.baseUrl}${this.quiz.audioFile}`)
     if(this.quiz.audioFile)
-      this.audioplayer = new Audio(this.quiz.audioFile);
+      this.audioplayer = new Audio(`${this.baseUrl}${this.quiz.audioFile}`);
     else
-      this.audioplayer = new Audio('./assets/books/0/wrong/MeereswesenFehler11Semantikfehler.mp3');
+      this.audioplayer = new Audio(`${this.baseUrl}5f56f3ccbe1da85cec4650e8/MeereswesenFehler11Semantikfehler.mp3`);
+
+      this.audioplayer.load();
+
   }
 
   playAudio(): void {

@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -15,10 +16,15 @@ export class TutorialWidgetsComponent implements OnInit {
   @Output("allowContinue") allowContinue = new EventEmitter();
 
   audioplayer: HTMLAudioElement;
-  constructor(private router: Router) { }
+  baseUrl: string;
+
+  constructor(private router: Router) { 
+    this.baseUrl = environment.baseUrl;
+  }
 
   ngOnInit(): void {
-    this.audioplayer = new Audio('./assets/sample.mp3');
+    this.audioplayer = new Audio('/assets/sample.mp3');
+    this.audioplayer.load();
     if (!this.widgetData)
       this.widgetData = {};
     if(this.widgetID != 3 && this.widgetID != 5)

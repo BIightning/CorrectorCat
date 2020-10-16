@@ -2,19 +2,20 @@ const router = require("express").Router();
 const FileController = require('../controllers/fileController.js');
 const auth = require('../middleware/auth.js');
 const adminPermission = require("../middleware/adminPermission.js");
-const fs = require("fs");
+const fs = require('fs');
+const uploadOwner = require("../middleware/uploadOwner.js");
 
 router
     .route('/')
-    .post([auth, adminPermission, FileController.fileUpload.single('file')], async(req, res) => {
+    .post([auth, adminPermission, uploadOwner, FileController.fileUpload.single('file')], async(req, res) => {
         if (!req.file) {
             return res.status(500).send({ msg: 'Upload failed.' });
         } else {
             let fileMeta = {
-                fileUrl: req.file.path,
+                fileUrl: `/${req.ownerId}/${req.file.filename}`,
                 fileName: req.file.filename,
                 fileType: req.filetype,
-                ownerId: req.body.ownerId
+                ownerId: req.ownerId
             }
             await FileController
                 .saveFileInformation(fileMeta)
@@ -72,17 +73,17 @@ router
     })
 router
     .route('/multiple')
-    .post([auth, adminPermission, FileController.fileUpload.array('file', 60)], async(req, res) => {
+    .post([auth, adminPermission, uploadOwner, FileController.fileUpload.array('files', 60)], async(req, res) => {
         if (!req.files) {
             return res.status(500).send({ message: 'Upload failed' });
         }
         let fileMetas = [];
         for (let file of req.files) {
             let fileMeta = {
-                fileUrl: file.path,
+                fileUrl: `/${req.ownerId}/${file.filename}`,
                 fileName: file.filename,
                 fileType: req.filetype,
-                ownerId: req.body.ownerId
+                ownerId: req.ownerId
             }
             await FileController
                 .saveFileInformation(fileMeta)

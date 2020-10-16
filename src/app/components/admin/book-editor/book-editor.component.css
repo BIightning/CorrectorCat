@@ -32,7 +32,7 @@
 
 .heading-tile {
     padding: 5px;
-    background: rgba(129, 129, 129, 0.4);
+    background: rgba(129, 129, 129, 0.3);
 }
 
 .input-heading {
@@ -104,13 +104,47 @@
     transition: all 0.3s;
 }
 
+.audio-tile {
+    background: rgba(129, 129, 129, 0.2);
+    padding: 20px;
+    border-radius: 14px;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.5s;
+    overflow-x: hidden;
+}
+
+.audio-element {
+    width: 33%;
+    padding: 5px;
+    border-radius: 14px;
+}
+
 .file-selection {
     background: rgba(129, 129, 129, 0.2);
     padding: 20px;
     border-radius: 14px;
     width: 40%;
     opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     transition: all 0.5s;
+}
+
+.progress-wrap {
+    background: rgba(68, 68, 68, 0.45);
+    width: 98%;
+    height: 4vh;
+    display: flex;
+    align-items: center;
+}
+
+.progress-wrap div {
+    height: 100%;
 }
 
 .contains-files {
@@ -151,7 +185,7 @@ input:focus {
 }
 
 select {
-    width: 95%;
+    width: 50%;
     text-align: left;
     padding: 14px;
     border: 0;
@@ -164,10 +198,23 @@ select {
 }
 
 select:focus {
-    width: 95%;
+    width: 50%;
     color: white;
     background-color: rgba(68, 68, 68, 0.356);
     border: none;
+}
+
+.image-preview {
+    max-width: 350px;
+    max-height: 250px;
+}
+
+.flex-start {
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 textarea {
@@ -215,6 +262,24 @@ textarea:focus {
     width: 100%;
     backdrop-filter: blur(3px);
     /* border-radius: 14px;*/
+}
+
+.action-button {
+    width: 15%;
+    padding: 12px;
+    display: block;
+    text-align: center;
+    background-color: rgba(4, 43, 216, 0.35);
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-weight: 700;
+    transition: 0.25s;
+}
+
+.action-button:hover {
+    width: 20%;
+    background-color: rgba(4, 43, 216, 0.5);
 }
 
 .create-button {

@@ -3,7 +3,7 @@
         <h5 class="mt-2 ml-2" id="textName">{{book.title}}
             <span class="text-center text-danger"></span>
             <span class="float-right">
-            <button (click)="openSettingsModal()" class="btn btn-sm align-top border btn-light"><i class="fas fa-cog"></i></button>
+            <button (click)="bShowSettingsModal = true" class="btn btn-sm align-top border btn-light"><i class="fas fa-cog"></i></button>
             </span>
 
         </h5>
@@ -130,37 +130,137 @@
     </div>
 </ng-template>
 
-<ng-template #startModal let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title text-gamelet" id="modal-basic-title">
-            {{book.title}}
-        </h4>
-    </div>
-    <div class="modal-body  text-center text-secondary">
-        <p class="font-weight-bold">Difficulty: {{book.difficulty}}</p>
-        {{book.description}}
-    </div>
-    <div class="modal-footer">
-        <button (click)="openSettingsModal();" type="button" class="btn game-modal btn-warning">Settings</button>
-        <button (click)="playNextChunk();" [ngClass]="bBookLoaded ? 'visible' : 'hidden'" type="button" class="btn game-modal btn-success" (click)="modal.close('Skip click')">Start</button>
-    </div>
-</ng-template>
 
-<ng-template #endModal let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title text-gamelet" id="modal-basic-title">
-            Reading finished!
-        </h4>
+
+<!--Start Modal-->
+<div [ngClass]="{'modal-active': bShowStartModal}" class="gameview-modal-bg">
+    <div class="gameview-modal start-modal">
+        <span></span>
+        <span></span>
+        <span></span>
+        <div class="gameview-modal-content text-white">
+            <h1 class="mb-1">
+                {{book.title}}
+            </h1>
+            <h6 class="font-weight-bold mb-3">Difficulty: {{book.difficulty}}</h6>
+            <p class="mb-3 font-weight-bold">
+                {{book.description}}
+            </p>
+            <h4 class="mb-3 ml-5 mr-5 p-1 bg-info rounded">
+                Earn 30 <img class="" src="../../assets/img/coin.svg" width="30" height="30"> or find all mistakes to complete the level!
+            </h4>
+            <button (click)="bShowSettingsModal = true" type="button" class="gameview-modal-btn btn btn-secondary">Settings</button>
+            <button (click)="playNextChunk(); bShowStartModal = false;" type="button" class="gameview-modal-btn btn btn-success">
+                    Start
+            </button>
+        </div>
     </div>
-    <div class="modal-body text-center">
-        <p class="font-weight-bold">Thank you for playing!</p>
-        You earned {{earnedCoins}} Credits!
-        <br>
-        <h4 class="text-warning text-center"> You missed {{chunksMissed}} errors!</h4>
-        <h2 *ngIf="chunksMissed === 0" class="text-success text-center">Congratulations!</h2>
-        <button class="btn btn-info d-block mx-auto" (click)="modal.close('ok click'); displayMissedChunks();">Display missed errors</button>
+</div>
+
+<!--Settings Modal-->
+<div [ngClass]="{'modal-active': bShowSettingsModal}" class="gameview-modal-bg">
+    <div class="gameview-modal settings-modal">
+        <span></span>
+        <span></span>
+        <span></span>
+        <div class="gameview-modal-content">
+            <h1 class="modal-title text-gamelet mb-4">
+                Settings
+            </h1>
+            <p class="align-baseline font-weight-bold mr-3">Autoplay: <input class="align-baseline" [(ngModel)]="bAutoPlay" type="checkbox"></p>
+            <p class="pb-2 font-weight-bold mr-3">
+                Playback delay:
+                <input class="align-center" [(ngModel)]="progressDelay" type="range" min="1" max="7" step="1.0">
+                <small class="ml-1">
+                    {{progressDelay}}s
+                </small>
+            </p>
+            <button type="button" class="btn btn-danger" (click)="bShowSettingsModal = false">Close</button>
+        </div>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="modal.close('ok click'); navigateToBookshelf();">Back to Bookshelf</button>
+</div>
+
+<!--game modal-->
+<div *ngIf="currentTextChunk > -1" [ngClass]="{'modal-active': bShowGameModal}" class="gameview-modal-bg">
+    <div class="gameview-modal question-modal">
+        <span></span>
+        <span></span>
+        <span></span>
+        <div class="gameview-modal-content text-white">
+            <h1 class="text-gamelet white-stroke">
+                <img src="../../assets/img/kitty.svg" width="90" height="90" class="d-inline-block align-center rounded p-1"> You found a mistake!
+            </h1>
+            <div *ngVar="book.textChunks[currentTextChunk].question as question">
+                <div class="row">
+                    <div class="col-12">
+                        <h5 class="p-4 text-center rounded" id="dp-text">{{ modalDisplayText }}<br>
+                            <audio controls class="mt-2" src="{{baseUrl + book.textChunks[currentTextChunk].audioWrong}}"></audio>
+                        </h5>
+                    </div>
+                    <div *ngIf="!bHasAnswered">
+                        <div class="row">
+                            <div class="col-12 mb-4">
+                                <h4 class="text-center">What is the mistake?</h4>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <button (click)="onGameBtnClick(0)" class="btn mx-auto d-block game-button">{{question.answers[0]}}</button><br>
+                                <!--Semantic-->
+                                <button (click)="onGameBtnClick(1)" class="btn mx-auto d-block game-button">{{question.answers[1]}}</button><br>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <button (click)="onGameBtnClick(2)" class="btn mx-auto d-block game-button">{{question.answers[2]}}</button><br>
+                                <!--Kontext-->
+                                <button (click)="onGameBtnClick(3)" class="btn mx-auto d-block game-button">{{question.answers[3]}}</button><br>
+                                <!--Betonung-->
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="bHasAnswered">
+                        <div class="row">
+                            <div class="col-12 mb-4">
+                                <h2 *ngIf="bAnsweredCorrect" class="text-center text-success white-stroke">Correct answer!</h2>
+                                <h2 *ngIf="!bAnsweredCorrect" class="text-center text-danger white-stroke">Wrong answer...</h2>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <button class="btn mx-auto  game-button hidden"></button>
+                            </div>
+                            <div class="col-md-4 col-sm-6 justify-content-center">
+                                <h5 *ngIf="!bAnsweredCorrect" class="text-center text-danger">Correct is:</h5>
+                                <h5 class="text-center"> <u>{{ question.answers[question.correctIndex] }}</u></h5>
+                                <h6 class="text-center">{{ question.explanation }}</h6><br>
+                                <h6 class="text-center">You earned {{ coinsToAdd }} credits!</h6>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <button class="btn mx-auto game-button hidden"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="bHasAnswered">
+                <button type="button" class="btn btn-lg btn-success" (click)="bShowGameModal = false; replayAfterStop();">Continue</button>
+            </div>
+        </div>
     </div>
-</ng-template>
+</div>
+
+<!--End Modal-->
+<div [ngClass]="{'modal-active': bShowEndModal}" class="gameview-modal-bg">
+    <div class="gameview-modal end-modal">
+        <span></span>
+        <span></span>
+        <span></span>
+        <div class="gameview-modal-content text-white">
+            <h1 class="text-gamelet white-stroke">
+                Reading finished!
+            </h1>
+            <h6 class="font-weight-bold text-center">Thank you for playing!</h6>
+            <p class="font-weight-bold text-center">You earned {{ earnedCoins }} Credits!</p>
+            <br>
+            <h4 class="text-gamelet text-center"> You missed {{ chunksMissed }} mistakes!</h4>
+            <h2 *ngIf="chunksMissed === 0" class="text-success text-center">Congratulations!</h2>
+            <button class="btn btn-info d-block mx-auto" (click)="bShowEndModal = false; displayMissedChunks();">Show missed mistakes</button>
+            <br><button type="button" class="btn btn-lg btn-primary" (click)="onLeaveGame();">Continue</button>
+        </div>
+    </div>
+</div>

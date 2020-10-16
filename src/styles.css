@@ -19,6 +19,10 @@ body {
     max-height: 90vh;
 }
 
+.white-stroke {
+    -webkit-text-stroke: 2px #fff;
+}
+
 .max-width {
     width: 100%;
 }

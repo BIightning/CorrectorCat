@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { FileMeta } from './../../assets/classes/fileMeta';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams, HttpRequest } from '@angular/common/http';
@@ -8,7 +9,7 @@ import { Observable, throwError } from 'rxjs';
 })
 export class FileService {
 
-  url: string = "http://localhost:8080";
+  url: string;
 
   jsonHeader = {
     headers: new HttpHeaders({
@@ -17,7 +18,7 @@ export class FileService {
   };
 
   constructor(private http: HttpClient) { 
-    this.url = "http://192.168.0.17:8080"; //for local debugging
+    this.url = environment.baseUrl;
   }
   /**
    * Get all Files regardless of owner or File type
@@ -37,10 +38,9 @@ export class FileService {
   public uploadSingle(file: File, ownerId: string):Observable<any>{
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('ownerId', ownerId);
 
     const options = {
-      headers: this.generateHeaders(false),
+      headers: this.generateUploadHeaders(ownerId),
       reportProgress: true,
       params: new HttpParams()
     }
@@ -50,30 +50,24 @@ export class FileService {
 
   public uploadMultiple(files: File[], ownerId: string):Observable<any>{
     const formData = new FormData();
+    let count = 0;
     for(let file of files){
-      formData.append('file', file);
+      formData.append('files', file);
     }
-    formData.append('ownerId', ownerId);
-
     const options = {
-      headers: this.generateHeaders(),
+      headers: this.generateUploadHeaders(ownerId),
       reportProgress: true,
       observe: 'events',
       params: new HttpParams()
     }
-    const req = new HttpRequest('POST', `${this.url}/api/files/`, formData, options);
+    const req = new HttpRequest('POST', `${this.url}/api/files/multiple`, formData, options);
     return this.http.request(req);
   }
 
-  private generateHeaders(bJsonHeader: boolean = true): HttpHeaders{
-    if(bJsonHeader)
+  private generateUploadHeaders(ownerId: string): HttpHeaders{
       return new HttpHeaders({
-        "Content-Type": "application/json; charset=utf-8",
-        "x-auth-token": localStorage.getItem('jwt')
-      });
-    else
-      return new HttpHeaders({
-        "x-auth-token": localStorage.getItem('jwt')
+        "x-auth-token": localStorage.getItem('jwt'),
+        "x-upload-owner": ownerId
       });
   }
 }

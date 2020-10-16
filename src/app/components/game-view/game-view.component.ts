@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { Observable, fromEvent, Subscription } from 'rxjs';
 import { GameState } from './stateMachine';
 import { Component, OnInit, HostBinding, ViewChild, Input, ViewChildren, QueryList } from '@angular/core';
@@ -17,24 +18,14 @@ import { User } from 'src/assets/classes/users';
 
 export class GameViewComponent implements OnInit {
 
-  @ViewChild("startModal")
-  private startModalContent;
-
-  @ViewChild("gameModal")
-  private gameModalContent;
-
-  @ViewChild("settingsModal")
-  private settingsModalContent;
-
-  @ViewChild("endModal")
-  private endModalContent;
-
   @ViewChildren("chunkPool") chunkPool;
 
   user: User;
   audioplayer: HTMLAudioElement;
   progressDelay: number = 1;
   book: Book;
+
+  baseUrl: string;
 
   modalDisplayText: string = 'Content is being loaded';
   earnedCoins: number = 0;
@@ -43,6 +34,11 @@ export class GameViewComponent implements OnInit {
   chunksMissed: number = 0;
 
   currentTextChunk: number = -1;
+
+  bShowGameModal: boolean = false;
+  bShowStartModal: boolean = false;
+  bShowSettingsModal: boolean = false;
+  bShowEndModal: boolean = false;
 
   bFirstChunk: boolean = true;
   bHasAnswered: boolean;
@@ -58,15 +54,21 @@ export class GameViewComponent implements OnInit {
   autoplayTimout: any; //property for holding a timout that can be cleared by user interaction
 
 
-  constructor(private route: ActivatedRoute, private bookService: BookService, private userService: UserService, private modalService: NgbModal, private router: Router) {
-
-    //Stop playback when leaving page
-    this.routerEvent = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        this.audioplayer.pause();
-        modalService.dismissAll('navigation');
-      }
-    });
+  constructor(
+    private route: ActivatedRoute, 
+    private bookService: BookService, 
+    private userService: UserService, 
+    private modalService: NgbModal, 
+    private router: Router) 
+    {
+      this.baseUrl = environment.baseUrl;
+      //Stop playback when leaving page
+      this.routerEvent = this.router.events.subscribe((event) => {
+        if (event instanceof NavigationStart) {
+          this.audioplayer.pause();
+          modalService.dismissAll('navigation');
+        }
+      });
   }
 
   ngOnInit() {
@@ -76,12 +78,14 @@ export class GameViewComponent implements OnInit {
     let userId = localStorage.getItem("user");
     this.userService.getUserbyId(userId).subscribe((data) => {
       this.user = data;
-      this.modalService.open(this.startModalContent, { centered: true, backdrop: 'static', keyboard: false });
+  
+      //this.modalService.open(this.startModalContent, { centered: true, backdrop: 'static', keyboard: false });
     });
     this.route.params.subscribe(param => {
       this.bookService.getBookByTitle(param.bookId).subscribe(data => {
         this.book = data;
         this.bBookLoaded = true;
+        this.bShowStartModal = true;
         this.prepareGame();
       });
     })
@@ -121,7 +125,7 @@ export class GameViewComponent implements OnInit {
 
     this.lookForMissedChunks();
     this.addCreditsToPlayerAccount();
-    this.modalService.open(this.endModalContent, { windowClass: "game-modal", centered: true, backdrop: 'static', keyboard: false });
+    this.bShowEndModal = true;
   }
 
   private async autoPlay() {
@@ -141,19 +145,19 @@ export class GameViewComponent implements OnInit {
   }
 
   private async playChunkAudioAtRandom() {
-    if (Math.floor((Math.random() * 100)) > 45) {
+    if (Math.floor((Math.random() * 100)) < 40) {
       console.log("[Game][Playback][RNG] Correct file is being played");
-      this.audioplayer = new Audio('./assets/books/' + this.book.title + '/correct/' + this.book.textChunks[this.currentTextChunk].audioCorrect);
+      this.audioplayer = new Audio(`${environment.baseUrl}${this.book.textChunks[this.currentTextChunk].audioCorrect}`);
     }
     else {
       console.log("[Game][Playback][RNG] Wrong file is being played");
       this.wrongReadIndexes[this.currentTextChunk] = true;
-      this.audioplayer = new Audio('./assets/books/' + this.book.title + '/wrong/' + this.book.textChunks[this.currentTextChunk].audioWrong);
+      this.audioplayer = new Audio(`${environment.baseUrl}${this.book.textChunks[this.currentTextChunk].audioWrong}`);
     }
     this.audioplayer.load();
     let dataLoaded = fromEvent(this.audioplayer, 'canplaythrough');
     dataLoaded.subscribe(() => this.audioplayer.play());
-    //await new Promise(resolve => setTimeout(() => resolve(), 150)).then(() => this.audioplayer.play());
+
   }
 
   private lookForMissedChunks() {
@@ -162,7 +166,6 @@ export class GameViewComponent implements OnInit {
         this.chunksMissed++;
       }
     }
-    this.chunksMissed = 0;
   }
 
   private addCreditsToPlayerAccount() {
@@ -200,7 +203,7 @@ export class GameViewComponent implements OnInit {
   private attachChunkAudioPlayer(chunkIndex) {
     let audioPl = document.createElement('audio');
     audioPl.controls = true;
-    audioPl.src = './assets/books/' + this.book.title + '/wrong/' + this.book.textChunks[chunkIndex].audioWrong;
+    audioPl.src =  `${environment.baseUrl}${this.book.textChunks[chunkIndex].audioWrong}`;
 
     let errorDescription = document.createElement('span');
     errorDescription.innerHTML = this.book.textChunks[chunkIndex].question.explanation;
@@ -218,7 +221,7 @@ export class GameViewComponent implements OnInit {
     });
   }
 
-  private displayMissedChunks() {
+  public displayMissedChunks() {
     for (let index = 0; index < this.wrongReadIndexes.length; index++) {
       if (this.wrongReadIndexes[index] !== this.foundWrongIndexes[index]) {
         let chunk = document.getElementById("chunk-" + index);
@@ -231,7 +234,7 @@ export class GameViewComponent implements OnInit {
   private attachModalAudioPlayer_wrong() {
     let wrongAudioPl = document.createElement('audio');
     wrongAudioPl.controls = true;
-    wrongAudioPl.src = './assets/books/' + this.book.title + '/wrong/' + this.book.textChunks[this.currentTextChunk].audioWrong;
+    wrongAudioPl.src = `${environment.baseUrl}${this.book.textChunks[this.currentTextChunk].audioWrong}`;
 
     //document.getElementById('wrongAudioContainer').appendChild(wrongAudioPl);
   }
@@ -248,7 +251,7 @@ export class GameViewComponent implements OnInit {
       this.foundWrongIndexes[this.currentTextChunk] = true;
       document.getElementById('chunk-' + this.currentTextChunk).classList.add('snippet-found');
 
-      this.modalService.open(this.gameModalContent, { windowClass: "game-modal", centered: true, size: "lg", backdrop: 'static', keyboard: false });
+      this.bShowGameModal = true;
       this.coinsToAdd = this.book.textChunks[this.currentTextChunk].points / 2;
       this.attachModalAudioPlayer_wrong();
     }
@@ -264,14 +267,13 @@ export class GameViewComponent implements OnInit {
 
     this.bHasAnswered = false;
     this.coinAnimation();
-    this.audioplayer = new Audio('./assets/books/' + this.book.title + '/correct/' + this.book.textChunks[this.currentTextChunk].audioCorrect);
+    this.audioplayer = new Audio(`${environment.baseUrl}${this.book.textChunks[this.currentTextChunk].audioCorrect}`);
     this.RegisterAudioFinishedEvent();
     this.audioplayer.load();
     let dataLoaded = fromEvent(this.audioplayer, 'canplaythrough');
     dataLoaded.subscribe(() => this.audioplayer.play());
   }
 
-  //regular pause
   public onNextBtnClick() {
     //Check if current playback has ended. Jump to next Chunk if it has
     if (this.gameState == GameState.ChunkEnded) {
@@ -310,11 +312,6 @@ export class GameViewComponent implements OnInit {
       this.bAnsweredCorrect = false;
     }
   }
-
-  private progessDelay() {
-    console.log('Delay set to ' + this.progressDelay + ' seconds.');
-  }
-
 
   async coinAnimation() {
     let $target = jQuery("#coin-pool");
@@ -362,19 +359,14 @@ export class GameViewComponent implements OnInit {
 
   }
 
+  onLeaveGame() {
+    this.router.navigate(["/game/tutorial/1"]);
+  }
+
   navigateToBookshelf() {
     this.router.navigate(["/LbT/" + this.user._id + "/bookshelf"]);
   }
   async addPoint() {
     await new Promise(resolve => setTimeout(() => resolve(), 1000)).then(() => { this.earnedCoins++ });
   }
-
-  openSettingsModal() {
-    this.modalService.open(this.settingsModalContent, { centered: true })
-  }
-
-  debugOpenGameModal() {
-    this.modalService.open(this.gameModalContent, { windowClass: "game-modal", centered: true, size: "lg", backdrop: 'static', keyboard: false });
-  }
-
 } 

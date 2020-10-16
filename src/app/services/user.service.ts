@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { User } from '../../assets/classes/users';
 import { HttpClient} from '@angular/common/http';
@@ -10,10 +11,10 @@ import {UpdateResponse} from "../../assets/classes/updateResponse";
 })
 export class UserService {
 
-  url: string = "http://localhost:8080";
+  url: string;
 
   constructor(private http: HttpClient) { 
-    this.url = "http://192.168.0.17:8080"; //for local debugging
+    this.url = environment.baseUrl;
   }
   public getUserbyId(userId: string) : Observable<User>{
     console.log(userId);

@@ -1,6 +1,6 @@
 const { File, fileValidation } = require("../dbModels/file");
 const multer = require('multer');
-const { ModuleKind } = require("typescript");
+const fs = require('fs');
 /**
  * Returns data base entries of all files
  * regardless of owner or file type.
@@ -148,7 +148,12 @@ function saveFileInformation(fileMeta) {
 
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        let filepath = './public/images';
+        let filepath = `./uploads/${req.ownerId}`;
+        ensureFolderExistance(filepath, (err) => {
+            if (err)
+                throw new Error(`Error while creating folder!`);
+        });
+
         req.filetype = 'image';
         let fileEnding = determineFileEnding(file);
         if (!fileEnding)
@@ -156,7 +161,6 @@ var storage = multer.diskStorage({
 
         if (fileEnding === '.mp3') {
             req.filetype = 'audio';
-            filepath = './public/audio';
         }
         cb(null, filepath);
     },
@@ -167,6 +171,15 @@ var storage = multer.diskStorage({
         cb(null, `${file.originalname}`);
     }
 });
+
+function ensureFolderExistance(path, cb) {
+    fs.mkdir(path, function(err) {
+        if (err) {
+            if (err.code == 'EEXIST') cb(null); // ignore the error if the folder already exists
+            else cb(err); // something else went wrong
+        } else cb(null); // successfully created folder
+    });
+}
 
 
 /**

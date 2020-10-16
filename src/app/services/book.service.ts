@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Book } from '../../assets/classes/book';
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class BookService {
 
-  url: string = "http://localhost:8080";
+  url: string;
 
   jsonHeader = {
     headers: new HttpHeaders({
@@ -17,7 +18,7 @@ export class BookService {
   };
 
   constructor(private http: HttpClient) { 
-    this.url = "http://192.168.0.17:8080"; //for local debugging
+    this.url = environment.baseUrl;
   }
 
   public getBookById(bookId : string) : Observable<Book>{

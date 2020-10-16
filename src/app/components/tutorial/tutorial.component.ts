@@ -13,7 +13,8 @@ export class TutorialComponent implements OnInit {
   @Input("preview") bIsPreview: boolean;
   currLevel: number;
   currentSlide: number = 0;
-  bCanContinue: boolean = true;
+  bCanContinue: Boolean = true;
+  bIsLoaded: Boolean = false;
   sequence: TutorialSequence = new TutorialSequence();
 
   constructor(private router: Router, private route: ActivatedRoute, private tutorialSequenceService: TutorialSequenceService) {
@@ -32,6 +33,7 @@ export class TutorialComponent implements OnInit {
 
         this.tutorialSequenceService.getSequence(this.currLevel).subscribe(res => {
           document.getElementById("scaling-bg").classList.remove("paused");
+          this.bIsLoaded = true;
           this.removeStartEffect();
           this.sequence = res;
           console.log(this.sequence.targetTextTitle);

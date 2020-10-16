@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -9,9 +10,9 @@ import { TutorialSequence } from 'src/assets/classes/tutorialSequence';
 export class TutorialSequenceService {
   seq: TutorialSequence;
   
-  url: string = "http://localhost:8080";
+  url: string;
   constructor(private http: HttpClient) {
-    this.url = "http://192.168.0.17:8080"; //for local debugging
+    this.url = environment.baseUrl;
   }
   
   public getSequence(position: number): Observable<TutorialSequence> {

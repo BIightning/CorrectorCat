@@ -12,7 +12,7 @@
         </div>
         <div class="col-4"></div>
     </div>
-    <!--Book Details & Meta-->
+    <!--Book Details & Meta START-->
     <h4 class="input-heading mt-2">&nbsp;Title:</h4>
     <input [(ngModel)]="book.title" name="title" type="text" required>
     <h4 class="input-heading mt-2">&nbsp;Author:</h4>
@@ -21,89 +21,175 @@
     <input [(ngModel)]="book.series" name="series" type="text" required>
 
     <h4 class="input-heading mt-2">&nbsp;Language:</h4>
-    <select name="language" type="string" [(ngModel)]="book.language" required>
+    <div class="flex-start mt-1">
+        <select name="language" type="string" [(ngModel)]="book.language" required>
             <option *ngFor="let language of languages" value="{{language}}" [selected]="language === book.language">{{language | countryFromIso}}</option>
         </select>
+    </div>
+
     <h4 class="input-heading mt-2">&nbsp;Description:</h4>
     <textarea [(ngModel)]="book.description" name="description" type="text" rows="2" required></textarea>
 
-    <h4 class="input-heading mt-2">&nbsp;Image Path:</h4>
-    <input [(ngModel)]="book.imagePath" name="image Path" type="text" required>
+    <!--Image Upload START-->
+    <h4 class="input-heading mt-2">&nbsp;Image:</h4>
+    <h5 *ngIf="bIsNew" class="mt-1 ml-5 input-heading text-primary"> A new image can be uploaded after successfully saving once.</h5>
+    <div class="row mt-1 ml-3">
+        <div class="col-md-6">
+            <ng-container *ngIf="!bIsNew">
+                <ng-container *ngIf="uploadProgress < 0">
+                    <label for="image-upload" class="custom-file-upload mt-4">
+                    <i class="fa fa-upload"></i><ng-container *ngIf="!singleFile; else selectedTemplate">
+                        Select Image file
+                    </ng-container>
+                    <ng-template #selectedTemplate>
+                        {{singleFile.name}}
+                    </ng-template>
+                </label>
+                    <input accept=".png, .jpg, .jpeg" id="image-upload" type="file" (change)="selectSingleFileForUpload($event)">
+                    <button class="btn ml-1 mt-1 mr-1 action-button" [disabled]="!singleFile" (click)="singleFileUpload()">upload</button>
+                </ng-container>
+            </ng-container>
 
-    <h5 class="input-heading"><br>
-        <input class="check" [(ngModel)]="book.starting" name="starting" type="checkbox" name="starting">
-        <label for="starting">Starting or tutorial book</label>
-    </h5>
-    <ng-container *ngIf="!book.starting">
-        <h4 class="input-heading mt-2">&nbsp;Cost:</h4>
-        <input [(ngModel)]="book.cost" name="cost" type="number" required>
-        <h4 class="input-heading mt-2">&nbsp;Difficulty:</h4>
-        <select name="difficulty" type="string" [(ngModel)]="book.difficulty" required>
+            <div *ngIf="uploadProgress >= 0 && singleFile" class="m-2 progress-wrap text-center rounded shadow position-relative">
+                <div class="p-1 position-absolute rounded progress-bar progress-bar-striped text-center bg-primary" role="progressbar" [style.width.%]="uploadProgress">&nbsp;</div>
+                <h5 class="max-width text-center text-white position-absolute mt-1 p-1">{{uploadProgress}}%</h5>
+            </div>
+            <select class="mt-1" *ngIf="!bIsNew" [(ngModel)]="book.imagePath">
+                <option *ngFor="let fileMeta of getImageFiles()" [selected]="book.imagePath === fileMeta.fileUrl"  value="{{fileMeta.fileUrl}}">
+                    {{fileMeta.fileName}}
+                </option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <img class="mt-2 rounded shadow image-preview" src="{{baseUrl}}{{book.imagePath}}">
+        </div>
+        <!--Image Upload END-->
+        <!--Book Details & Meta END-->
+
+        <!--Starting/Tutorial Settings START-->
+        <h4 class="input-heading mt-2">&nbsp;Book Settings:</h4>
+        <h5 class="input-heading"><br>
+            <input class="check ml-2" [(ngModel)]="book.starting" id="starting" type="checkbox">
+            <label for="starting">Starting or tutorial book</label>
+        </h5>
+        <ng-container *ngIf="!book.starting">
+            <h4 class="input-heading mt-2">&nbsp;Cost:</h4>
+            <input [(ngModel)]="book.cost" name="cost" type="number" required>
+            <h4 class="input-heading mt-2">&nbsp;Difficulty:</h4>
+            <select name="difficulty" type="string" [(ngModel)]="book.difficulty" required>
             <option *ngFor="let difficulty of difficulties" value="{{difficulty}}" [selected]="difficulty === book.difficulty">{{difficulty}}</option>
         </select>
-    </ng-container>
-    <h4 class="input-heading mt-2">&nbsp;Audio Files:</h4>
-    <div class="inner-tile droparea" [ngClass]="{'highlight': bIsDragging}" (drop)="onDrop($event)">
-        <label class="custom-file-select text-white text-center mt-5" for="audioFileSelect">
-            <i class="fas fa-upload"></i>
-            Drop or select .mp3 files for upload here
-        </label>
-        <input type="file" (change)="selectMultipleFilesForUpload($event)" class="fileSelector" id="audioFileSelect" accept=".mp3" multiple>
-        <div [ngClass]="{'contains-files': multipleFiles.length > 0}" class="file-selection">
-            <h5 *ngFor="let file of multipleFiles; index as i" class="file-wrapper text-white text-left">
-                {{file.name}}
-                <a (click)="multipleFiles.splice(i, 1)" class="trash-btn text-danger float-right"><i class="fa fa-trash"></i></a>
-            </h5>
-        </div>
-    </div>
-    <!--Text Chunks-->
-    <div class="chunk-wrapper mt-2 mb-3">
-        <div class="user-tile ml-1 heading-tile row">
-            <div class="col-4">
-                <button type="button" (click)="onNewChunkClick()" class="create-button">
+        </ng-container>
+        <ng-container *ngIf="book.starting">
+            <h6 class="input-heading ml-5"><br>
+                <input class="check" [(ngModel)]="bTutorialAfterBook" id="tutorial" type="checkbox">
+                <label for="tutorial">Show Tutorial after completion</label>
+            </h6>
+            <ng-container *ngIf="bTutorialAfterBook">
+                <h4 class="input-heading mt-2">&nbsp;Target Tutorial:</h4>
+                <select [(ngModel)]="tutorials">
+                <option *ngFor="let tutorial of tutorials" value="{{tutorial._id}}">{{tutorial.tutorialTitle}}</option>
+            </select>
+            </ng-container>
+        </ng-container>
+        <!--Starting/Tutorial Settings END-->
+
+        <!--Audio File Uploads START-->
+        <h4 class="input-heading mt-5">&nbsp;Audio Files:</h4>
+        <h5 *ngIf="bIsNew" class="mt-1 ml-5 input-heading text-primary">Files can be uploaded after successfully saving once.</h5>
+        <ng-container *ngIf="!bIsNew">
+            <div *ngIf="getAudioFileCount() > 2" class="audio-tile">
+                <select name="possessedFiles" (change)="onFileSelect()" [(ngModel)]="selectedFileMeta" type="string">
+            <option selected disabled>Please select a file</option>
+            <option *ngFor="let fileMeta of filterOutAudioPlaceholders()" [ngValue]="fileMeta">{{fileMeta.fileName}}</option>
+        </select>
+                <button *ngIf="bFileSelected" (click)="onAudioClick(selectedFileMeta.fileUrl)" class="mt-1 shadow btn btn-dark secondaryBtns">
+            <span class="fa fa-play"></span>
+        </button>
+
+                <button class="action-button mt-3" (click)="bShowFileDrop = !bShowFileDrop">
+            <span *ngIf="bShowFileDrop">Hide Upload Field</span>
+            <span *ngIf="!bShowFileDrop"> Upload more</span>
+        </button>
+            </div>
+            <div *ngIf="getAudioFileCount() == 2 || bShowFileDrop" class="mt-2 inner-tile droparea" [ngClass]="{'highlight': bIsDragging}" (drop)="onDrop($event)">
+                <label class="custom-file-select text-white text-center mt-5" for="audioFileSelect">
+                <i class="fas fa-upload"></i>
+                Drop or select .mp3 files for upload here
+            </label>
+                <input type="file" name="file" (change)="selectMultipleFilesForUpload($event)" class="fileSelector" id="audioFileSelect" accept=".mp3" multiple>
+                <div [ngClass]="{'contains-files': multipleFiles.length > 0}" class="file-selection">
+                    <h5 *ngFor="let file of multipleFiles; index as i" class="file-wrapper text-white text-left">
+                        {{file.name}}
+                        <a (click)="multipleFiles.splice(i, 1)" class="trash-btn text-danger float-right"><i class="fa fa-trash"></i></a>
+                    </h5>
+                    <button (click)="multiFileUpload()" type="button" class="create-button">
+                Start Upload
+            </button>
+                </div>
+            </div>
+        </ng-container>
+        <!--Audio File Uploads END-->
+
+        <!--Text Chunks START-->
+        <div class="chunk-wrapper mt-5 mb-3">
+            <div class="user-tile ml-1 heading-tile row">
+                <div class="col-4">
+                    <button type="button" (click)="onNewChunkClick()" class="create-button">
                     <span><i class="fa fa-list-alt fa-lg"></i><i class="ml-1 fa fa-sm fa-plus"></i></span>
                     New Chunk
                 </button>
-            </div>
-            <div class="col-4">
-                <h3 class="text-center">Text Chunks</h3>
-            </div>
-            <div class="col-4">
-            </div>
-        </div>
-        <div class="chunk-tile shadow" *ngFor="let chunk of book.textChunks; let i=index" [ngClass]="{'pb-2 pl-1': chunkExtended[i]}">
-            <h3 class="input-heading m-0 mt-2 ">
-                <button type="button" (click)="chunkExtended[i]=! chunkExtended[i] " class="expand-btn fa text-white" [ngClass]="{ 'fa-chevron-right': !chunkExtended[i], 'fa-chevron-down': chunkExtended[i]} "></button>
-                <span>&nbsp; Chunk {{i +1}}</span>
-                <small class="ml-5 text-center">"{{chunk.text | summary}}"</small>
-                <a type="button" *ngIf="book.textChunks.length > 1" (click)="onDeleteClick(i)" class="trash-btn float-right mr-1 p-1 text-right text-danger"><i class="fa fa-trash"></i></a>
-            </h3>
-            <ng-container *ngIf="chunkExtended[i]">
-                <h4 class="input-heading mt-2 ">&nbsp;Text:</h4>
-                <input class="mt-2 " [(ngModel)]="chunk.text " type="text" required=" ">
-                <h4 class="input-heading mt-2 ">&nbsp;Correct audio:</h4>
-                <input [(ngModel)]="chunk.audioCorrect " type="text" required=" ">
-                <h4 class="input-heading mt-2 ">&nbsp;Wrong audio:</h4>
-                <input [(ngModel)]="chunk.audioWrong " type="text" required=" ">
-                <h4 class="input-heading mt-2 ">&nbsp;Points:</h4>
-                <input [(ngModel)]="chunk.points" type="number" required=" ">
-                <div class="error-tile p-2 mt-3 mb-2 shadow ">
-                    <h3 class="input-heading mt-2 ">&nbsp;Chunk error:</h3>
-                    <input class="m-1" *ngFor="let answer of chunk.question.answers; let i=index; trackBy:trackByFn" [(ngModel)]="chunk.question.answers[i]" type="text" required>
-                    <h4 class="input-heading mt-2 ">&nbsp;Correct Index:</h4>
-                    <input [(ngModel)]="chunk.question.correctIndex" type="number" required>
-                    <h4 class="input-heading mt-2 ">&nbsp;Explanation:</h4>
-                    <input [(ngModel)]="chunk.question.explanation" type="text" required>
                 </div>
-            </ng-container>
-
+                <div class="col-4">
+                    <h3 class="text-center">Text Chunks</h3>
+                </div>
+                <div class="col-4">
+                </div>
+            </div>
+            <div class="chunk-tile shadow" *ngFor="let chunk of book.textChunks; let i=index" [ngClass]="{'pb-2 pl-1': chunkExtended[i]}">
+                <h3 class="input-heading m-0 mt-2 ">
+                    <button type="button" (click)="chunkExtended[i]=! chunkExtended[i] " class="expand-btn fa text-white" [ngClass]="{ 'fa-chevron-right': !chunkExtended[i], 'fa-chevron-down': chunkExtended[i]} "></button>
+                    <span>&nbsp; Chunk {{i +1}}</span>
+                    <small class="ml-5 text-center">"{{chunk.text | summary}}"</small>
+                    <a type="button" *ngIf="book.textChunks.length > 1" (click)="onDeleteClick(i)" class="trash-btn float-right mr-1 p-1 text-right text-danger"><i class="fa fa-trash"></i></a>
+                </h3>
+                <ng-container *ngIf="chunkExtended[i]">
+                    <h4 class="input-heading mt-2 ">&nbsp;Text:</h4>
+                    <input class="mt-2" [(ngModel)]="chunk.text " type="text" required=" ">
+                    <h4 class="input-heading mt-2 ">&nbsp;Correct audio:</h4>
+                    <select [(ngModel)]="chunk.audioCorrect" required>
+                    <option *ngFor="let fileMeta of getAudioFiles()" [selected]="chunk.audioCorrect === fileMeta.fileUrl"  value="{{fileMeta.fileUrl}}">{{fileMeta.fileName}}</option>
+                </select>
+                    <button (click)="onAudioClick(chunk.audioCorrect)" class="mt-1 ml-1 shadow btn btn-dark secondaryBtns">
+                    <span class="fa fa-play"></span>
+                </button>
+                    <h4 class="input-heading mt-2 ">&nbsp;Wrong audio:</h4>
+                    <select [(ngModel)]="chunk.audioWrong" required>
+                    <option *ngFor="let fileMeta of getAudioFiles()" [selected]="chunk.audioWrong === fileMeta.fileUrl" value="{{fileMeta.fileUrl}}">{{fileMeta.fileName}}</option>
+                </select>
+                    <button (click)="onAudioClick(chunk.audioWrong)" class="mt-1 ml-1 shadow btn btn-dark secondaryBtns">
+                        <span class="fa fa-play"></span>
+                </button>
+                    <h4 class="input-heading mt-2 ">&nbsp;Points:</h4>
+                    <input [(ngModel)]="chunk.points" type="number" required=" ">
+                    <div class="error-tile p-2 mt-3 mb-2 shadow ">
+                        <h3 class="input-heading mt-2 ">&nbsp;Chunk error:</h3>
+                        <input class="m-1" *ngFor="let answer of chunk.question.answers; let i=index; trackBy:trackByFn" [(ngModel)]="chunk.question.answers[i]" type="text" required>
+                        <h4 class="input-heading mt-2 ">&nbsp;Correct Index:</h4>
+                        <input [(ngModel)]="chunk.question.correctIndex" type="number" required>
+                        <h4 class="input-heading mt-2 ">&nbsp;Explanation:</h4>
+                        <input [(ngModel)]="chunk.question.explanation" type="text" required>
+                    </div>
+                </ng-container>
+            </div>
         </div>
-
+        <!--Text Chunks END-->
     </div>
 </div>
-<app-loading-animation *ngIf="!bLoaded">
-</app-loading-animation>
 
+<app-loading-animation *ngIf="!bLoaded"></app-loading-animation>
+
+<!--Delete Confirm Modal-->
 <div [ngClass]="{'modal-active': bShowModal}" class="admin-modal-bg">
     <div *ngIf="book?.textChunks" class="admin-modal shadow">
         <h3>
@@ -117,5 +203,19 @@
         </div>
     </div>
 </div>
+
+<!--Upload Progress Modal-->
+<div [ngClass]="{'modal-active': uploadProgress > -1 && bAudioUpload}" class="admin-modal-bg">
+    <div class="admin-modal shadow">
+        <h3>
+            Uploading Files. Please do not leave this page.
+        </h3>
+        <div class="m-2 progress-wrap text-center rounded shadow position-relative">
+            <div class="p-1 position-absolute rounded progress-bar progress-bar-striped text-center bg-success" role="progressbar" [style.width.%]="uploadProgress">&nbsp;</div>
+            <h5 class="max-width text-center text-white position-absolute mt-1 p-1">{{uploadProgress}}%</h5>
+        </div>
+    </div>
+</div>
+
 
 <app-feedback-message [feedbackMessage]="feedbackMessage" (durationReached)="resetFeedbackMessage()"></app-feedback-message>
