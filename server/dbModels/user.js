@@ -3,11 +3,11 @@ const Joi = require('@hapi/joi');
 const jwt = require('jsonwebtoken');
 
 const userSchema = new mongoose.Schema({
-    email: { type: String, required: true },
-    name: { type: String, required: true },
-    avatar: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
     credits: { type: Number, required: true },
-    completedLevels: { type: Number, required: true },
+    completedLevels: { type: Number, required: true, default: 0 },
+    isNativeAccount: { type: Boolean, required: true },
     isAdmin: { type: Boolean, required: true }
 });
 
@@ -23,20 +23,16 @@ const User = mongoose.model('user', userSchema);
 function userValidation(data) {
     const schema = Joi.object().keys({
         email: Joi.string().email().required(),
-        name: Joi.string().min(3).required(),
-        avatar: Joi.string().min(3).required(),
+        password: Joi.string().min(6).required(),
         credits: Joi.number().required(),
-        completedLevels: Joi.number().required(),
-        isAdmin: Joi.boolean()
+        completedLevels: Joi.number()
     });
 
     return schema.validate({
         email: data.email,
-        name: data.name,
-        avatar: data.avatar,
+        password: data.password,
         credits: data.credits,
-        completedLevels: data.completedLevels,
-        isAdmin: data.isAdmin
+        completedLevels: data.completedLevels
     });
 }
 

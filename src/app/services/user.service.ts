@@ -1,7 +1,7 @@
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { User } from '../../assets/classes/users';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable, from } from 'rxjs';
 import {CreateResponse} from "../../assets/classes/createResponse";
 import {UpdateResponse} from "../../assets/classes/updateResponse";
@@ -40,6 +40,13 @@ export class UserService {
 
   public updateUser(user :User): Observable<User>{
     return this.http.put<User>(this.url+"/api/users/" + user._id , user);
+  }
+
+  private generateHeader(): HttpHeaders{
+    return new HttpHeaders({
+      "Content-Type": "application/json; charset=utf-8",
+      "x-auth-token": localStorage.getItem('jwt')
+    });
   }
 
 }
