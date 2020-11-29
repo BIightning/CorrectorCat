@@ -1,5 +1,5 @@
 import { TutorialSequenceService } from './../../services/tutorial-sequence.service';
-import { TutorialSequence } from './../../../assets/classes/tutorialSequence';
+import { TutorialSequence } from 'src/app/classes/tutorialSequence';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 

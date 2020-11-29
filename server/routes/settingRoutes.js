@@ -5,18 +5,26 @@ const adminPermission = require("../middleware/adminPermission.js");
 
 router
     .route('/')
-    .get([auth, adminPermission], async(req, res) => {
+    .get(async(req, res) => {
         await settingsController
-            .getSettings()
+            .getClientRelevantSettings()
             .then(result => res.status(200).send(result))
-            .catch(reason => res.status(reason.code).send(reason.msg));
+            .catch(reason => res.status(reason.code || 500).send(reason.message));
     })
     .put([auth, adminPermission], async(req, res) => {
         await settingsController
             .updateSettings()
             .then(result => res.status(200).send(result))
-            .catch(reason => res.status(reason.code).send(reason.msg));
+            .catch(reason => res.status(reason.code || 500).send(reason.message));
     });
+router
+    .route('/admin')
+    .get([auth, adminPermission], async(req, res) => {
+        await settingsController
+            .getSettings()
+            .then(result => res.status(200).send(result))
+            .catch(reason => res.status(reason.code || 500).send(reason.message));
+    })
 
 
 module.exports = router;

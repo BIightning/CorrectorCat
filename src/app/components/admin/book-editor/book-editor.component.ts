@@ -1,15 +1,15 @@
 import { TutorialSequenceService } from './../../../services/tutorial-sequence.service';
-import { PlaceholderFiles } from './../../../../assets/classes/PlaceholderFiles';
+import { PlaceholderFiles } from 'src/app/classes/PlaceholderFiles';
 import { environment } from './../../../../environments/environment';
 import { FileService } from './../../../services/file.service';
 import { BookService } from 'src/app/services/book.service';
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Book } from 'src/assets/classes/book';
-import { FeedbackMessage, MessageType } from 'src/assets/classes/feedbackMessage';
-import { FileMeta } from 'src/assets/classes/fileMeta';
+import { Book } from 'src/app/classes/book';
+import { FeedbackMessage, MessageType } from 'src/app/classes/feedbackMessage';
+import { FileMeta } from 'src/app/classes/fileMeta';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
-import { TutorialSequence } from 'src/assets/classes/tutorialSequence';
+import { TutorialSequence } from 'src/app/classes/tutorialSequence';
 
 @Component({
   selector: 'app-book-editor',

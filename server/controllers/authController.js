@@ -3,17 +3,20 @@ const bcrypt = require('bcrypt');
 const { User } = require('../dbModels/user.js');
 const settingsController = require('../controllers/settingsController');
 
-//TODO Request to recording studio for authentification 
-// !This is not safe, no real authentification happens!
+/**
+ * Attempts to login the user with the passed credentials.
+ * This function handles both native and remote users.
+ * Returns a jwt and a few information about the user if authentication succeeds
+ * @param {object} data the username + password
+ */
 async function authenticate(data) {
 
     let { error } = authValidation(data);
-    if (error)
-        if (error) {
-            let err = new Error(error.details[0].message);
-            err.code = 400;
-            throw err;
-        }
+    if (error) {
+        let err = new Error(error.details[0].message);
+        err.code = 400;
+        throw err;
+    }
 
     const settings = settingsController.getSettingsSync();
 
@@ -49,32 +52,7 @@ async function authenticate(data) {
             _id: user._id
         }
     }
-
-    /*
-    console.log(`jwt: ${jwt}`);
-    return createResponseData(jwt, user);*/
-
 }
-/**
- *Returns a jwt and a few information about the user
- *@param userData the full user object (from the database)
- */
-function createResponseData(jwt, userData) {
-    let result = {
-        jwt: "",
-        user: {}
-    }
-    result.jwt = jwt;
-
-    let user;
-    user.email = userData.email;
-    user._id = userData._id;
-
-    result.user = user;
-    return result;
-}
-
-
 
 function authValidation(data) {
     const schema = Joi.object().keys({

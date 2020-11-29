@@ -1,10 +1,10 @@
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
-import { User } from '../../assets/classes/users';
+import { User } from 'src/app/classes/users';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable, from } from 'rxjs';
-import {CreateResponse} from "../../assets/classes/createResponse";
-import {UpdateResponse} from "../../assets/classes/updateResponse";
+import {CreateResponse} from 'src/app/classes/createResponse';
+import {UpdateResponse} from 'src/app/classes/updateResponse';
 
 @Injectable({
   providedIn: 'root'

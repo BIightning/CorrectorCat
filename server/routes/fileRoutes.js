@@ -23,7 +23,7 @@ router
                 .catch(reason => {
                     console.log(reason);
                     fs.unlink(req.file.path, () => {});
-                    res.status(reason.code).send(reason.msg);
+                    res.status(reason.code || 500).send(reason.message)
                 });
         }
     })
@@ -33,7 +33,7 @@ router
             .then(result => res.status(200).send(result))
             .catch(reason => {
                 console.log(reason);
-                res.status(reason.code).send(reason.msg);
+                res.status(reason.code || 500).send(reason.message);
             });
     })
 
@@ -45,7 +45,7 @@ router
             .then(result => res.status(200).send(result))
             .catch(reason => {
                 console.log(reason);
-                res.status(reason.code).send(reason.msg);
+                res.status(reason.code || 500).send(reason.message);
             });
     })
 
@@ -57,7 +57,7 @@ router
             .then(result => res.status(200).send(result))
             .catch(reason => {
                 console.log(reason);
-                res.status(reason.code).send(reason.msg);
+                res.status(reason.code || 500).send(reason.message);
             });
     })
 router
@@ -68,7 +68,7 @@ router
             .then(result => res.status(200).send(result))
             .catch(reason => {
                 console.log(reason);
-                res.status(reason.code).send(reason.msg);
+                res.status(reason.code || 500).send(reason.message);
             });
     })
 router
@@ -93,7 +93,7 @@ router
                 .catch(reason => {
                     fs.unlink(file.fileUrl);
                     res.status(200).send(fileMetas);
-                    res.status(reason.code).send('Something went wrong. Not all files were uploaded.');
+                    res.status(reason.code || 500).send('Something went wrong. Not all files were uploaded.');
                     return;
                 });
         }

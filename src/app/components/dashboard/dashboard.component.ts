@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from "../../services/user.service";
-import { User } from 'src/assets/classes/users';
+import { User } from 'src/app/classes/users';
 
 @Component({
   selector: 'app-dashboard',

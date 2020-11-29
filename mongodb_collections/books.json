@@ -1,0 +1,353 @@
+[{
+  "_id": {
+    "$oid": "5f56f3ccbe1da85cec4650e8"
+  },
+  "title": "Meerestiere",
+  "author": "Corrector Cat Team",
+  "language": "de-DE",
+  "starting": true,
+  "cost": 0,
+  "difficulty": "Easy",
+  "description": "Erstaunliche & interessante Fakten über die Fauna der Meere.",
+  "textChunks": [
+    {
+      "question": {
+        "answers": [
+          "Wort ausgelassen",
+          "Wort falsch ausgeprochen",
+          "Wort ersetzt",
+          "Falsche Reihenfolge"
+        ],
+        "correctIndex": 2,
+        "explanation": "Das Wort ‘den’ wurde durch das Wort ‘der’ ersetzt."
+      },
+      "_id": {
+        "$oid": "5f4d981391a1944218c4cb28"
+      },
+      "text": "Hast du dir jemals Gedanken darüber gemacht, welche gigantischen und unbekannten Lebewesen in den Tiefen der Weltmeere leben könnten?",
+      "audioCorrect": "/5f56f3ccbe1da85cec4650e8/Meereswesen01.mp3",
+      "audioWrong": "/5f56f3ccbe1da85cec4650e8/MeereswesenFehler01Semantikfehler.mp3",
+      "points": 10
+    },
+    {
+      "question": {
+        "answers": [
+          "Wort ausgelassen",
+          "Wort falsch ausgeprochen",
+          "Wort ersetzt",
+          "In falscher Reihenfolge gelesen"
+        ],
+        "correctIndex": 1,
+        "explanation": "Das Wort ‘Meereslebewesen’ wurde falsch ausgesprochen."
+      },
+      "_id": {
+        "$oid": "5f4d981391a1944218c4cb29"
+      },
+      "text": "Wenn es um Meereslebewesen geht, befassen sich die meisten Erzählungen mit Riesenwalen oder Hammerhaien, die bekannterweise immer wieder in den Weltmeeren gesichtet werden.",
+      "audioCorrect": "/5f56f3ccbe1da85cec4650e8/Meereswesen02.mp3",
+      "audioWrong": "/5f56f3ccbe1da85cec4650e8/MeereswesenFehler02Semantikfehler.mp3",
+      "points": 10
+    },
+    {
+      "question": {
+        "answers": [
+          "Wort ausgelassen",
+          "Wort falsch ausgeprochen",
+          "Wort ersetzt",
+          "In falscher Reihenfolge gelesen"
+        ],
+        "correctIndex": 1,
+        "explanation": "Das Wort ‘gigantisch’ wurde stockend vorgelesen."
+      },
+      "_id": {
+        "$oid": "5f4d981391a1944218c4cb2a"
+      },
+      "text": "Aber hast du mal überlegt, was für andere gigantische Tiefseebewohner existieren könnten? ",
+      "audioCorrect": "/5f56f3ccbe1da85cec4650e8/Meereswesen03.mp3",
+      "audioWrong": "/5f56f3ccbe1da85cec4650e8/MeereswesenFehler03Fluessigkeitsfehler.mp3",
+      "points": 10
+    },
+    {
+      "question": {
+        "answers": [
+          "Wort ausgelassen",
+          "Wort falsch ausgeprochen",
+          "Wort ersetzt",
+          "In falscher Reihenfolge gelesen"
+        ],
+        "correctIndex": 0,
+        "explanation": "Das Wort ‘zu’ wurde während des Vorlesens ausgelassen."
+      },
+      "_id": {
+        "$oid": "5f4d981391a1944218c4cb2b"
+      },
+      "text": "Der größte Wal -der Blauwal übrigens- kann bis zu über 30 Meter groß werden. Bedenkt man nun zusätzlich, dass der Großteil des Meeres nicht erforscht ist, kann man sich kaum ausmalen, welche Kreaturen in den tiefsten Meereszonen ihr Zuhause finden.",
+      "audioCorrect": "/5f56f3ccbe1da85cec4650e8/Meereswesen04.mp3",
+      "audioWrong": "/5f56f3ccbe1da85cec4650e8/MeereswesenFehler04Syntaxfehler.mp3",
+      "points": 10
+    },
+    {
+      "question": {
+        "answers": [
+          "Wort ausgelassen",
+          "Wort falsch ausgeprochen",
+          "Wort ersetzt",
+          "In falscher Reihenfolge gelesen"
+        ],
+        "correctIndex": 2,
+        "explanation": "Die falsche Zeitform wurde beim Vorlesen verwendet."
+      },
+      "_id": {
+        "$oid": "5f4d981391a1944218c4cb2c"
+      },
+      "text": "Einige Forscher sind sich tatsächlich einig, dass der Mond besser erforscht ist als die Weltmeere.",
+      "audioCorrect": "/5f56f3ccbe1da85cec4650e8/Meereswesen05.mp3",
+      "audioWrong": "/5f56f3ccbe1da85cec4650e8/MeereswesenFehler05Tempusfehler.mp3",
+      "points": 10
+    },
+    {
+      "question": {
+        "answers": [
+          "Wort ausgelassen",
+          "Wort falsch ausgeprochen",
+          "Wort ersetzt",
+          "In falscher Reihenfolge gelesen"
+        ],
+        "correctIndex": 1,
+        "explanation": "Das Wort ‘verschiedene’ wurde nicht flüssig vorgelesen."
+      },
+      "_id": {
+        "$oid": "5f4d981391a1944218c4cb2d"
+      },
+      "text": "Es werden auch heute noch immer wieder neue Tierarten entdeckt, unter anderem auch verschiedene Gattungen der Riesenkraken.",
+      "audioCorrect": "/5f56f3ccbe1da85cec4650e8/Meereswesen06.mp3",
+      "audioWrong": "/5f56f3ccbe1da85cec4650e8/MeereswesenFehler06Fluessigkeitsfehler.mp3",
+      "points": 10
+    },
+    {
+      "question": {
+        "answers": [
+          "Wort ausgelassen",
+          "Wort falsch ausgeprochen",
+          "Wort ersetzt",
+          "In falscher Reihenfolge gelesen"
+        ],
+        "correctIndex": 1,
+        "explanation": "Das Wort ‘übersteigen’ wurde falsch ausgesprochen."
+      },
+      "_id": {
+        "$oid": "5f4d981391a1944218c4cb2e"
+      },
+      "text": "Riesenkraken leben in den tiefsten, je erforschten Meereszonen und können die Länge eines Blauwals einfach übersteigen.",
+      "audioCorrect": "/5f56f3ccbe1da85cec4650e8/Meereswesen07.mp3",
+      "audioWrong": "/5f56f3ccbe1da85cec4650e8/MeereswesenFehler07Semantikfehler.mp3",
+      "points": 10
+    },
+    {
+      "question": {
+        "answers": [
+          "Wort ausgelassen",
+          "Wort falsch ausgeprochen",
+          "Wort ersetzt",
+          "In falscher Reihenfolge gelesen"
+        ],
+        "correctIndex": 1,
+        "explanation": "Das Wort ‘berichteten’ wird in der falschen Zeitform vorgelesen."
+      },
+      "_id": {
+        "$oid": "5f4d981391a1944218c4cb2f"
+      },
+      "text": "Fischer und Seemänner berichteten auch in den letzten Jahren immer wieder von riesigen Tieren gewaltiger Größe, die sie auf offenem Meer entdecken konnten.",
+      "audioCorrect": "/5f56f3ccbe1da85cec4650e8/Meereswesen08.mp3",
+      "audioWrong": "/5f56f3ccbe1da85cec4650e8/MeereswesenFehler08Tempusfehler.mp3",
+      "points": 10
+    },
+    {
+      "question": {
+        "answers": [
+          "Wort ausgelassen",
+          "Wort falsch ausgeprochen",
+          "Wort ersetzt",
+          "In falscher Reihenfolge gelesen"
+        ],
+        "correctIndex": 2,
+        "explanation": "Das Wort ‘lang’ wurde durch das Wort ‘groß’ ersetzt."
+      },
+      "_id": {
+        "$oid": "5f4d981391a1944218c4cb30"
+      },
+      "text": "Angeblich sollen deren Tentakel bis zu 20 Meter lang gewesen sein, zusätzlich zu der reinen Körperlänge, die ebenfalls von imposanter Größe ist.",
+      "audioCorrect": "/5f56f3ccbe1da85cec4650e8/Meereswesen09.mp3",
+      "audioWrong": "/5f56f3ccbe1da85cec4650e8/MeereswesenFehler09Semantikfehler.mp3",
+      "points": 10
+    },
+    {
+      "question": {
+        "answers": [
+          "Wort ausgelassen",
+          "Wort falsch ausgeprochen",
+          "Wort ersetzt",
+          "In falscher Reihenfolge gelesen"
+        ],
+        "correctIndex": 2,
+        "explanation": "Das Wort ‘lang’ wurde durch das Wort ‘groß’ ersetzt."
+      },
+      "_id": {
+        "$oid": "5f4d981391a1944218c4cb31"
+      },
+      "text": "In Anbetracht der Tatsachen ist es also nur schwierig vorstellbar, welche Größe gewisse Meerestiere annehmen könnten.",
+      "audioCorrect": "/5f56f3ccbe1da85cec4650e8/Meereswesen10.mp3",
+      "audioWrong": "/5f56f3ccbe1da85cec4650e8/MeereswesenFehler10Fluessigkeitsfehler.mp3",
+      "points": 10
+    },
+    {
+      "question": {
+        "answers": [
+          "Wort ausgelassen",
+          "Wort falsch ausgeprochen",
+          "Wort ersetzt",
+          "In falscher Reihenfolge gelesen"
+        ],
+        "correctIndex": 2,
+        "explanation": "Das Wort ‘unerforscht’ wurde durch das Wort ‘erforscht’ ersetzt."
+      },
+      "_id": {
+        "$oid": "5f4d981391a1944218c4cb32"
+      },
+      "text": "Die Tiefen des unerforschten Meeres scheinen immens. Wann wird wohl das nächste Tier entdeckt, das einen neuen Größenrekord aufstellt?",
+      "audioCorrect": "/5f56f3ccbe1da85cec4650e8/Meereswesen11.mp3",
+      "audioWrong": "/5f56f3ccbe1da85cec4650e8/MeereswesenFehler11Semantikfehler.mp3",
+      "points": 10
+    }
+  ],
+  "quiz": [
+    {
+      "answers": [
+        "der Mond",
+        "die Sonne",
+        "die Vulkane",
+        "das Wetter"
+      ],
+      "_id": {
+        "$oid": "5f4d981391a1944218c4cb33"
+      },
+      "question": "Was ist laut Forschern besser erforscht als das Meer?",
+      "points": 250
+    },
+    {
+      "answers": [
+        "Blauwal",
+        "Buckelwal",
+        "Glattwal",
+        "Orca"
+      ],
+      "_id": {
+        "$oid": "5f4d981391a1944218c4cb34"
+      },
+      "question": "Welcher der folgenden Arten ist der größte Wal?",
+      "points": 250
+    },
+    {
+      "answers": [
+        "100m",
+        "10m",
+        "5m",
+        "30m"
+      ],
+      "_id": {
+        "$oid": "5f4d981391a1944218c4cb35"
+      },
+      "question": "Wie groß kann ein Blauwal werden",
+      "points": 250
+    },
+    {
+      "answers": [
+        "kleiner",
+        "gleich groß",
+        "größer",
+        "es gibt keine Riesenkrake"
+      ],
+      "_id": {
+        "$oid": "5f4d981391a1944218c4cb36"
+      },
+      "question": "Wie groß sind Riesenkraken im Vergleich zum Blauwal",
+      "points": 250
+    }
+  ],
+  "id": 0,
+  "series": "independant",
+  "imagePath": "/5f56f3ccbe1da85cec4650e8/underwater.jpg"
+},{
+  "_id": {
+    "$oid": "5f7bfcb5f68f91353403fb14"
+  },
+  "title": "Test Book",
+  "author": "Rudyard Kipling",
+  "series": "The Jungle Book",
+  "language": "de-DE",
+  "starting": false,
+  "cost": 0,
+  "difficulty": "Easy",
+  "imagePath": "/assets/placeholder_image.jpg",
+  "description": "cooles Buch",
+  "textChunks": [
+    {
+      "question": {
+        "answers": [
+          "Error 1",
+          "Error 2",
+          "Error 3",
+          "Error 4"
+        ],
+        "correctIndex": 2,
+        "explanation": "derp"
+      },
+      "_id": {
+        "$oid": "5f7bfcb5f68f91353403fb15"
+      },
+      "text": "Test",
+      "audioCorrect": "/assets/placeholder_correct.mp3",
+      "audioWrong": "/assets/placeholder_incorrect.mp3",
+      "points": 1000
+    },
+    {
+      "question": {
+        "answers": [
+          "Error 1",
+          "Error 2",
+          "Error 3",
+          "Error 4"
+        ],
+        "correctIndex": 2,
+        "explanation": "Derpderp"
+      },
+      "_id": {
+        "$oid": "5f7bfcb5f68f91353403fb16"
+      },
+      "text": "Test 2",
+      "audioCorrect": "/assets/placeholder_correct.mp3",
+      "audioWrong": "/assets/placeholder_incorrect.mp3",
+      "points": 1000
+    },
+    {
+      "question": {
+        "answers": [
+          "Error 1",
+          "Error 2",
+          "Error 3",
+          "Error 4"
+        ],
+        "correctIndex": 3,
+        "explanation": "yehaaa"
+      },
+      "_id": {
+        "$oid": "5f7bfcb5f68f91353403fb17"
+      },
+      "text": "Test 3",
+      "audioCorrect": "/assets/placeholder_correct.mp3",
+      "audioWrong": "/assets/placeholder_incorrect.mp3",
+      "points": 1000
+    }
+  ],
+  "quiz": []
+}]

@@ -1,5 +1,5 @@
 import { environment } from './../../environments/environment';
-import { FileMeta } from './../../assets/classes/fileMeta';
+import { FileMeta } from 'src/app/classes/fileMeta';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams, HttpRequest } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';

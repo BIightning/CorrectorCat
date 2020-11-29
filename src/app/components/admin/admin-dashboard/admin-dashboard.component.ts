@@ -1,6 +1,5 @@
 import { StatusService } from './../../../services/status.service';
 import { Component, OnInit } from '@angular/core';
-import { flatten } from '@angular/compiler';
 
 @Component({
   selector: 'app-admin-dashboard',

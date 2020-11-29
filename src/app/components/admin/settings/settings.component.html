@@ -1,2 +1,27 @@
 <h1 class="mb-0 pb-0">Settings</h1>
-<app-loading-animation></app-loading-animation>
+<div class="row" *ngIf="bLoaded">
+    <div class="window mt-3 p-3">
+        <h2 class="mb-0 pb-0">General</h2>
+    </div>
+    <div class="window container-fluid p-3 mt-2">
+        <h3>Account Types</h3>
+        <div class="max-width">
+            <input id="native-user-switch" name="native-user-switch" type="checkbox">
+            <label for="native-user-switch">
+                <h3>&nbsp; Allow native user accounts</h3>
+            </label>
+        </div>
+        <div class="max-width">
+            <input id="remote-user-switch" name="remote-user-switch" type="checkbox">
+            <label for="remote-user-switch">
+            <h3>&nbsp;Allow remote user accounts</h3>
+            </label>
+        </div>
+    </div>
+
+    <div class="window container-fluid p-3 mt-2">
+        <h2 class="mb-0 pb-0">Environment & API Settings</h2>
+    </div>
+</div>
+
+<app-loading-animation *ngIf="!bLoaded"></app-loading-animation>

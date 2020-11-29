@@ -1,6 +1,6 @@
-import { FeedbackMessage, MessageType } from './../../../../assets/classes/feedbackMessage';
+import { FeedbackMessage, MessageType } from 'src/app/classes/feedbackMessage';
 import { BookService } from './../../../services/book.service';
-import { Book } from './../../../../assets/classes/book';
+import { Book } from 'src/app/classes//book';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 

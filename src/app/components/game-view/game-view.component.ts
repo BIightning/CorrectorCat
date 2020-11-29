@@ -5,10 +5,10 @@ import { Component, OnInit, HostBinding, ViewChild, Input, ViewChildren, QueryLi
 import * as jQuery from 'jquery';
 import { BookService } from "../../services/book.service";
 import { ActivatedRoute, Router, NavigationEnd, NavigationStart } from '@angular/router';
-import { Book } from '../../../assets/classes/book';
+import { Book } from 'src/app/classes/book';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from "../../services/user.service";
-import { User } from 'src/assets/classes/users';
+import { User } from 'src/app/classes/users';
 
 @Component({
   selector: 'app-game-view',

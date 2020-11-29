@@ -1,10 +1,10 @@
 import { Component, OnInit, ComponentFactoryResolver } from '@angular/core';
-import { Book } from "../../../assets/classes/book";
+import { Book } from 'src/app/classes/book';
 import { BookService } from "../../services/book.service";
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../../services/user.service';
-import { User } from 'src/assets/classes/users';
+import { User } from 'src/app/classes/users';
 import { ViewChild } from '@angular/core';
 
 @Component({

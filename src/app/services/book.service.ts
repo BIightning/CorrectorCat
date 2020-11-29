@@ -1,7 +1,7 @@
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
-import { Book } from '../../assets/classes/book';
+import { Book } from 'src/app/classes/book';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,12 +10,6 @@ import { Observable } from 'rxjs';
 export class BookService {
 
   url: string;
-
-  jsonHeader = {
-    headers: new HttpHeaders({
-      "Content-Type": "application/json; charset=utf-8"
-    })
-  };
 
   constructor(private http: HttpClient) { 
     this.url = environment.baseUrl;

@@ -1,10 +1,10 @@
-import { FileMeta } from './../../../../assets/classes/fileMeta';
+import { FileMeta } from 'src/app/classes/fileMeta';
 import { FileService } from './../../../services/file.service';
-import { CatImages } from '../../../../assets/classes/CatImages';
+import { CatImages } from 'src/app/classes/CatImages';
 import { TutorialSequenceService } from './../../../services/tutorial-sequence.service';
-import { TutorialSequence } from './../../../../assets/classes/tutorialSequence';
+import { TutorialSequence } from 'src/app/classes/tutorialSequence';
 import { Component, OnInit } from '@angular/core';
-import { FeedbackMessage, MessageType } from 'src/assets/classes/feedbackMessage';
+import { FeedbackMessage, MessageType } from 'src/app/classes/feedbackMessage';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { environment } from 'src/environments/environment';

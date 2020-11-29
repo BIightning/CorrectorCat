@@ -1,24 +1,15 @@
 const { File, fileValidation } = require("../dbModels/file");
 const multer = require('multer');
 const fs = require('fs');
+const idValidation = require("../utils/objectidValidation");
+
 /**
  * Returns data base entries of all files
  * regardless of owner or file type.
  * !Does not return the actual files!
  */
-function getFileCatalog() {
-    return new Promise(async(resolve, reject) => {
-        await File
-            .find()
-            .then(result => resolve(result))
-            .catch(reason => {
-                console.error(reason);
-                reject({
-                    code: 500,
-                    msg: 'internal server error!'
-                });
-            });
-    })
+async function getFileCatalog() {
+    return await File.find();
 }
 /**
  * Returns data base entries of all files (regardless of filetype) 
@@ -26,38 +17,25 @@ function getFileCatalog() {
  * !Does not return the actual files!
  * @param _ownerId objectId of the file owner
  */
-function getFileCatalogOfOwner(_ownerId) {
-    return new Promise(async(resolve, reject) => {
-        await File
-            .find({ ownerId: _ownerId })
-            .then(result => resolve(result))
-            .catch(reason => {
-                console.error(reason);
-                reject({
-                    code: 500,
-                    msg: 'internal server error!'
-                });
-            });
-    })
+async function getFileCatalogOfOwner(_ownerId) {
+
+    let { error } = idValidation(_ownerId);
+    if (error) {
+        let err = new Error(error.details[0].message);
+        err.code = 400;
+        throw err;
+    }
+
+    return await File.find({ ownerId: _ownerId });
 }
 /**
  * Returns data base entries of all image files
  * regardless of owner.
  * !Does not return the actual files!
  */
-function getImageCatalog() {
-    return new Promise(async(resolve, reject) => {
-        await File
-            .find({ fileType: 'image' })
-            .then(result => resolve(result))
-            .catch(reason => {
-                console.error(reason);
-                reject({
-                    code: 500,
-                    msg: 'internal server error!'
-                });
-            });
-    })
+async function getImageCatalog() {
+    return await File.find({ fileType: 'image' })
+
 }
 /**
  * Returns data base entries of all image files possessed by
@@ -65,38 +43,24 @@ function getImageCatalog() {
  * !Does not return the actual files!
  * @param _ownerId objectId of the file owner
  */
-function getImageCatalogOfOwner(_ownerId) {
-    return new Promise(async(resolve, reject) => {
-        await File
-            .find({ fileType: 'image', ownerId: _ownerId })
-            .then(result => resolve(result))
-            .catch(reason => {
-                console.error(reason);
-                reject({
-                    code: 500,
-                    msg: 'internal server error!'
-                });
-            });
-    })
+async function getImageCatalogOfOwner(_ownerId) {
+    let { error } = idValidation(ownerId);
+    if (error) {
+        let err = new Error(error.details[0].message);
+        err.code = 400;
+        throw err;
+    }
+
+    return await File.find({ fileType: 'image', ownerId: _ownerId })
+
 }
 /**
  * Returns data base entries of all audio files
  * regardless of owner.
  * !Does not return the actual files!
  */
-function getAudioCatalog() {
-    return new Promise(async(resolve, reject) => {
-        await File
-            .find({ fileType: 'audio' })
-            .then(result => resolve(result))
-            .catch(reason => {
-                console.error(reason);
-                reject({
-                    code: 500,
-                    msg: 'internal server error!'
-                });
-            });
-    })
+async function getAudioCatalog() {
+    return await File.find({ fileType: 'audio' });
 }
 /**
  * Returns data base entries of all audio files possessed by
@@ -104,19 +68,17 @@ function getAudioCatalog() {
  * !Does not return the actual files!
  * @param _ownerId objectId of the file owner
  */
-function getAudioCatalogOfOwner(_ownerId) {
-    return new Promise(async(resolve, reject) => {
-        await File
-            .find({ fileType: 'audio', ownerId: _ownerId })
-            .then(result => resolve(result))
-            .catch(reason => {
-                console.error(reason);
-                reject({
-                    code: 500,
-                    msg: 'internal server error!'
-                });
-            });
-    })
+async function getAudioCatalogOfOwner(_ownerId) {
+
+    let { error } = idValidation(ownerId);
+    if (error) {
+        let err = new Error(error.details[0].message);
+        err.code = 400;
+        throw err;
+    }
+
+    await File.find({ fileType: 'audio', ownerId: _ownerId })
+
 }
 /**
  * Creates a new database entry with 
@@ -124,26 +86,22 @@ function getAudioCatalogOfOwner(_ownerId) {
  * !Does not return the actual files!
  * @param fileMeta object containing filename, path, owner id and filetype
  */
-function saveFileInformation(fileMeta) {
-    return new Promise(async(resolve, reject) => {
-        let { error } = fileValidation(fileMeta)
-        if (error)
-            reject({ code: 400, msg: error.details[0].message });
+async function saveFileInformation(fileMeta) {
 
-        let newFile = new File({
-            fileUrl: fileMeta.fileUrl,
-            fileName: fileMeta.fileName,
-            fileType: fileMeta.fileType,
-            ownerId: fileMeta.ownerId
-        });
-        await newFile
-            .save()
-            .then(result => resolve(result))
-            .catch((reason) => {
-                console.log(reason);
-                reject({ code: 500, msg: "internal server error" });
-            });
-    })
+    let { error } = fileValidation(fileMeta)
+    if (error) {
+        let err = new Error(error.details[0].message);
+        err.code = 400;
+        throw err;
+    }
+
+    let newFile = new File({
+        fileUrl: fileMeta.fileUrl,
+        fileName: fileMeta.fileName,
+        fileType: fileMeta.fileType,
+        ownerId: fileMeta.ownerId
+    });
+    return await newFile.save()
 }
 
 var storage = multer.diskStorage({

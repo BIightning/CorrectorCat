@@ -46,7 +46,6 @@ import { LoadingAnimationComponent } from './components/admin/loading-animation/
 import { SummaryPipe } from './pipes/summary.pipe';
 import { CountryFromIsoPipe } from './pipes/country-from-iso.pipe';
 import { FeedbackMessageComponent } from './components/admin/feedback-message/feedback-message.component';
-
 @NgModule({
   declarations: [
     AppComponent,

@@ -3,7 +3,6 @@ const { Settings, settingsValidation } = require('../dbModels/settings.js');
 //default settings
 var settings = {
     remoteLoginApiUrl: "unset",
-    progressApiUrl: "unset",
     primaryTutorials: [],
     bNativeAccountsActive: false,
     bRemoteAccountsActive: false,
@@ -45,7 +44,6 @@ async function saveSettings() {
  */
 function mapSettings(retrievedSettings) {
     settings.remoteLoginApiUrl = retrievedSettings.remoteLoginApiUrl;
-    settings.progressApiUrl = retrievedSettings.progressApiUrl;
     settings.primaryTutorials = retrievedSettings.primaryTutorials;
 
     settings.bNativeAccountsActive = retrievedSettings.bNativeAccountsActive;
@@ -61,6 +59,21 @@ async function getSettings() {
     return await settings;
 }
 
+/**
+ * Returns Settings which are needed on the client excluding
+ * sensitive settings like api urls and settings that just aren't
+ * relevant for normal users.
+ * Implemented as async for consistency in route handlers
+ */
+async function getClientRelevantSettings() {
+    let clientRelevantSettings = {
+        primaryTutorials: settings.primaryTutorials,
+        bNativeAccountsActive: settings.bNativeAccountsActive,
+        bRemoteAccountsActive: settings.bRemoteAccountsActive
+    }
+    return await clientRelevantSettings;
+}
+
 /** 
  * Returns the current settings object
  * Should be used outside of routes
@@ -71,24 +84,27 @@ function getSettingsSync() {
 
 /**
  * updates the settings with the passed data.
- * @param data 
+ * @param {*} data 
  */
 async function updateSettings(data) {
     let { error } = settingsValidation(data);
-    if (error)
-        throw new Error({ code: 400, msg: error.details[0].message });
+    if (error) {
+        let err = new Error(error.details[0].message);
+        err.code = 400;
+        throw err;
+    }
 
     let newSettings = await Settings.findOneAndUpdate(data);
 
-    if (newSettings === null)
-        throw new Error({ code: 404, msg: error.details[0].message });
+    if (newSettings === null) {
+        let err = new Error("internal server error");
+        err.code = 500;
+        throw err;
+    }
 
     settings = newSettings;
-
     return settings;
 }
-
-
 
 //IIFE for Settings initialization
 (async function() {
@@ -99,4 +115,5 @@ async function updateSettings(data) {
 
 module.exports.getSettings = getSettings;
 module.exports.getSettingsSync = getSettingsSync;
+module.exports.getClientRelevantSettings = getClientRelevantSettings;
 module.exports.updateSettings = updateSettings;

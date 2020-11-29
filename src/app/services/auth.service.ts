@@ -1,7 +1,7 @@
 import { environment } from './../../environments/environment';
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { Injectable } from '@angular/core';
-import {LoginResponse} from "../../assets/classes/loginResponse";
+import {LoginResponse} from 'src/app/classes/loginResponse';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 

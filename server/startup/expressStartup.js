@@ -36,5 +36,5 @@ module.exports = function(app) {
     });
 
 
-    app.use(expressErrorHandler);
+    //app.use(expressErrorHandler);
 }

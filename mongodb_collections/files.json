@@ -1,0 +1,361 @@
+[{
+  "_id": {
+    "$oid": "5f7bffbaf68f91353403fb27"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/Meereswesen02.mp3",
+  "fileName": "Meereswesen02.mp3",
+  "fileType": "audio",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-06T05:25:14.660Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7bffbaf68f91353403fb28"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/Meereswesen03.mp3",
+  "fileName": "Meereswesen03.mp3",
+  "fileType": "audio",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-06T05:25:14.672Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7bffbaf68f91353403fb29"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/Meereswesen04.mp3",
+  "fileName": "Meereswesen04.mp3",
+  "fileType": "audio",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-06T05:25:14.674Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7bffbaf68f91353403fb2a"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/Meereswesen05.mp3",
+  "fileName": "Meereswesen05.mp3",
+  "fileType": "audio",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-06T05:25:14.675Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7bffbaf68f91353403fb2b"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/Meereswesen06.mp3",
+  "fileName": "Meereswesen06.mp3",
+  "fileType": "audio",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-06T05:25:14.676Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7bffbaf68f91353403fb2c"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/Meereswesen07.mp3",
+  "fileName": "Meereswesen07.mp3",
+  "fileType": "audio",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-06T05:25:14.677Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7bffbaf68f91353403fb2d"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/Meereswesen08.mp3",
+  "fileName": "Meereswesen08.mp3",
+  "fileType": "audio",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-06T05:25:14.678Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7bffbaf68f91353403fb2e"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/Meereswesen09.mp3",
+  "fileName": "Meereswesen09.mp3",
+  "fileType": "audio",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-06T05:25:14.679Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7bffbaf68f91353403fb2f"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/Meereswesen10.mp3",
+  "fileName": "Meereswesen10.mp3",
+  "fileType": "audio",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-06T05:25:14.680Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7bffbaf68f91353403fb30"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/Meereswesen11.mp3",
+  "fileName": "Meereswesen11.mp3",
+  "fileType": "audio",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-06T05:25:14.681Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7bffbaf68f91353403fb31"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/Meereswesen01.mp3",
+  "fileName": "Meereswesen01.mp3",
+  "fileType": "audio",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-06T05:25:14.682Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7bffbaf68f91353403fb32"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/MeereswesenFehler03Fluessigkeitsfehler.mp3",
+  "fileName": "MeereswesenFehler03Fluessigkeitsfehler.mp3",
+  "fileType": "audio",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-06T05:25:14.683Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7bffbaf68f91353403fb33"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/MeereswesenFehler04Syntaxfehler.mp3",
+  "fileName": "MeereswesenFehler04Syntaxfehler.mp3",
+  "fileType": "audio",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-06T05:25:14.684Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7bffbaf68f91353403fb34"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/MeereswesenFehler05Tempusfehler.mp3",
+  "fileName": "MeereswesenFehler05Tempusfehler.mp3",
+  "fileType": "audio",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-06T05:25:14.684Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7bffbaf68f91353403fb35"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/MeereswesenFehler06Fluessigkeitsfehler.mp3",
+  "fileName": "MeereswesenFehler06Fluessigkeitsfehler.mp3",
+  "fileType": "audio",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-06T05:25:14.685Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7bffbaf68f91353403fb36"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/MeereswesenFehler07Semantikfehler.mp3",
+  "fileName": "MeereswesenFehler07Semantikfehler.mp3",
+  "fileType": "audio",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-06T05:25:14.686Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7bffbaf68f91353403fb37"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/MeereswesenFehler08Tempusfehler.mp3",
+  "fileName": "MeereswesenFehler08Tempusfehler.mp3",
+  "fileType": "audio",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-06T05:25:14.687Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7bffbaf68f91353403fb38"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/MeereswesenFehler09Semantikfehler.mp3",
+  "fileName": "MeereswesenFehler09Semantikfehler.mp3",
+  "fileType": "audio",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-06T05:25:14.688Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7bffbaf68f91353403fb39"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/MeereswesenFehler10Fluessigkeitsfehler.mp3",
+  "fileName": "MeereswesenFehler10Fluessigkeitsfehler.mp3",
+  "fileType": "audio",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-06T05:25:14.689Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7bffbaf68f91353403fb3a"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/MeereswesenFehler11Semantikfehler.mp3",
+  "fileName": "MeereswesenFehler11Semantikfehler.mp3",
+  "fileType": "audio",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-06T05:25:14.690Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7bffbaf68f91353403fb3b"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/MeereswesenFehler01Semantikfehler.mp3",
+  "fileName": "MeereswesenFehler01Semantikfehler.mp3",
+  "fileType": "audio",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-06T05:25:14.691Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7bffbaf68f91353403fb3c"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/MeereswesenFehler02Semantikfehler.mp3",
+  "fileName": "MeereswesenFehler02Semantikfehler.mp3",
+  "fileType": "audio",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-06T05:25:14.692Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7ec0033a1c044cdca34230"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/underwater.jpg",
+  "fileName": "underwater.jpg",
+  "fileType": "image",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-08T07:30:11.753Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7f543492aeb951c85bec6f"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/cross-2713356.jpg",
+  "fileName": "cross-2713356.jpg",
+  "fileType": "image",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-08T18:02:28.799Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7f9e3492aeb951c85bec82"
+  },
+  "fileUrl": "/5f56f3ccbe1da85cec4650e8/wp4k.jpg",
+  "fileName": "wp4k.jpg",
+  "fileType": "image",
+  "ownerId": "5f56f3ccbe1da85cec4650e8",
+  "uploaded": {
+    "$date": "2020-10-08T23:18:12.357Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f7fa9ae92aeb951c85bec83"
+  },
+  "fileUrl": "/5f7bfcb5f68f91353403fb14/SpheronVR_hdri_01_PREVIEW.JPG",
+  "fileName": "SpheronVR_hdri_01_PREVIEW.JPG",
+  "fileType": "image",
+  "ownerId": "5f7bfcb5f68f91353403fb14",
+  "uploaded": {
+    "$date": "2020-10-09T00:07:10.245Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5fbf33416014db4ef43efc60"
+  },
+  "fileUrl": "/5f7bfcb5f68f91353403fb14/With love from Vertex Studio (36).mp3",
+  "fileName": "With love from Vertex Studio (36).mp3",
+  "fileType": "audio",
+  "ownerId": "5f7bfcb5f68f91353403fb14",
+  "uploaded": {
+    "$date": "2020-11-26T04:46:57.178Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5fbf33416014db4ef43efc61"
+  },
+  "fileUrl": "/5f7bfcb5f68f91353403fb14/Solar Fields - Pirandello Kruger.mp3",
+  "fileName": "Solar Fields - Pirandello Kruger.mp3",
+  "fileType": "audio",
+  "ownerId": "5f7bfcb5f68f91353403fb14",
+  "uploaded": {
+    "$date": "2020-11-26T04:46:57.185Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5fbf33416014db4ef43efc62"
+  },
+  "fileUrl": "/5f7bfcb5f68f91353403fb14/JeffSpeed68_-_The_Vendetta.mp3",
+  "fileName": "JeffSpeed68_-_The_Vendetta.mp3",
+  "fileType": "audio",
+  "ownerId": "5f7bfcb5f68f91353403fb14",
+  "uploaded": {
+    "$date": "2020-11-26T04:46:57.187Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5fbf33bc6014db4ef43efc63"
+  },
+  "fileUrl": "/5f7bfcb5f68f91353403fb14/pngegg (1).png",
+  "fileName": "pngegg (1).png",
+  "fileType": "image",
+  "ownerId": "5f7bfcb5f68f91353403fb14",
+  "uploaded": {
+    "$date": "2020-11-26T04:49:00.481Z"
+  },
+  "__v": 0
+}]
