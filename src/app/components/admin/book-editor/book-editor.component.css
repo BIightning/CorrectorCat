@@ -2,14 +2,24 @@
     padding: 0;
     background: rgba(221, 221, 221, 0.35);
     box-shadow: 0 1rem 1rem rgba(0, 0, 0, .15);
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(5px);
     margin-top: 0.5rem;
+    border-radius: 14px;
+    transition: 0.1s;
+}
+
+.flex-display {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 14px;
-    transition: 0.1s;
     flex-direction: column;
+}
+
+.tile {
+    display: inline-block;
+    box-shadow: 0 1rem 1rem rgba(0, 0, 0, .15);
+    backdrop-filter: blur(3px);
+    border-radius: 14px;
 }
 
 .chunk-wrapper {
@@ -265,7 +275,6 @@ textarea:focus {
 }
 
 .action-button {
-    width: 15%;
     padding: 12px;
     display: block;
     text-align: center;
@@ -278,12 +287,11 @@ textarea:focus {
 }
 
 .action-button:hover {
-    width: 20%;
+    transform: scaleX(1.2);
     background-color: rgba(4, 43, 216, 0.5);
 }
 
 .create-button {
-    width: 50%;
     padding: 12px;
     display: block;
     text-align: center;
@@ -296,6 +304,6 @@ textarea:focus {
 }
 
 .create-button:hover {
-    width: 55%;
+    transform: scaleX(1.1);
     background-color: rgba(4, 216, 4, 0.904);
 }

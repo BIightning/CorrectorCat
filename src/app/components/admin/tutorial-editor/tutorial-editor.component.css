@@ -4,12 +4,22 @@
     box-shadow: 0 1rem 1rem rgba(0, 0, 0, .15);
     backdrop-filter: blur(5px);
     margin-top: 0.5rem;
+    border-radius: 14px;
+    transition: 0.1s;
+}
+
+.flex-display {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 14px;
-    transition: 0.1s;
     flex-direction: column;
+}
+
+.tile {
+    box-shadow: 0 1rem 1rem rgba(0, 0, 0, .15);
+    backdrop-filter: blur(3px);
+    margin: 1rem;
+    border-radius: 14px;
 }
 
 .chunk-wrapper {
@@ -21,7 +31,12 @@
 .chunk-tile {
     background: rgba(221, 221, 221, 0.65);
     border-radius: 14px;
-    width: 95%;
+    transition: all 0.3s;
+}
+
+.extended {
+    transition: all 0.3s;
+    width: 100%;
 }
 
 .inner-tile {
@@ -150,7 +165,6 @@ textarea:focus {
 }
 
 .create-button {
-    width: 50%;
     padding: 12px;
     display: block;
     text-align: center;
@@ -163,7 +177,7 @@ textarea:focus {
 }
 
 .create-button:hover {
-    width: 55%;
+    transform: scaleX(1.1);
     background-color: rgba(4, 216, 4, 0.904);
 }
 

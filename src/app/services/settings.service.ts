@@ -16,7 +16,6 @@ export class SettingsService {
   }
 
   public getSettings(): Observable<Settings> {
-    const headerOption = { headers: this.generateHeader() };
     return this.http.get<Settings>(`${this.url}/api/settings`);
   }
 
@@ -24,8 +23,22 @@ export class SettingsService {
     const headerOption = { headers: this.generateHeader() };
     return this.http.get<AdminLevelSettings>(`${this.url}/api/settings/admin`, headerOption);
   }
+
+  public saveSettings(settings: AdminLevelSettings): Observable<AdminLevelSettings> {
+    const headerOption = { headers: this.generateHeader(true) };
+    const body = JSON.stringify(settings);
+
+    return this.http.put<AdminLevelSettings>(`${this.url}/api/settings/admin`, body, headerOption);
+  }
   
-  private generateHeader(): HttpHeaders{
+  private generateHeader(bJsonHeader = false): HttpHeaders{
+    if(bJsonHeader){
+      return new HttpHeaders({
+        "Content-Type": "application/json; charset=utf-8",
+        "x-auth-token": localStorage.getItem('jwt')
+      });
+    }
+
     return new HttpHeaders({
       "x-auth-token": localStorage.getItem('jwt')
     });

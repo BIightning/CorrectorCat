@@ -1,27 +1,226 @@
-<h1 class="mb-0 pb-0">Settings</h1>
+<h1 class="mb-0 pb-0">Settings</h1> <button type="button" (click)="saveSettings()" class="create-button mt-2">
+    <i class="fa fa-save fa-lg"></i>
+    Save & Apply
+</button>
 <div class="row" *ngIf="bLoaded">
-    <div class="window mt-3 p-3">
-        <h2 class="mb-0 pb-0">General</h2>
+    <div class="window mt-5 p-3 ml-3">
+        <h3 class="mb-0 pb-0"><span class="mr-1 icon-span"><i class="fa fa-cog fa-2x"></i></span>General</h3>
     </div>
-    <div class="window container-fluid p-3 mt-2">
-        <h3>Account Types</h3>
-        <div class="max-width">
-            <input id="native-user-switch" name="native-user-switch" type="checkbox">
-            <label for="native-user-switch">
-                <h3>&nbsp; Allow native user accounts</h3>
-            </label>
+    <div class="max-width p-3">
+
+        <div class="window p-3" style="min-height: 100%;">
+            <h3>Language</h3>
+            <div class="mt-4">
+                <input [(ngModel)]="settings.bSystemBasedLanguage" id="language-switch" name="language-switch"
+                    type="checkbox">
+                <label for="language-switch">
+                    <h4>&nbsp;Language based on System Language</h4>
+                </label>
+            </div>
+            <div *ngIf="!settings.bSystemBasedLanguage" class="mt-2">
+                <h4 class="input-heading">&nbsp;Force Language:
+                    <select>
+                        <option>None</option>
+                        <option>German</option>
+                        <option>English</option>
+                    </select>
+                </h4>
+            </div>
         </div>
-        <div class="max-width">
-            <input id="remote-user-switch" name="remote-user-switch" type="checkbox">
-            <label for="remote-user-switch">
-            <h3>&nbsp;Allow remote user accounts</h3>
-            </label>
+
+        <div class="window p-3 ml-4" style="min-height: 100%;">
+            <h3>Registration Options</h3>
+            <div class="mt-4">
+                <input [(ngModel)]="settings.bNativeRegistrationAllowed" id="native-user-reg-switch"
+                    name="native-user-reg-switch" type="checkbox">
+                <label for="native-user-reg-switch">
+                    <h4>&nbsp;Allow native user accounts</h4>
+                </label>
+            </div>
+            <div *ngIf="settings.bConnectToRemoteApi" class="mt-2">
+                <input [(ngModel)]="settings.bRemoteRegistrationAllowed" id="remote-user-reg-switch"
+                    name="remote-user-reg-switch" type="checkbox">
+                <label for="remote-user-reg-switch">
+                    <h4>&nbsp;Allow remote user accounts</h4>
+                </label>
+            </div>
         </div>
+
+        <div class="window p-3 ml-4" style="min-height: 100%;">
+            <h3>Login Options</h3>
+            <div class="mt-4">
+                <input [(ngModel)]="settings.bNativeAccountsActive" id="native-user-switch" name="native-user-switch"
+                    type="checkbox">
+                <label for="native-user-switch">
+                    <h4>&nbsp;Allow native Login</h4>
+                </label>
+            </div>
+            <div *ngIf="settings.bConnectToRemoteApi" class="mt-2">
+                <input [(ngModel)]="settings.bRemoteAccountsActive" id="remote-user-switch" name="remote-user-switch"
+                    type="checkbox">
+                <label for="remote-user-switch">
+                    <h4>&nbsp;Allow remote Login</h4>
+                </label>
+            </div>
+        </div>
+
     </div>
 
-    <div class="window container-fluid p-3 mt-2">
-        <h2 class="mb-0 pb-0">Environment & API Settings</h2>
+
+    <div class="window tile-blue p-3 mt-5 ml-3">
+        <h3 class="mb-0 pb-0"><span class="mr-1 icon-span"><i class="fa fa-globe fa-2x"></i><i
+                    class="fa fa-link fa-sm"></i></span>Environment & API</h3>
+    </div>
+
+    <div class="max-width p-3">
+
+        <div class="window p-3" style="min-height: 100%;">
+            <h3>API Exposure</h3>
+            <div class="mt-4">
+                <input [(ngModel)]="settings.bProgressApiActive" id="progress-api-switch" name="progress-api-switch"
+                    type="checkbox">
+                <label for="native-user-switch">
+                    <h4>&nbsp;Progress API</h4>
+                </label>
+            </div>
+            <div class="mt-4">
+                <input [(ngModel)]="settings.bCreditApiActive" id="credit-api-switch" name="credit-api-switch"
+                    type="checkbox">
+                <label for="credit-api-switch">
+                    <h4>&nbsp;Credit API</h4>
+                </label>
+            </div>
+        </div>
+
+        <div class="window p-3 ml-4" style="min-height: 100%;">
+            <h3>Remote API Connection</h3>
+            <div class="mt-4">
+                <input [(ngModel)]="settings.bConnectToRemoteApi" id="auth-connect-switch" name="nauth-connect-switch"
+                    type="checkbox">
+                <label for="auth-connect-switch">
+                    <h4>&nbsp;Remote User Authentication</h4>
+                </label>
+            </div>
+        </div>
+
+        <div *ngIf="settings.bConnectToRemoteApi" class="window p-3 ml-4" style="min-height: 100%;">
+            <h3>Remote Authentication
+                [<span class="text-success status-text" *ngIf="bRemoteLoginApiConnected">Connected</span>
+                <span class="text-danger status-text" *ngIf="!bRemoteLoginApiConnected">Disconnected</span>]
+            </h3>
+            <div class="mt-2">
+                <input class="text-input" [(ngModel)]="settings.remoteLoginApiUrl" name="series" type="text" required>
+                <button type="button" (click)="saveSettings()" class="create-button mt-2">
+                    <i class="fa fa-save fa-lg"></i>
+                    Save & Connect
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="window tile-green p-3 mt-5 ml-3">
+        <h3 class="mb-0 pb-0"><span class="mr-1 icon-span"><i class="fa fa-rocket fa-2x"></i></span>Tutorial & Game</h3>
+    </div>
+
+    <div class="max-width p-3">
+
+        <div class="window p-3" style="min-height: 100%;">
+            <h3>Feature Access</h3>
+            <div class="mt-4">
+                <input [(ngModel)]="settings.bTutorialAccess" id="tut-access-switch" name="tut-access-switch"
+                    type="checkbox">
+                <label for="tut-access-switch">
+                    <h4>&nbsp;Tutorials</h4>
+                </label>
+            </div>
+
+            <div class="mt-4">
+                <input [(ngModel)]="settings.bBookStoreAccess" id="bookstore-access-switch"
+                    name="bookstore-access-switch" type="checkbox">
+                <label for="bookstore-access-switch">
+                    <h4>&nbsp;Book Store</h4>
+                </label>
+            </div>
+
+            <div class="mt-4">
+                <input [(ngModel)]="settings.bMyBooksAccess" id="mybooks-access-switch" name="mybooks-access-switch"
+                    type="checkbox">
+                <label for="mybooks-access-switch">
+                    <h4>&nbsp;My Books</h4>
+                </label>
+            </div>
+
+            <div class="mt-4">
+                <input [(ngModel)]="settings.bQuizAccess" id="quiz-access-switch" name="quiz-access-switch"
+                    type="checkbox" checked>
+                <label for="quiz-access-switch">
+                    <h4>&nbsp;Quiz</h4>
+                </label>
+            </div>
+        </div>
+
+        <div class="window p-3 ml-4" style="min-height: 100%;">
+            <h3>Main Tutorial Order</h3>
+            <div class="mt-4">
+                <h4>Level 1:
+                    <select>
+                        <option *ngFor="let tutorial of tutorials" [ngValue]="tutorial._id">{{tutorial?.tutorialTitle}}
+                        </option>
+                    </select>
+                </h4>
+            </div>
+            <div class="mt-4">
+                <h4>Level 2:
+                    <select>
+                        <option *ngFor="let tutorial of tutorials" [ngValue]="tutorial._id">{{tutorial?.tutorialTitle}}
+                        </option>
+                    </select>
+                </h4>
+            </div>
+            <div class="mt-4">
+                <h4>Level 3:
+                    <select>
+                        <option *ngFor="let tutorial of tutorials" [ngValue]="tutorial._id">{{tutorial?.tutorialTitle}}
+                        </option>
+                    </select>
+                </h4>
+            </div>
+            <div class="mt-4">
+                <h4>Level 4:
+                    <select>
+                        <option *ngFor="let tutorial of tutorials" [ngValue]="tutorial._id">{{tutorial?.tutorialTitle}}
+                        </option>
+                    </select>
+                </h4>
+            </div>
+        </div>
+
+        <div class="window p-3 ml-4" style="min-height: 100%;">
+            <h3>Game Options</h3>
+            <div class="mt-4">
+                <input [(ngModel)]="settings.bAutoplayEnabled" id="autoplay-switch" name="autoplay-switch"
+                    type="checkbox" checked>
+                <label for="autoplay-switch">
+                    <h4>&nbsp;Enable Autoplay</h4>
+                </label>
+            </div>
+
+            <div *ngIf="settings.bAutoplayEnabled" class="mt-4">
+                <h4>
+                    Playback delay:
+                    <input class="align-center" [(ngModel)]="settings.autoplayDelay" type="range" min="1" max="7"
+                        step="1.0">
+                    <small class="ml-1">
+                        {{settings.autoplayDelay}}s
+                    </small>
+                </h4>
+            </div>
+        </div>
+
     </div>
 </div>
 
 <app-loading-animation *ngIf="!bLoaded"></app-loading-animation>
+
+<!--<app-feedback-message [feedbackMessage]="feedbackMessage" (durationReached)="resetFeedbackMessage()"></app-feedback-message>-->

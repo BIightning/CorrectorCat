@@ -10,12 +10,6 @@ router
             .getClientRelevantSettings()
             .then(result => res.status(200).send(result))
             .catch(reason => res.status(reason.code || 500).send(reason.message));
-    })
-    .put([auth, adminPermission], async(req, res) => {
-        await settingsController
-            .updateSettings()
-            .then(result => res.status(200).send(result))
-            .catch(reason => res.status(reason.code || 500).send(reason.message));
     });
 router
     .route('/admin')
@@ -25,6 +19,12 @@ router
             .then(result => res.status(200).send(result))
             .catch(reason => res.status(reason.code || 500).send(reason.message));
     })
+    .put([auth, adminPermission], async(req, res) => {
+        await settingsController
+            .updateSettings(req.body)
+            .then(result => res.status(200).send(result))
+            .catch(reason => res.status(reason.code || 500).send(reason.message));
+    });
 
 
 module.exports = router;

@@ -100,7 +100,7 @@ async function createNativeUser(data) {
 
     let newUser = new User(data);
 
-    return await newUser.save().select("-password");
+    return await newUser.save() //.select("-password");
 
 }
 

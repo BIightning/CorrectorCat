@@ -2,11 +2,29 @@ const { Settings, settingsValidation } = require('../dbModels/settings.js');
 
 //default settings
 var settings = {
-    remoteLoginApiUrl: "unset",
+    remoteLoginApiUrl: "https://",
     primaryTutorials: [],
-    bNativeAccountsActive: false,
+    forcedLanguage: "English",
+
+    bSystemBasedLanguage: true,
+    
+    bConnectToRemoteApi: true,
+
+    bNativeRegistrationAllowed: true,
+    bRemoteRegistrationAllowed: false,
+    bNativeAccountsActive: true,
     bRemoteAccountsActive: false,
-    bProgressApiActive: false
+
+    bTutorialAccess: true,
+    bBookStoreAccess: false,
+    bMyBooksAccess: true,
+    bQuizAccess: false,
+
+    bAutoplayEnabled: false,
+    autoplayDelay: 7,
+
+    bProgressApiActive: false,
+    bCreditApiActive: false,
 }
 
 /**
@@ -17,8 +35,6 @@ var settings = {
 async function initSettings() {
     let retrievedSettings = await Settings.findOne();
 
-    //Terminate application if no settings can be retrieved
-
     if (retrievedSettings === null) {
         console.log('\x1b[33m%s\x1b[0m', "\n Couldn't get setting from database. Proceeding with default settings...");
         retrievedSettings = await saveSettings();
@@ -27,7 +43,7 @@ async function initSettings() {
             throw new Error("Error saving default settings. Terminating application.");
     }
 
-    mapSettings(retrievedSettings);
+    settings = retrievedSettings;
 }
 
 /**
@@ -45,10 +61,19 @@ async function saveSettings() {
 function mapSettings(retrievedSettings) {
     settings.remoteLoginApiUrl = retrievedSettings.remoteLoginApiUrl;
     settings.primaryTutorials = retrievedSettings.primaryTutorials;
+    settings.forcedLanguage = retrievedSettings.forcedLanguage
 
+    settings.bSystemBasedLanguage = retrievedSettings.bSystemBasedLanguage;
+
+    settings.bConnectToRemoteApi = retrievedSettings.bConnectToRemoteApi;
+
+    settings.bNativeRegistrationAllowed = retrievedSettings.bNativeRegistrationAllowed;
+    settings.bRemoteRegistrationAllowed = retrievedSettings.bRemoteRegistrationAllowed;
     settings.bNativeAccountsActive = retrievedSettings.bNativeAccountsActive;
     settings.bRemoteAccountsActive = retrievedSettings.bRemoteAccountsActive;
     settings.bProgressApiActive = retrievedSettings.bProgressApiActive;
+    settings.bCreditApiActive = retrievedSettings.bCreditApiActive;
+
 }
 
 /** 
@@ -68,8 +93,19 @@ async function getSettings() {
 async function getClientRelevantSettings() {
     let clientRelevantSettings = {
         primaryTutorials: settings.primaryTutorials,
+        forcedLanguage: settings.forcedLanguage,
+
+        bSystemBasedLanguage: settings.bSystemBasedLanguage,
         bNativeAccountsActive: settings.bNativeAccountsActive,
-        bRemoteAccountsActive: settings.bRemoteAccountsActive
+        bRemoteAccountsActive: settings.bRemoteAccountsActive,
+
+        bTutorialAccess: settings.bTutorialAccess,
+        bBookStoreAccess: settings.bBookStoreAccess,
+        bMyBooksAccess: settings.bMyBooksAccess,
+        bQuizAccess: settings.bQuizAccess,
+    
+        bAutoplayEnabled: settings.bAutoplayEnabled,
+        autoplayDelay: settings.autoplayDelay,
     }
     return await clientRelevantSettings;
 }
@@ -84,7 +120,7 @@ function getSettingsSync() {
 
 /**
  * updates the settings with the passed data.
- * @param {*} data 
+ * @param {object} data 
  */
 async function updateSettings(data) {
     let { error } = settingsValidation(data);
@@ -93,7 +129,6 @@ async function updateSettings(data) {
         err.code = 400;
         throw err;
     }
-
     let newSettings = await Settings.findOneAndUpdate(data);
 
     if (newSettings === null) {
