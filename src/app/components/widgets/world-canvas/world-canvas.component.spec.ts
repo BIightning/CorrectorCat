@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { WorldCanvasComponent } from './world-canvas.component';
 
@@ -6,7 +6,7 @@ describe('WorldCanvasComponent', () => {
   let component: WorldCanvasComponent;
   let fixture: ComponentFixture<WorldCanvasComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ WorldCanvasComponent ]
     })

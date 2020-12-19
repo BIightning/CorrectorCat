@@ -269,7 +269,7 @@ export class GameViewComponent implements OnInit {
     }
   }
 
-  private replayAfterStop(): void {
+  replayAfterStop(): void {
 
     this.bHasAnswered = false;
     this.coinAnimation();
