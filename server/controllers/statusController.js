@@ -11,7 +11,7 @@ async function getRemoteUserServerStatus() {
             console.log(`Could not connect to ${settings.remoteLoginApiUrl}!`);
             return false;
         })
-
+        
     if (connection.status === 200)
         return true;
 

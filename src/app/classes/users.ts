@@ -1,8 +1,7 @@
 export class User {
         email: string;
         password?: string;
-        name : string;
-        avatar: string;
+        isAdmin?: boolean;
         credits: number;
         completedLevels: number;
         _id : string;

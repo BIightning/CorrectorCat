@@ -29,6 +29,7 @@ async function getTutorialById(id) {
     } else
         return result;
 }
+
 /**
  * Retrieves the tutorial with the passed position
  * @deprecated tutorial position will be swapped for id saved in app settings
@@ -46,6 +47,11 @@ async function getTutorialByPosition(position) {
 
 }
 
+/**
+ * 
+ * @param {string} id the objectID of the tutorial we want to update
+ * @param {object} data The data we 
+ */
 async function updateTutorial(id, data) {
 
     //Validate data before accessing db

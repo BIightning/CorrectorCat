@@ -17,8 +17,8 @@ export class AuthService {
     this.url = environment.baseUrl;
   }
 
-  public loginUser(email, password) {
-    return this.http.post<any>(`${this.url}/api/auth`, {email : email, password: password});
+  public loginUser(email: string, password: string , activityId? : number) {
+    return this.http.post<any>(`${this.url}/api/auth`, {email : email, password: password, activityId: activityId});
   }
 
   // public checkId(id : String) : boolean{
@@ -43,11 +43,6 @@ export class AuthService {
     return decoded.isAdmin;
   }
 
-  /*
-  public loginOverId(id : string): Observable<LoginResponse>{
-    return this.http.get<LoginResponse>(`${this.url}/api/login/${id}`);
-  }
-  */
 
   private generateHeader(): HttpHeaders{
     return new HttpHeaders({

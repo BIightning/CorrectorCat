@@ -1,4 +1,5 @@
 const ObjectID = require('mongodb').ObjectID;
+const axios = require('axios');
 const bcrypt = require('bcrypt');
 const { User, userValidation } = require('../dbModels/user.js');
 const SettingsController = require('./settingsController.js')
@@ -127,7 +128,7 @@ async function createRemoteUser(data) {
     data.isNativeUser = false;
 
     let newUser = new User(data);
-    return await newUser.save().select("-password");
+    return await newUser.save()
 }
 
 exports.createNativeUser = createNativeUser;

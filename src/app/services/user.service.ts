@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { User } from 'src/app/classes/users';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable, from } from 'rxjs';
-import {CreateResponse} from 'src/app/classes/createResponse';
 import {UpdateResponse} from 'src/app/classes/updateResponse';
 
 @Injectable({
@@ -34,8 +33,8 @@ export class UserService {
     return this.http.get<User>(this.url+"/api/userByUserName/" + userName);
   }
 
-  public createUser(user : User): Observable<CreateResponse>{
-    return this.http.post<CreateResponse>(this.url+"/api/users", user);
+  public createUser(user : User): Observable<User>{
+    return this.http.post<User>(this.url+"/api/users", user);
   }
 
   public updateUser(user :User): Observable<User>{

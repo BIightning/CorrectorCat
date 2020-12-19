@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
 
   onLevelSelected(eventArgs) {
     console.log(eventArgs);
-    this.router.navigate(["/game/tutorial/" + eventArgs.selectedLevel.toString()+"/"]);
+    this.router.navigate(["/game/tutorial/" + eventArgs.selectedLevel]);
   }
 
 }

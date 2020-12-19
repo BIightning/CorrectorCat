@@ -37,8 +37,8 @@ async function authenticate(data) {
             throw err;
         }
 
-    } else if (settings.bRemoteAccountsActive) {
-        //TODO: Send email and password to recording studio if remote login is enabled.
+    } else if (settings.bRemoteAccountsActive && data.activityId) {
+
     } else {
         let err = new Error("Invalid Email or password");
         err.code = 400;

@@ -15,7 +15,7 @@ async function getFileCatalog() {
  * Returns data base entries of all files (regardless of filetype) 
  * possessed by the owner with the passed id.
  * !Does not return the actual files!
- * @param _ownerId objectId of the file owner
+ * @param {string} _ownerId objectId of the file owner
  */
 async function getFileCatalogOfOwner(_ownerId) {
 
@@ -28,6 +28,7 @@ async function getFileCatalogOfOwner(_ownerId) {
 
     return await File.find({ ownerId: _ownerId });
 }
+
 /**
  * Returns data base entries of all image files
  * regardless of owner.
@@ -37,11 +38,12 @@ async function getImageCatalog() {
     return await File.find({ fileType: 'image' })
 
 }
+
 /**
  * Returns data base entries of all image files possessed by
  * the owner with the passed id.
  * !Does not return the actual files!
- * @param _ownerId objectId of the file owner
+ * @param {string}  _ownerId objectId of the file owner
  */
 async function getImageCatalogOfOwner(_ownerId) {
     let { error } = idValidation(ownerId);
@@ -54,6 +56,7 @@ async function getImageCatalogOfOwner(_ownerId) {
     return await File.find({ fileType: 'image', ownerId: _ownerId })
 
 }
+
 /**
  * Returns data base entries of all audio files
  * regardless of owner.
@@ -62,11 +65,13 @@ async function getImageCatalogOfOwner(_ownerId) {
 async function getAudioCatalog() {
     return await File.find({ fileType: 'audio' });
 }
+
+
 /**
  * Returns data base entries of all audio files possessed by
  * the owner with the passed id.
  * !Does not return the actual files!
- * @param _ownerId objectId of the file owner
+ * @param {string} _ownerId objectId of the file owner
  */
 async function getAudioCatalogOfOwner(_ownerId) {
 
@@ -80,11 +85,13 @@ async function getAudioCatalogOfOwner(_ownerId) {
     await File.find({ fileType: 'audio', ownerId: _ownerId })
 
 }
+
+
 /**
  * Creates a new database entry with 
  * the owner with the passed id.
  * !Does not return the actual files!
- * @param fileMeta object containing filename, path, owner id and filetype
+ * @param {object} fileMeta object containing filename, path, owner id and filetype
  */
 async function saveFileInformation(fileMeta) {
 
@@ -130,6 +137,13 @@ var storage = multer.diskStorage({
     }
 });
 
+
+/**
+ * Tries to create a new folder at the passed path. 
+ * If folder already exists nothing happens.
+ * @param {string} path The path for the folder to create
+ * @param {*} cb Callback. returns null on success
+ */
 function ensureFolderExistance(path, cb) {
     fs.mkdir(path, function(err) {
         if (err) {
@@ -145,7 +159,7 @@ function ensureFolderExistance(path, cb) {
  * the correct file ending as a string.
  * Returns null if filetype is unsupported.
  * Supported filetypes: gif png jpeg mp3
- * @param file The file whose type is to be determined
+ * @param {object} file The file whose type is to be determined
  */
 function determineFileEnding(file) {
     let fileEnding = null;
@@ -169,7 +183,7 @@ function determineFileEnding(file) {
     return fileEnding;
 }
 
-module.exports.fileUpload = multer({ storage: storage });
+module.exports.fileUpload = multer({ storage: this.storage });
 module.exports.saveFileInformation = saveFileInformation;
 //Getters regardless of owner
 module.exports.getFileCatalog = getFileCatalog;

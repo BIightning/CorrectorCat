@@ -143,8 +143,12 @@
                 </h6>
                 <ng-container *ngIf="bTutorialAfterBook">
                     <h4 class="input-heading mt-2">&nbsp;Target Tutorial:</h4>
-                    <select [(ngModel)]="tutorials">
-                        <option *ngFor="let tutorial of tutorials" value="{{tutorial._id}}">
+                    <select [(ngModel)]="book.tutorialAfterCompletion">
+                        <option  
+                         *ngFor="let tutorial of tutorials" 
+                         value="{{tutorial._id}}"
+                         [selected]="tutorial._id === book.tutorialAfterCompletion"
+                        >
                             {{tutorial.tutorialTitle}}
                         </option>
                     </select>
@@ -152,7 +156,7 @@
             </ng-container>
         </div>
 
-        <div class="tile-yellow tile p-3 mt-5 mb-2">
+        <div class="tile-green tile p-3 mt-5 mb-2">
             <h2>Book Content</h2>
         </div>
 

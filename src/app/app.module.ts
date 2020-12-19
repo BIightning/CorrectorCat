@@ -46,6 +46,7 @@ import { LoadingAnimationComponent } from './components/admin/loading-animation/
 import { SummaryPipe } from './pipes/summary.pipe';
 import { CountryFromIsoPipe } from './pipes/country-from-iso.pipe';
 import { FeedbackMessageComponent } from './components/admin/feedback-message/feedback-message.component';
+import { TranslocoRootModule } from './transloco/transloco-root.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -91,7 +92,8 @@ import { FeedbackMessageComponent } from './components/admin/feedback-message/fe
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    TranslocoRootModule
   ],
   providers: [UserService, BookService, TutorialSequenceService],
   bootstrap: [AppComponent]

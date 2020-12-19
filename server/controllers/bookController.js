@@ -36,7 +36,7 @@ async function getBookById(id) {
 
 /**
  * Looks for a book with the given title and returns it.
- * @deprecated avoid usage, book names aren't necessarily unique
+ * @deprecated avoid usage, book names aren't necessarily unique. Will be removed in the future.
  * @param {string} title The title of the book we want to retrieve
  */
 
@@ -88,7 +88,11 @@ async function updateBook(id, data) {
         cost: data.cost,
         difficulty: data.difficulty,
         imagePath: data.imagePath,
+
+        creditTarget: data.creditTarget,
+        tutorialAfterCompletion: data.tutorialAfterCompletion,
         description: data.description,
+
         textChunks: data.textChunks,
         quiz: data.quiz
     });
@@ -106,7 +110,7 @@ async function updateBook(id, data) {
 
 /**
  * Creates a new book with the given data
- * @param {*} data the data we want to create the book with
+ * @param {object} data the data we want to create the book with
  */
 async function createBook(data) {
 

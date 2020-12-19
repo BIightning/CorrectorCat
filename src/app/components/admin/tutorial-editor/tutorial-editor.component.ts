@@ -103,7 +103,6 @@ export class TutorialEditorComponent implements OnInit {
   createEmptyTutorialTemplate():void {
     this.tutorial = {
       tutorialTitle: 'New Tutorial',
-      position: -1,
       slides: null,
       targetTextTitle: ''  
     }

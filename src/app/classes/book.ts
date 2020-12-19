@@ -8,7 +8,10 @@ export class Book {
     cost: number;
     difficulty: string;
     imagePath: string;
+
+    creditTarget: number;
     description: string;
+    tutorialAfterCompletion?: string;
     
     textChunks: [{
         text: string;

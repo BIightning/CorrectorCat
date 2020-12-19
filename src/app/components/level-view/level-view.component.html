@@ -13,7 +13,8 @@
                     <div class="super-cat-wrapper" *ngIf="this.currLevel === number">
                         <img src="../../assets/img/kitty-avatars/svg/036-kitty-superhero.svg" id="super-cat">
                     </div>
-                    <i *ngIf="!(this.currLevel === number)" [ngClass]="this.currLevel > number ?  'fa-check-circle' : 'fa-lock'" class="fa fa-5x"></i>
+                    <i *ngIf="!(this.currLevel === number)"
+                        [ngClass]="this.currLevel > number ?  'fa-check-circle' : 'fa-lock'" class="fa fa-5x"></i>
                 </div>
             </div>
         </div>

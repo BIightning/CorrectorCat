@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../services/auth.service";
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -9,18 +9,30 @@ import { Router } from '@angular/router';
 })
 export class SignInComponent implements OnInit {
 
-  public email: String;
-  public password: String;
+  public email: string = "";
+  public password: string ="";
+  public activityId: number;
 
-  constructor(private authService : AuthService, private router : Router) { }
+  constructor(
+    private authService : AuthService, 
+    private router : Router,  
+    private route: ActivatedRoute
+  ) 
+  { }
 
   ngOnInit() {
     this.email="max@mustermann.de";
     this.password ="123456";
+    this.route.queryParams.subscribe(params => {
+      let id = params['activityid'];
+
+      if(id)
+        this.activityId = id;
+    });
   }
 
   public checkUser(){
-      this.authService.loginUser(this.email, this.password).subscribe(res => {
+      this.authService.loginUser(this.email, this.password, this.activityId).subscribe(res => {
         console.log(res.user);
         localStorage.setItem("jwt", String(res.jwt));
         localStorage.setItem("user", String(res.user._id));

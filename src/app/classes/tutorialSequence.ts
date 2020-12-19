@@ -1,7 +1,6 @@
 export class TutorialSequence {
     _id?: string;
     tutorialTitle: string;
-    position: number;
     slides: [{
         slideTitle?: string;
         sceneType: number;
