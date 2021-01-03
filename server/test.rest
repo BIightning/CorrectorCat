@@ -1,0 +1,9 @@
+POST http://localhost:8080/api/users/
+content-type: application/json
+
+{
+    "email": "max@mustermann.de",
+    "password": "123456",
+    "credits": 0,
+    "isAdmin": true
+}

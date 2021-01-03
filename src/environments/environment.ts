@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8080'
-  //"http://192.168.0.17:8080"
+  baseUrl: 'http://localhost:8080', //"http://192.168.0.17:8080"
+  supportedLanguages: ['en-GB', 'de-DE', 'pt-PT', 'el-EL']
 };
 
 /*

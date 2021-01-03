@@ -1,3 +1,4 @@
+import { TranslocoService } from '@ngneat/transloco';
 import { TutorialSequenceService } from './../../services/tutorial-sequence.service';
 import { TutorialSequence } from 'src/app/classes/tutorialSequence';
 import { Component, Input, OnInit } from '@angular/core';
@@ -15,17 +16,24 @@ export class TutorialComponent implements OnInit {
   @Input("preview") bIsPreview: boolean;
   currLevel: number;
   currentSlide: number = 0;
+
+
   bCanContinue: Boolean = true;
   bIsLoaded: Boolean = false;
   sequence: TutorialSequence = new TutorialSequence();
   settings: Settings;
 
+  currLanguage: string;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private tutorialSequenceService: TutorialSequenceService,
-    private settingsService: SettingsService
-  ) {
+    private settingsService: SettingsService,
+    private translocoService: TranslocoService
+  ) 
+  {
+    this.currLanguage = this.translocoService.getActiveLang();
   }
 
   ngOnInit() {
@@ -57,13 +65,29 @@ export class TutorialComponent implements OnInit {
     });
   }
 
+  public getLocalizedText(): string {
+    switch(this.currLanguage){
+      case 'de-DE':
+        return this.sequence.slides[this.currentSlide].slideText.german;
+
+      case 'el-EL':
+        return this.sequence.slides[this.currentSlide].slideText.greek;
+
+      case 'pt-PT':
+        return this.sequence.slides[this.currentSlide].slideText.portuguese;
+
+      default: //english as last option and fallback
+        return this.sequence.slides[this.currentSlide].slideText.english;
+    }
+  }
+
   private loadTutorialData(sequenceId: string): void {
     this.tutorialSequenceService.getSequenceById(sequenceId).subscribe(res => {
       document.getElementById("scaling-bg").classList.remove("paused");
       this.bIsLoaded = true;
       this.removeStartEffect();
       this.sequence = res;
-      console.log(this.sequence.targetTextTitle);
+      console.log(this.sequence.targetText);
     });
   }
 

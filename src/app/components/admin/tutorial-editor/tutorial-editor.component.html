@@ -14,8 +14,13 @@
     <div class="window p-3">
         <h4 class="input-heading mt-2">&nbsp;Title:</h4>
         <input [(ngModel)]="tutorial.tutorialTitle" name="title" type="text" required>
-        <h4 class="input-heading mt-2 mb-2">&nbsp;Target Text:</h4>
-        <input [(ngModel)]="tutorial.targetTextTitle" name="TargetText" type="text" required>
+        <h4 class="input-heading mt-2 mb-2">&nbsp;Target Texts:</h4>
+        <ng-container *ngFor="let lang of languages; index as i">
+            <h5 class="input-heading mt-2 mb-2">&nbsp;{{ lang | countryFromIso}}:</h5>
+            <select [(ngModel)]="tutorial.targetText[i]" name="TargetText" type="text">
+                <option *ngFor="let book of getBooksOfLang(lang)" value="{{book._id}}" [selected]="book._id == tutorial.targetText[i]" >{{ book.title }} ({{ book.language | countryFromIso }})</option>
+            </select>
+        </ng-container>
     </div>
     <div class="row mt-5">
         <div class="tile-blue tile p-3">
@@ -33,7 +38,7 @@
                 <button type="button" (click)="slideExtended[i]= !slideExtended[i] " class="expand-btn fa text-white "
                     [ngClass]="{ 'fa-chevron-right': !slideExtended[i], 'fa-chevron-down': slideExtended[i]} "></button>
                 <span>&nbsp; Slide {{i +1}}</span>
-                <small class="ml-5 text-center">"{{ slide?.slideTitle}}"</small>
+                <small class="ml-5 text-center">"{{ slide?.slideTitle }}"</small>
                 <a type="button" *ngIf="tutorial.slides.length > 1" (click)="onDeleteClick(i)"
                     class="trash-btn float-right mr-1 p-1 text-right text-danger"><i class="fa fa-trash"></i></a>
             </h3>

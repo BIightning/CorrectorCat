@@ -1,1 +1,22 @@
-{}
+{
+    "sign_in": {
+        "signin": " Sign in",
+        "gameletaccount": "With your Gamelet Account",
+        "passwordforgotten": "Forgot password?"
+    },
+
+    "dashboard": {
+        "welcome": "Welcome!"
+    },
+
+    "sidebar": {
+        "dashboard": "Dashboard",
+        "bookshelf": "Bookshelf",
+        "bookstore": "Bookstore"
+    },
+
+    "not_found": {
+        "404": "Error 404 - not found",
+        "contact": "If you think this is an error, please contact your admin"
+    }
+}

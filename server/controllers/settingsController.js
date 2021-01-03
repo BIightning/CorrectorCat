@@ -4,7 +4,7 @@ const { Settings, settingsValidation } = require('../dbModels/settings.js');
 var settings = {
     remoteLoginApiUrl: "https://",
     primaryTutorials: [],
-    forcedLanguage: "English",
+    forcedLanguage: "en-GB",
 
     bSystemBasedLanguage: true,
     

@@ -43,6 +43,17 @@ export class AuthService {
     return decoded.isAdmin;
   }
 
+  getIsNativeUser()
+  {
+      let jwtHelper = new JwtHelperService();
+      let decoded = jwtHelper.decodeToken(localStorage.getItem("jwt"));
+  
+      if(!decoded)
+        return false;
+  
+      return decoded.isNativeAccount;
+  }
+
 
   private generateHeader(): HttpHeaders{
     return new HttpHeaders({

@@ -1,3 +1,4 @@
+import { SettingsService } from 'src/app/services/settings.service';
 import { environment } from './../../../environments/environment';
 import { Observable, fromEvent, Subscription } from 'rxjs';
 import { GameState } from './stateMachine';
@@ -8,6 +9,7 @@ import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { Book } from 'src/app/classes/book';
 import { UserService } from "../../services/user.service";
 import { User } from 'src/app/classes/users';
+import { Settings } from 'src/app/classes/settings';
 
 @Component({
   selector: 'app-game-view',
@@ -23,6 +25,7 @@ export class GameViewComponent implements OnInit {
   audioplayer: HTMLAudioElement;
   progressDelay: number = 1;
   book: Book;
+  settings: Settings;
 
   baseUrl: string;
 
@@ -57,6 +60,7 @@ export class GameViewComponent implements OnInit {
     private route: ActivatedRoute, 
     private bookService: BookService, 
     private userService: UserService, 
+    private settingsService: SettingsService,
     private router: Router) 
     {
       this.baseUrl = environment.baseUrl;
@@ -79,13 +83,17 @@ export class GameViewComponent implements OnInit {
       //this.modalService.open(this.startModalContent, { centered: true, backdrop: 'static', keyboard: false });
     });
     this.route.params.subscribe(param => {
-      this.bookService.getBookByTitle(param.bookId).subscribe(data => {
+      this.bookService.getBookById(param.bookId).subscribe(data => {
         this.book = data;
         this.bBookLoaded = true;
         this.bShowStartModal = true;
         this.prepareGame();
       });
     })
+  }
+
+  private async loadData(){
+    
   }
 
   /*############################################################ Game Process ############################################################*/

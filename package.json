@@ -1,6 +1,6 @@
 {
   "name": "correctorcat",
-  "version": "0.0.0",
+  "version": "0.3.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -8,8 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "startServer": "node ./server/app.js",
-    "devlaunch": "node ./server/app.js && ng serve"
+    "devmode": " ng build && node ./server/server.js",
+    "prodmode": "ng build --prod && node ./server/server.js"
   },
   "private": true,
   "dependencies": {
@@ -23,10 +23,10 @@
     "@angular/router": "^11.0.5",
     "@auth0/angular-jwt": "^5.0.2",
     "@hapi/joi": "^17.1.1",
-    "@ng-bootstrap/ng-bootstrap": "^7.0.0",
+    "@ng-bootstrap/ng-bootstrap": "^8.0.0",
     "@ngneat/transloco": "^2.20.0",
     "angular": "^1.8.2",
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.5.3",
@@ -37,7 +37,7 @@
     "joi-objectid": "^3.0.1",
     "jquery": "^3.5.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.11.8",
+    "mongoose": "^5.11.9",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
     "path": "^0.12.7",
@@ -55,7 +55,7 @@
     "@angular/language-service": "^11.0.5",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
-    "@types/node": "^12.19.9",
+    "@types/node": "^12.19.11",
     "codelyzer": "^6.0.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",

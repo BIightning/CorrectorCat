@@ -1,3 +1,4 @@
+import { TranslocoService } from '@ngneat/transloco';
 import { environment } from './../../../environments/environment';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
@@ -11,14 +12,18 @@ export class TutorialWidgetsComponent implements OnInit {
   
   @Input("widgetID") widgetID: number;
   @Input("widgetData") widgetData: any;
-  @Input("targetText") targetTextTitle: number;
+  @Input("targetText") targetText: string[];
   @Input("isPreview") bIsPreview: boolean;
   @Output("allowContinue") allowContinue = new EventEmitter();
 
   audioplayer: HTMLAudioElement;
   baseUrl: string;
 
-  constructor(private router: Router) { 
+  constructor(
+    private router: Router,
+    private translocoService: TranslocoService
+  ) 
+  { 
     this.baseUrl = environment.baseUrl;
   }
 
@@ -31,11 +36,24 @@ export class TutorialWidgetsComponent implements OnInit {
       this.emitAllowContinue();
   }
 
-  goGameView(){
-    console.log(this.widgetID);
-    console.log(this.targetTextTitle);
+  /**
+   * Navigates to the book assigned to the current language
+   */
+  goGameView(): void{
     if(!this.bIsPreview)
-      this.router.navigate(["/game/game-view/" +this.targetTextTitle +"/"]);
+      switch(this.translocoService.getActiveLang()){
+        case 'de-DE':
+          this.router.navigate(["/game/game-view/" +this.targetText[1] +"/"]);
+          break;
+        case 'pt-PT':
+          this.router.navigate(["/game/game-view/" +this.targetText[2] +"/"]);
+          break;
+        case 'el-EL':
+          this.router.navigate(["/game/game-view/" +this.targetText[3] +"/"]);
+          break;
+        default: //english as last option and fallback
+          this.router.navigate(["/game/game-view/" +this.targetText[0] +"/"]);
+      }
   }
 
   emitAllowContinue() {
@@ -49,5 +67,7 @@ export class TutorialWidgetsComponent implements OnInit {
   playAudio(){
     this.audioplayer.play();
   }
+
+
 
 }

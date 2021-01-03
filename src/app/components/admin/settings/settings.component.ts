@@ -1,3 +1,4 @@
+import { TranslocoService } from '@ngneat/transloco';
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { AdminLevelSettings } from 'src/app/classes/settings';
@@ -20,10 +21,13 @@ export class SettingsComponent implements OnInit {
   public bForceLanguage: Boolean = true;
   public bRemoteLoginApiConnected: boolean = false;
 
+  public languages: unknown; //Can't use string because of transloco.getAvailableLangs() theoretical varying return type
+
   constructor(
     private settingsService: SettingsService,
     private statusService: StatusService,
-    private tutorialService: TutorialSequenceService
+    private tutorialService: TutorialSequenceService,
+    private translocoService: TranslocoService
     ) { }
 
   ngOnInit(): void {
@@ -31,6 +35,7 @@ export class SettingsComponent implements OnInit {
   }
   
   private updateView(): void {
+    this.languages = this.translocoService.getAvailableLangs();
     this.settingsService.getAdminLevelSettings().subscribe(res => {
       this.settings = res;
   
@@ -39,7 +44,7 @@ export class SettingsComponent implements OnInit {
   
         this.statusService.getGameletServerStatus().subscribe(res => {
           this.bRemoteLoginApiConnected = res;
-  
+          
           this.bLoaded = true;
         });
   

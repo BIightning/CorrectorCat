@@ -1,9 +1,10 @@
-<div class=background>
+<div class="background" *transloco="let t; read: 'not_found'"> 
     <app-navbar></app-navbar>
     <div class="mx-auto my-auto p-5 d-block">
         <img src="{{imgPath}}" width="500" height="500" class="mx-auto p-5 d-block">
         <h2 class="text-center text-gamelet">You found {{ text }}. Were you looking for it?</h2>
-        <h1 class="text-center text-secondary">Error 404 - not found</h1>
+        <h1 class="text-center text-secondary">{{ t('404')}}</h1>
+        <h3 class="text-center text-secondary">{{ t('contact')}}</h3>
     </div>
 
 </div>

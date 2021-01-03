@@ -1,3 +1,4 @@
+import { TranslocoService } from '@ngneat/transloco';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd, NavigationStart } from '@angular/router';
 @Component({
@@ -12,7 +13,10 @@ export class GamePageComponent implements OnInit {
   text: string = ''
   bMenuOpen: boolean;
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(
+    private translocoService: TranslocoService,
+    private route: ActivatedRoute, 
+    private router: Router) {
     this.mySubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.bMenuOpen = false;
@@ -21,6 +25,7 @@ export class GamePageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.setLanguage(localStorage.getItem('currentLanguage'));
   }
 
   toggleMenu(){
@@ -29,6 +34,21 @@ export class GamePageComponent implements OnInit {
 
   closeMenu(){
     this.bMenuOpen = false;
+  }
+
+  private setLanguage(language: string): void {
+    for( let lang of this.translocoService.getAvailableLangs())
+    {
+      console.log(language + ' : ' + lang)
+      if(language === lang){
+        this.translocoService.setActiveLang(language);
+        return;
+      }
+    }
+
+    this.translocoService.setActiveLang('en-GB');
+    console.warn(`language ${language} is not supported. Falling back to en-GB`);
+    localStorage.setItem('currentLanguage', 'en-GB');
   }
 
   swapCat() {

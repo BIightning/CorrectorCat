@@ -19,10 +19,11 @@
             </div>
             <div *ngIf="!settings.bSystemBasedLanguage" class="mt-2">
                 <h4 class="input-heading">&nbsp;Force Language:
-                    <select>
-                        <option>None</option>
-                        <option>German</option>
-                        <option>English</option>
+                    <select [(ngModel)]="settings.forcedLanguage">
+                        <option  
+                            *ngFor="let lang of languages" [selected]="settings.forcedLanguage === lang" value="{{lang}}">
+                            {{lang | countryFromIso}}
+                        </option>
                     </select>
                 </h4>
             </div>

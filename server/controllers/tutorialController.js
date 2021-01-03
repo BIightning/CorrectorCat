@@ -5,7 +5,7 @@ const idValidation = require('../utils/objectidValidation.js');
  * Retrieves all existing tutorials from database
  */
 async function getTutorials() {
-    return await Tutorial.find()
+    return await Tutorial.find();
 }
 
 /**
@@ -55,19 +55,14 @@ async function getTutorialByPosition(position) {
 async function updateTutorial(id, data) {
 
     //Validate data before accessing db
-    let { idError } = idValidation(id);
-    if (idError) {
+    let { error } = idValidation(id);
+    if (error) {
         let err = new Error(error.details[0].message);
         err.code = 400;
         throw err;
     }
 
-    let { tutorialError } = tutorialValidation(data);
-    if (tutorialError) {
-        let err = new Error(tutorialError.details[0].message);
-        err.code = 400;
-        throw err;
-    }
+    validateTutorial(data);
 
     let result = await Tutorial.findByIdAndUpdate(id, data)
 
@@ -87,7 +82,7 @@ async function createTutorial(data) {
     //Validate data before accessing db
     let { error } = tutorialValidation(data);
     if (error) {
-        let err = new Error(tutorialError.details[0].message);
+        let err = new Error(error.details[0].message);
         err.code = 400;
         throw err;
     }
@@ -100,7 +95,7 @@ async function createTutorial(data) {
 async function deleteTutorial(id) {
     let { error } = idValidation(id);
     if (error) {
-        let err = new Error(tutorialError.details[0].message);
+        let err = new Error(error.details[0].message);
         err.code = 400;
         throw err;
     }
@@ -114,6 +109,16 @@ async function deleteTutorial(id) {
     }
 
     return result;
+}
+
+function validateTutorial(data){
+    let { error } = tutorialValidation(data);
+    if (error) {
+        console.log(error)
+        let err = new Error(error.details[0].message);
+        err.code = 400;
+        throw err;
+    }
 }
 
 exports.createTutorial = createTutorial;

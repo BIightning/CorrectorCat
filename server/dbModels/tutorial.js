@@ -3,7 +3,6 @@ const Joi = require('@hapi/joi');
 
 const tutorialSchema = new mongoose.Schema({
     tutorialTitle: { type: String, required: true },
-    position: { type: Number, required: true },
     slides: [{
         slideTitle: { type: String },
         sceneType: { type: Number, required: true },
@@ -18,7 +17,7 @@ const tutorialSchema = new mongoose.Schema({
         widgetID: { type: Number, default: -1 },
         widgetData: { type: Object }
     }],
-    targetTextTitle: { type: String, required: true }
+    targetText: [{ type: String, required: true }]
 });
 
 const Tutorial = mongoose.model('tutorial', tutorialSchema);
@@ -26,9 +25,9 @@ const Tutorial = mongoose.model('tutorial', tutorialSchema);
 function tutorialValidation(data) {
     const schema = Joi.object().keys({
         tutorialTitle: Joi.string().required(),
-        position: Joi.number().required(),
         slides: Joi.array().items(
             Joi.object().keys({
+               // _id: Joi.string(),
                 slideTitle: Joi.string(),
                 sceneType: Joi.number().required(),
                 catAnimation: Joi.string(),
@@ -41,11 +40,13 @@ function tutorialValidation(data) {
                 }).required(),
                 widgetID: Joi.number().required(),
                 widgetData: Joi.object()
-            })).required(),
-        targetTextTitle: Joi.string().required()
+            })).required()
     });
 
-    return schema.validate(data);
+    return schema.validate({
+        tutorialTitle: data.tutorialTitle,
+        slides: data.slides
+    });
 }
 
 module.exports.Tutorial = Tutorial;

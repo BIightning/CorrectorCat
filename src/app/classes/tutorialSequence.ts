@@ -15,10 +15,10 @@ export class TutorialSequence {
         widgetID: number;
         widgetData?: any;
     }];
-    targetTextTitle: string;
+    targetText: string[];
 
-    constructor(slides?: any, targetText?: string){
+    constructor(slides?: any, targetText?: string[]){
         this.slides = slides;
-        this.targetTextTitle = targetText;
+        this.targetText = targetText;
     }
 }

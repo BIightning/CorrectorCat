@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
     isNativeAccount: { type: Boolean, required: true },
     isAdmin: { type: Boolean, required: true },
     activityID: { type: Number },
-    gameletUserID:  { type: Number }
+    gameletUserID: { type: Number }
 });
 
 userSchema.methods.getPublicFields = function () {
@@ -23,8 +23,16 @@ userSchema.methods.getPublicFields = function () {
     return publicFields;
 }
 
-userSchema.methods.generateAuthToken = function() {
-    let authToken = jwt.sign({ _id: this._id, isAdmin: this.isAdmin }, process.env.JWT_AUTH_TOKEN_SECRET, { expiresIn: '240m' });
+userSchema.methods.generateAuthToken = function () {
+    let authToken = jwt.sign(
+        {
+            _id: this._id,
+            isAdmin: this.isAdmin,
+            isNativeAccount: this.isNativeAccount
+        },
+        process.env.JWT_AUTH_TOKEN_SECRET,
+        { expiresIn: '240m' }
+    );
     //let refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
 
     return authToken;

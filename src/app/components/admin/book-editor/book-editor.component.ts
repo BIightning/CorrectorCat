@@ -1,3 +1,4 @@
+import { TranslocoService } from '@ngneat/transloco';
 import { TutorialSequenceService } from './../../../services/tutorial-sequence.service';
 import { PlaceholderFiles } from 'src/app/classes/PlaceholderFiles';
 import { environment } from './../../../../environments/environment';
@@ -43,9 +44,9 @@ export class BookEditorComponent implements OnInit {
   multipleFiles: File[] = [];
   uploadProgress: number = -1;
   audioplayer: HTMLAudioElement;
+  public languages: unknown; //Can't use string because of transloco.getAvailableLangs() theoretical varying return type
 
   //Static data 
-  public languages: string[] = ['de-DE', 'en-GB', 'pt-PT', 'el-EL'];
   public difficulties: string[] = ['Tutorial', 'Easy', "Medium", "Hard", "Very Hard"];
 
   feedbackMessage: FeedbackMessage = new FeedbackMessage();
@@ -55,18 +56,21 @@ export class BookEditorComponent implements OnInit {
     private router: Router,
     private bookService: BookService,
     private tutorialService: TutorialSequenceService,
-    private fileService: FileService
+    private fileService: FileService,
+    private translocoService: TranslocoService
   ) {
     this.baseUrl = environment.baseUrl;
    }
 
   ngOnInit(): void {
     //Query parameter for redirect after successful save
+
     this.route.queryParams.subscribe(params => {
-      let title = params['saved']
+      let title = params['saved'];
       if (title)
         this.showFeedback(`The book "${title}" was saved successfully.`, MessageType.Success, 3000);
     });
+    this.languages = this.translocoService.getAvailableLangs();
 
     let id = this.route.snapshot.paramMap.get("id");
     if (id == "new") {
@@ -90,15 +94,14 @@ export class BookEditorComponent implements OnInit {
       this.tutorials = res;
     });
   }
+
   loadPossessedFileMeta(): void {
     this.fileService
       .getPossessedFiles(this.book._id)
       .subscribe(res => {
         this.possessedFiles = PlaceholderFiles; //add placeholder audio to files
-        console.log(this.possessedFiles);
         this.possessedFiles = [...this.possessedFiles, ...res]; //add actual possessed files to files
         this.bLoaded = true;
-        console.log(this.possessedFiles);
         this.getAudioFileCount();
       },
         err => {
