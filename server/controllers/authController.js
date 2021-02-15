@@ -1,5 +1,5 @@
 const Joi = require('@hapi/joi');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { User } = require('../dbModels/user.js');
 const settingsController = require('../controllers/settingsController');
 

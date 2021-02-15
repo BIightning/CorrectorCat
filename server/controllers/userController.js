@@ -1,6 +1,6 @@
 const ObjectID = require('mongodb').ObjectID;
 const axios = require('axios');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { User, userValidation } = require('../dbModels/user.js');
 const SettingsController = require('./settingsController.js')
 const emailValidation = require('../utils/emailValidation.js');
