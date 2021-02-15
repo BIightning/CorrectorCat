@@ -18,5 +18,9 @@
     "not_found": {
         "404": "Fehler 404 - nicht gefunden",
         "contact": "Wenn dies Deiner Meinung nach ein Fehler ist, kontaktiere bitte einen Admin."
+    },
+
+    "game-view": {
+        "error": "In diesem Abschnitt war kein Fehler. Du verlierst {{ count }} Credits!"
     }
 }

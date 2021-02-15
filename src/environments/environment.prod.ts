@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  baseUrl: 'http://192.168.0.17:8080',
+  baseUrl: 'https://correctorcat.gamelet.eu/',
   supportedLanguages: ['en-GB', 'de-DE', 'pt-PT', 'el-EL']
 };

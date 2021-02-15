@@ -8,6 +8,33 @@
     background-repeat: no-repeat;
     background-size: contain;
 }
+#game-container {
+    position: relative;
+}
+#game-container::after {
+    content: attr(data-error);
+    color: #fff;
+    background-color: rgba(192, 21, 21, 0.8);
+    text-align: center;
+    padding: 12px;
+    font-size: 1.2em;
+    font-weight: 600;
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%) translateY(200px);
+    border-radius: 10px;
+    opacity: 0;
+    transition: all 0.3s;
+}
+.error-active#game-container::after {
+   opacity: 1;
+   transform: translateX(-50%) translateY(0);
+   transition: all 0.3s;
+}
+
+
+
 
 .snippet-container {
     overflow-y: scroll;

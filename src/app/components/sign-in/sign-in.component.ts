@@ -30,8 +30,8 @@ export class SignInComponent implements OnInit {
   { }
 
   ngOnInit() {
-    this.email="max@mustermann.de";
-    this.password ="123456";
+    //this.email="max@mustermann.de";
+    //this.password ="123456";
     this.route.queryParams.subscribe(params => {
       let id = params['activityid'];
 

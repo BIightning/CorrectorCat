@@ -43,6 +43,8 @@ export class GameViewComponent implements OnInit, AfterViewInit {
   bShowSettingsModal: boolean = false;
   bShowEndModal: boolean = false;
 
+  bShowError: boolean = false;
+
   bFirstChunk: boolean = true;
   bHasAnswered: boolean;
   bBookLoaded: boolean;
@@ -103,78 +105,78 @@ export class GameViewComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.shepherdService.defaultStepOptions = {
-      classes: 'custom-class-name-1 custom-class-name-2',
-      scrollTo: false,
-      cancelIcon: {
-        enabled: true
-      }
-    };
-    this.shepherdService.modal = true;
-    this.shepherdService.confirmCancel = false;
-    this.shepherdService.requiredElements = [
-      {
-        selector: '.search-result-element',
-        message: 'No search results found. Please execute another search, and try to start the tour again.',
-        title: 'No results'
-      },
-      {
-        selector: '.username-element',
-        message: 'User not logged in, please log in to start this tour.',
-        title: 'Please login'
-      },
-    ];
-    this.shepherdService.addSteps([
-      {
-        id: 'intro',
-        attachTo: { 
-          element: '.first-element', 
-          on: 'bottom'
-        },
-        beforeShowPromise: function() {
-          return new Promise(function(resolve) {
-            setTimeout(function() {
-              window.scrollTo(0, 0);
-              resolve({});
-            }, 500);
-          });
-        },
-        buttons: [
-          {
-            classes: 'shepherd-button-secondary',
-            text: 'Exit',
-            type: 'cancel'
-          },
-          {
-            classes: 'shepherd-button-primary',
-            text: 'Back',
-            type: 'back'
-          },
-          {
-            classes: 'shepherd-button-primary',
-            text: 'Next',
-            type: 'next'
-          }
-        ],
-        cancelIcon: {
-          enabled: true
-        },
-        classes: 'custom-class-name-1 custom-class-name-2',
-        highlightClass: 'highlight',
-        scrollTo: false,
-        title: 'Welcome to Angular-Shepherd!',
-        text: ['Angular-Shepherd is a JavaScript library for guiding users through your Angular app.'],
-        when: {
-          show: () => {
-            console.log('show step');
-          },
-          hide: () => {
-            console.log('hide step');
-          }
-        }
-      }
-    ]);
-    this.shepherdService.start();
+    // this.shepherdService.defaultStepOptions = {
+    //   classes: 'custom-class-name-1 custom-class-name-2',
+    //   scrollTo: false,
+    //   cancelIcon: {
+    //     enabled: true
+    //   }
+    // };
+    // this.shepherdService.modal = true;
+    // this.shepherdService.confirmCancel = false;
+    // this.shepherdService.requiredElements = [
+    //   {
+    //     selector: '.search-result-element',
+    //     message: 'No search results found. Please execute another search, and try to start the tour again.',
+    //     title: 'No results'
+    //   },
+    //   {
+    //     selector: '.username-element',
+    //     message: 'User not logged in, please log in to start this tour.',
+    //     title: 'Please login'
+    //   },
+    // ];
+    // this.shepherdService.addSteps([
+    //   {
+    //     id: 'intro',
+    //     attachTo: { 
+    //       element: '.first-element', 
+    //       on: 'bottom'
+    //     },
+    //     beforeShowPromise: function() {
+    //       return new Promise(function(resolve) {
+    //         setTimeout(function() {
+    //           window.scrollTo(0, 0);
+    //           resolve({});
+    //         }, 500);
+    //       });
+    //     },
+    //     buttons: [
+    //       {
+    //         classes: 'shepherd-button-secondary',
+    //         text: 'Exit',
+    //         type: 'cancel'
+    //       },
+    //       {
+    //         classes: 'shepherd-button-primary',
+    //         text: 'Back',
+    //         type: 'back'
+    //       },
+    //       {
+    //         classes: 'shepherd-button-primary',
+    //         text: 'Next',
+    //         type: 'next'
+    //       }
+    //     ],
+    //     cancelIcon: {
+    //       enabled: true
+    //     },
+    //     classes: 'custom-class-name-1 custom-class-name-2',
+    //     highlightClass: 'highlight',
+    //     scrollTo: false,
+    //     title: 'Welcome to Angular-Shepherd!',
+    //     text: ['Angular-Shepherd is a JavaScript library for guiding users through your Angular app.'],
+    //     when: {
+    //       show: () => {
+    //         console.log('show step');
+    //       },
+    //       hide: () => {
+    //         console.log('hide step');
+    //       }
+    //     }
+    //   }
+    // ]);
+    // this.shepherdService.start();
   }
 
   /*############################################################ Game Process ############################################################*/
@@ -334,6 +336,13 @@ export class GameViewComponent implements OnInit, AfterViewInit {
     //document.getElementById('wrongAudioContainer').appendChild(wrongAudioPl);
   }
 
+  showErrorMessage(): void {
+    this.bShowError = true;
+    setTimeout(() => {
+      this.bShowError = false;
+    }, 1500);
+  }
+
 
   /*############################################################ Button interactions ############################################################*/
   public onStopBtnClick(): void {
@@ -351,9 +360,9 @@ export class GameViewComponent implements OnInit, AfterViewInit {
       this.attachModalAudioPlayer_wrong();
     }
     else {
-      //TODO: User error handling
       console.log("[Game][GUI] User made an error");
       this.errorCount++;
+      this.showErrorMessage();
       this.looseCoinsAnimation();
     }
   }

@@ -1,9 +1,19 @@
 POST http://localhost:8080/api/users/
-content-type: application/json
+content-type: application/json; charset=UTF-8
 
 {
     "email": "johannes.franzen@hsrw.org",
-    "password": "CcatA_PW_1995#beta160121",
+    "password": "CcatA_PW_1995#beta150221",
     "credits": 0,
     "isAdmin": true
+}
+
+###
+
+POST http://localhost:8080/api/auth/
+content-type: application/json; charset=UTF-8
+
+{
+    "email": "max@mustermann.de",
+    "password": "123456"
 }

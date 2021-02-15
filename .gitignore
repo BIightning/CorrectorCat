@@ -1,6 +1,6 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
-uploads/5f56f3ccbe1da85cec4650e8
+/uploads/5f56f3ccbe1da85cec4650e8
 
 # compiled output
 /dist
@@ -48,6 +48,5 @@ testem.log
 .DS_Store
 Thumbs.db
 
-#"Database" :)
-/server/users/userData.json
-/server/books/bookData.json
+#Server stuff
+/server/test.rest

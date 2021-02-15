@@ -18,5 +18,9 @@
     "not_found": {
         "404": "Error 404 - not found",
         "contact": "If you think this is an error, please contact your admin"
+    },
+
+    "game-view": {
+        "error": "There is no error in this snippet. You loose {{ count }} credits!"
     }
 }
