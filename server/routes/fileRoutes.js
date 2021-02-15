@@ -79,6 +79,7 @@ router
         }
         let fileMetas = [];
         for (let file of req.files) {
+            console.warn(file);
             let fileMeta = {
                 fileUrl: `/${req.ownerId}/${file.filename}`,
                 fileName: file.filename,
@@ -91,6 +92,7 @@ router
                     fileMetas.push(result);
                 })
                 .catch(reason => {
+                    console.log(reason);
                     fs.unlink(file.fileUrl);
                     res.status(200).send(fileMetas);
                     res.status(reason.code || 500).send('Something went wrong. Not all files were uploaded.');

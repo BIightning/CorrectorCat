@@ -33,11 +33,11 @@ export class AuthService {
     return !!localStorage.getItem("jwt");
   }
 
-  getIsAdmin(){
+  getIsAuthenticatedAdmin(){
     let jwtHelper = new JwtHelperService();
     let decoded = jwtHelper.decodeToken(localStorage.getItem("jwt"));
 
-    if(!decoded)
+    if(!decoded || decoded.exp < Date.now())
       return false;
 
     return decoded.isAdmin;

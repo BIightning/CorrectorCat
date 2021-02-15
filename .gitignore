@@ -46,6 +46,6 @@ testem.log
 .DS_Store
 Thumbs.db
 
-#Database :)
+#"Database" :)
 /server/users/userData.json
 /server/books/bookData.json

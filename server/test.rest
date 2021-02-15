@@ -2,8 +2,8 @@ POST http://localhost:8080/api/users/
 content-type: application/json
 
 {
-    "email": "max@mustermann.de",
-    "password": "123456",
+    "email": "johannes.franzen@hsrw.org",
+    "password": "CcatA_PW_1995#beta160121",
     "credits": 0,
     "isAdmin": true
 }

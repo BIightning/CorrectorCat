@@ -183,7 +183,7 @@ function determineFileEnding(file) {
     return fileEnding;
 }
 
-module.exports.fileUpload = multer({ storage: this.storage });
+module.exports.fileUpload = multer({ storage: storage });
 module.exports.saveFileInformation = saveFileInformation;
 //Getters regardless of owner
 module.exports.getFileCatalog = getFileCatalog;

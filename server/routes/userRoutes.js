@@ -2,6 +2,7 @@ var router = require("express").Router();
 const userController = require('../controllers/userController.js');
 const auth = require('../middleware/auth.js');
 const settingsController = require('../controllers/settingsController');
+const adminPermission = require("../middleware/adminPermission.js");
 
 router
     .route('/me')
@@ -25,7 +26,7 @@ router
     });
 router
     .route('/')
-    .get(async(req, res) => {
+    .get([auth, adminPermission], async(req, res) => {
         await userController
             .getUsers()
             .then(result => res.status(200).send(result))
@@ -43,7 +44,7 @@ router
             })
             .catch(reason => res.status(reason.code || 500).send(reason.message));
     })
-    .put(async(req, res) => {
+    .put([auth, adminPermission], async(req, res) => {
         await userController
             .updateUser(req.body)
             .then(result => res.status(200).send(result))
@@ -51,7 +52,7 @@ router
     });
 router
     .route('/:id')
-    .get(async(req, res) => {
+    .get([auth, adminPermission], async(req, res) => {
         await userController
             .getUserById(req.params.id)
             .then(result => res.status(200).send(result))

@@ -29,6 +29,7 @@ function tutorialValidation(data) {
             Joi.object().keys({
                // _id: Joi.string(),
                 slideTitle: Joi.string(),
+                _id: Joi.string(),
                 sceneType: Joi.number().required(),
                 catAnimation: Joi.string(),
                 catImage: Joi.string().required(),

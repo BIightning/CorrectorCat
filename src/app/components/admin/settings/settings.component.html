@@ -165,7 +165,7 @@
             <h3>Main Tutorial Order</h3>
             <div class="mt-4">
                 <h4>Level 1:
-                    <select>
+                    <select [(ngModel)]="settings.primaryTutorials[0]">
                         <option *ngFor="let tutorial of tutorials" [ngValue]="tutorial._id">{{tutorial?.tutorialTitle}}
                         </option>
                     </select>
@@ -173,7 +173,7 @@
             </div>
             <div class="mt-4">
                 <h4>Level 2:
-                    <select>
+                    <select [(ngModel)]="settings.primaryTutorials[1]">
                         <option *ngFor="let tutorial of tutorials" [ngValue]="tutorial._id">{{tutorial?.tutorialTitle}}
                         </option>
                     </select>
@@ -181,7 +181,7 @@
             </div>
             <div class="mt-4">
                 <h4>Level 3:
-                    <select>
+                    <select [(ngModel)]="settings.primaryTutorials[2]">
                         <option *ngFor="let tutorial of tutorials" [ngValue]="tutorial._id">{{tutorial?.tutorialTitle}}
                         </option>
                     </select>
@@ -189,7 +189,7 @@
             </div>
             <div class="mt-4">
                 <h4>Level 4:
-                    <select>
+                    <select [(ngModel)]="settings.primaryTutorials[3]">
                         <option *ngFor="let tutorial of tutorials" [ngValue]="tutorial._id">{{tutorial?.tutorialTitle}}
                         </option>
                     </select>

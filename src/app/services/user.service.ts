@@ -21,7 +21,8 @@ export class UserService {
   }
 
   public getAllUsers(): Observable<User[]>{
-    return this.http.get<User[]>(this.url+"/api/users");
+    const header = this.generateHeader();
+    return this.http.get<User[]>(this.url+"/api/users", {headers: header } );
   }
 
   public getCurrentUser(): Observable<User>{

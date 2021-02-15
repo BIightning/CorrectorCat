@@ -35,10 +35,6 @@ const routes: Routes = [
     component: SignInComponent,
   },
   {
-    path: 'registrieren',
-    component: SignUpComponent,
-  },
-  {
     path: 'notfound',
     component: NotFoundComponent,
   },

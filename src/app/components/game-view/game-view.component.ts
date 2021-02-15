@@ -2,7 +2,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { environment } from './../../../environments/environment';
 import { Observable, fromEvent, Subscription } from 'rxjs';
 import { GameState } from './stateMachine';
-import { Component, OnInit, HostBinding, ViewChild, Input, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, HostBinding, ViewChild, Input, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
 import * as jQuery from 'jquery';
 import { BookService } from "../../services/book.service";
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
@@ -10,6 +10,7 @@ import { Book } from 'src/app/classes/book';
 import { UserService } from "../../services/user.service";
 import { User } from 'src/app/classes/users';
 import { Settings } from 'src/app/classes/settings';
+import { ShepherdService } from 'angular-shepherd';
 
 @Component({
   selector: 'app-game-view',
@@ -17,7 +18,7 @@ import { Settings } from 'src/app/classes/settings';
   styleUrls: ['./game-view.component.css'],
 })
 
-export class GameViewComponent implements OnInit {
+export class GameViewComponent implements OnInit, AfterViewInit {
 
   @ViewChildren("chunkPool") chunkPool;
 
@@ -55,11 +56,20 @@ export class GameViewComponent implements OnInit {
   gameState: GameState = GameState.ChunkEnded;
   autoplayTimout: any; //property for holding a timout that can be cleared by user interaction
 
+  defaultStepOtions: unknown = {
+      classes: 'custom-class-name-1 custom-class-name-2',
+      scrollTo: false,
+      cancelIcon: {
+        enabled: true
+      }
+  }
+
 
   constructor(
     private route: ActivatedRoute, 
     private bookService: BookService, 
-    private userService: UserService, 
+    private userService: UserService,
+    private shepherdService: ShepherdService,
     private settingsService: SettingsService,
     private router: Router) 
     {
@@ -92,8 +102,79 @@ export class GameViewComponent implements OnInit {
     })
   }
 
-  private async loadData(){
-    
+  ngAfterViewInit() {
+    this.shepherdService.defaultStepOptions = {
+      classes: 'custom-class-name-1 custom-class-name-2',
+      scrollTo: false,
+      cancelIcon: {
+        enabled: true
+      }
+    };
+    this.shepherdService.modal = true;
+    this.shepherdService.confirmCancel = false;
+    this.shepherdService.requiredElements = [
+      {
+        selector: '.search-result-element',
+        message: 'No search results found. Please execute another search, and try to start the tour again.',
+        title: 'No results'
+      },
+      {
+        selector: '.username-element',
+        message: 'User not logged in, please log in to start this tour.',
+        title: 'Please login'
+      },
+    ];
+    this.shepherdService.addSteps([
+      {
+        id: 'intro',
+        attachTo: { 
+          element: '.first-element', 
+          on: 'bottom'
+        },
+        beforeShowPromise: function() {
+          return new Promise(function(resolve) {
+            setTimeout(function() {
+              window.scrollTo(0, 0);
+              resolve({});
+            }, 500);
+          });
+        },
+        buttons: [
+          {
+            classes: 'shepherd-button-secondary',
+            text: 'Exit',
+            type: 'cancel'
+          },
+          {
+            classes: 'shepherd-button-primary',
+            text: 'Back',
+            type: 'back'
+          },
+          {
+            classes: 'shepherd-button-primary',
+            text: 'Next',
+            type: 'next'
+          }
+        ],
+        cancelIcon: {
+          enabled: true
+        },
+        classes: 'custom-class-name-1 custom-class-name-2',
+        highlightClass: 'highlight',
+        scrollTo: false,
+        title: 'Welcome to Angular-Shepherd!',
+        text: ['Angular-Shepherd is a JavaScript library for guiding users through your Angular app.'],
+        when: {
+          show: () => {
+            console.log('show step');
+          },
+          hide: () => {
+            console.log('hide step');
+          }
+        }
+      }
+    ]);
+    this.shepherdService.start();
   }
 
   /*############################################################ Game Process ############################################################*/
