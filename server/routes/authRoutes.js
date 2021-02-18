@@ -3,7 +3,6 @@ const auth = require('../middleware/auth.js');
 const authController = require('../controllers/authController.js');
 
 //TODO Request to recording studio for authentification 
-// !This is not safe, no real authentification happens!
 router
     .route('/')
     .post(async(req, res) => {

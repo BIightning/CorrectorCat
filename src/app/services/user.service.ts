@@ -26,8 +26,8 @@ export class UserService {
   }
 
   public getCurrentUser(): Observable<User>{
-    let userId = localStorage.getItem("user");
-    return this.http.get<User>(this.url+"/api/users/" + String(userId));
+    const header = this.generateHeader();
+    return this.http.get<User>(this.url+"/api/users/me", {headers: header});
   }
 
   public getUserbyUsername(userName: string) : Observable<User>{

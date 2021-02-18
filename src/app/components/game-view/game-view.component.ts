@@ -197,7 +197,7 @@ export class GameViewComponent implements OnInit, AfterViewInit {
     this.audioEndedEvent.subscribe(() => {
 
       this.gameState = GameState.ChunkEnded;
-      if (this.currentTextChunk == this.book.textChunks.length - 1) {
+      if (this.currentTextChunk === this.book.textChunks.length - 1) {
         this.finishGame();
         return;
       }
@@ -266,15 +266,15 @@ export class GameViewComponent implements OnInit, AfterViewInit {
   }
 
   private addCreditsToPlayerAccount(): void {
-    this.user.credits += (this.earnedCoins);
-    this.userService.updateUser(this.user).subscribe(
-      res => {
-        console.log('success');
-      },
-      err => {
-        console.log('error');
-      }
-    );
+    // this.user.credits += (this.earnedCoins);
+    // this.userService.updateUser(this.user).subscribe(
+    //   res => {
+    //     console.log('success');
+    //   },
+    //   err => {
+    //     console.log('error');
+    //   }
+    // );
   }
 
   /*############################################################ DOM Manipulation ############################################################*/
@@ -380,7 +380,7 @@ export class GameViewComponent implements OnInit, AfterViewInit {
 
   public onNextBtnClick(): void {
     //Check if current playback has ended. Jump to next Chunk if it has
-    if (this.gameState == GameState.ChunkEnded) {
+    if (this.gameState === GameState.ChunkEnded) {
       if (this.bAutoPlay)
         clearTimeout(this.autoplayTimout);
 
@@ -449,7 +449,7 @@ export class GameViewComponent implements OnInit, AfterViewInit {
       if (this.earnedCoins > 0) {
         jQuery($target).addClass("text-danger");
         jQuery($target).removeClass("text-light");
-        await new Promise(resolve => setTimeout(() => resolve({}), (50 + Math.random() * randomModifier / 2))).then(() => {
+        await new Promise(resolve => setTimeout(() => resolve({}), 100)).then(() => {
           this.earnedCoins--;
           jQuery($target).removeClass("text-danger");
           jQuery($target).addClass("text-light");

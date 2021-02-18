@@ -32,7 +32,7 @@ router
             .then(result => res.status(200).send(result))
             .catch(reason => res.status(reason.code || 500).send(reason.message));
     })
-    .post([auth, adminPermission], async(req, res) => {
+    .post(async(req, res) => {
         if (!settingsController.getSettingsSync().bNativeAccountsActive)
             return res.status(401).send("Creation of a native account is currently not allowed!");
 
