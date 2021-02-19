@@ -50,6 +50,8 @@ export class GameViewComponent implements OnInit, AfterViewInit {
   bBookLoaded: boolean;
   bAnsweredCorrect: boolean;
   bAutoPlay: boolean = true;
+  bMissedErrorView: boolean = false;
+
   wrongReadIndexes: boolean[];
   foundWrongIndexes: boolean[];
 
@@ -89,11 +91,7 @@ export class GameViewComponent implements OnInit, AfterViewInit {
     this.audioplayer.load();
     this.book = new Book();
     let userId = localStorage.getItem("user");
-    this.userService.getUserbyId(userId).subscribe((data) => {
-      this.user = data;
-  
-      //this.modalService.open(this.startModalContent, { centered: true, backdrop: 'static', keyboard: false });
-    });
+    this.getCurrentUser();
     this.route.params.subscribe(param => {
       this.bookService.getBookById(param.bookId).subscribe(data => {
         this.book = data;
@@ -104,79 +102,8 @@ export class GameViewComponent implements OnInit, AfterViewInit {
     })
   }
 
-  ngAfterViewInit() {
-    // this.shepherdService.defaultStepOptions = {
-    //   classes: 'custom-class-name-1 custom-class-name-2',
-    //   scrollTo: false,
-    //   cancelIcon: {
-    //     enabled: true
-    //   }
-    // };
-    // this.shepherdService.modal = true;
-    // this.shepherdService.confirmCancel = false;
-    // this.shepherdService.requiredElements = [
-    //   {
-    //     selector: '.search-result-element',
-    //     message: 'No search results found. Please execute another search, and try to start the tour again.',
-    //     title: 'No results'
-    //   },
-    //   {
-    //     selector: '.username-element',
-    //     message: 'User not logged in, please log in to start this tour.',
-    //     title: 'Please login'
-    //   },
-    // ];
-    // this.shepherdService.addSteps([
-    //   {
-    //     id: 'intro',
-    //     attachTo: { 
-    //       element: '.first-element', 
-    //       on: 'bottom'
-    //     },
-    //     beforeShowPromise: function() {
-    //       return new Promise(function(resolve) {
-    //         setTimeout(function() {
-    //           window.scrollTo(0, 0);
-    //           resolve({});
-    //         }, 500);
-    //       });
-    //     },
-    //     buttons: [
-    //       {
-    //         classes: 'shepherd-button-secondary',
-    //         text: 'Exit',
-    //         type: 'cancel'
-    //       },
-    //       {
-    //         classes: 'shepherd-button-primary',
-    //         text: 'Back',
-    //         type: 'back'
-    //       },
-    //       {
-    //         classes: 'shepherd-button-primary',
-    //         text: 'Next',
-    //         type: 'next'
-    //       }
-    //     ],
-    //     cancelIcon: {
-    //       enabled: true
-    //     },
-    //     classes: 'custom-class-name-1 custom-class-name-2',
-    //     highlightClass: 'highlight',
-    //     scrollTo: false,
-    //     title: 'Welcome to Angular-Shepherd!',
-    //     text: ['Angular-Shepherd is a JavaScript library for guiding users through your Angular app.'],
-    //     when: {
-    //       show: () => {
-    //         console.log('show step');
-    //       },
-    //       hide: () => {
-    //         console.log('hide step');
-    //       }
-    //     }
-    //   }
-    // ]);
-    // this.shepherdService.start();
+  async getCurrentUser(){
+    this.user = await this.userService.getCurrentUser().toPromise();
   }
 
   /*############################################################ Game Process ############################################################*/
@@ -319,6 +246,7 @@ export class GameViewComponent implements OnInit, AfterViewInit {
   }
 
   public displayMissedChunks(): void {
+    this.bMissedErrorView = true;
     for (let index = 0; index < this.wrongReadIndexes.length; index++) {
       if (this.wrongReadIndexes[index] !== this.foundWrongIndexes[index]) {
         let chunk = document.getElementById("chunk-" + index);
@@ -469,5 +397,80 @@ export class GameViewComponent implements OnInit, AfterViewInit {
 
   async addPoint(): Promise<void> {
     await new Promise(resolve => setTimeout(() => resolve({}), 1000)).then(() => { this.earnedCoins++ });
+  }
+
+  ngAfterViewInit() {
+    // this.shepherdService.defaultStepOptions = {
+    //   classes: 'custom-class-name-1 custom-class-name-2',
+    //   scrollTo: false,
+    //   cancelIcon: {
+    //     enabled: true
+    //   }
+    // };
+    // this.shepherdService.modal = true;
+    // this.shepherdService.confirmCancel = false;
+    // this.shepherdService.requiredElements = [
+    //   {
+    //     selector: '.search-result-element',
+    //     message: 'No search results found. Please execute another search, and try to start the tour again.',
+    //     title: 'No results'
+    //   },
+    //   {
+    //     selector: '.username-element',
+    //     message: 'User not logged in, please log in to start this tour.',
+    //     title: 'Please login'
+    //   },
+    // ];
+    // this.shepherdService.addSteps([
+    //   {
+    //     id: 'intro',
+    //     attachTo: { 
+    //       element: '.first-element', 
+    //       on: 'bottom'
+    //     },
+    //     beforeShowPromise: function() {
+    //       return new Promise(function(resolve) {
+    //         setTimeout(function() {
+    //           window.scrollTo(0, 0);
+    //           resolve({});
+    //         }, 500);
+    //       });
+    //     },
+    //     buttons: [
+    //       {
+    //         classes: 'shepherd-button-secondary',
+    //         text: 'Exit',
+    //         type: 'cancel'
+    //       },
+    //       {
+    //         classes: 'shepherd-button-primary',
+    //         text: 'Back',
+    //         type: 'back'
+    //       },
+    //       {
+    //         classes: 'shepherd-button-primary',
+    //         text: 'Next',
+    //         type: 'next'
+    //       }
+    //     ],
+    //     cancelIcon: {
+    //       enabled: true
+    //     },
+    //     classes: 'custom-class-name-1 custom-class-name-2',
+    //     highlightClass: 'highlight',
+    //     scrollTo: false,
+    //     title: 'Welcome to Angular-Shepherd!',
+    //     text: ['Angular-Shepherd is a JavaScript library for guiding users through your Angular app.'],
+    //     when: {
+    //       show: () => {
+    //         console.log('show step');
+    //       },
+    //       hide: () => {
+    //         console.log('hide step');
+    //       }
+    //     }
+    //   }
+    // ]);
+    // this.shepherdService.start();
   }
 } 

@@ -4,8 +4,8 @@
             <h5 class="mt-2 ml-2" id="textName">{{book.title}}
                 <span class="text-center text-danger"></span>
                 <span class="float-right">
-                    <button (click)="bShowSettingsModal = true" class="btn btn-sm align-top border btn-light"><i
-                            class="fas fa-cog"></i></button>
+                    <!-- <button (click)="bShowSettingsModal = true" class="btn btn-sm align-top border btn-light"><i
+                            class="fas fa-cog"></i></button> -->
                 </span>
 
             </h5>
@@ -31,6 +31,7 @@
         <div class="row">
             <div class="col-md-4 col-sm-3"></div>
             <div class="col-md-4 col-sm-6">
+                <ng-container *ngIf="!bMissedErrorView;else afterGame">
                 <!--<span id="errorMessage" class="text-center rounded p-3" [ngClass]="showErrorMessage ? 'visible' : 'd-none'">The current snippet is being read correctly!</span>-->
                 <button (click)="onRepeatBtnClick()" [openDelay]="1000" ngbTooltip="Repeat the current textblock"
                     class="btn btn-info secondaryBtns mr-2">
@@ -45,6 +46,10 @@
                     <i [ngClass]="{ 'fa-pause': !audioplayer.paused, 'fa-play': audioplayer.paused && !audioplayer.ended, 'fa-angle-double-right' : audioplayer.ended}"
                         class="fas text-dark"></i>
                 </button>
+                </ng-container>
+                <ng-template #afterGame>
+                    <button (click)="handleBookCompletion()" class="btn btn-lg btn-primary">{{ t('continue')}}</button>
+                </ng-template>
             </div>
             <div class="col-md-4 d-flex align-items-center col-sm-3">
                 <h4 class="ml-4 p-2 align-text-bottom"
@@ -66,16 +71,15 @@
                 <h1 class="mb-1">
                     {{book.title}}
                 </h1>
-                <h6 class="font-weight-bold mb-3">Difficulty: {{book.difficulty}}</h6>
+                <h6 class="font-weight-bold mb-3">{{ t('difficulty', { difficulty: book?.difficulty}) }}</h6>
                 <p class="mb-3 font-weight-bold">
                     {{book.description}}
                 </p>
                 <h4 class="mb-3 ml-5 mr-5 p-1 bg-info rounded">
-                    Earn 30 <img class="" src="../../assets/img/coin.svg" width="30" height="30"> or find all mistakes
-                    to complete the level!
+                    {{t('earntocomplete', { amount: 30})}} <img class="" src="../../assets/img/coin.svg" width="30" height="30"> {{t('findeachmistake')}}
                 </h4>
-                <button (click)="bShowSettingsModal = true" type="button"
-                    class="gameview-modal-btn btn btn-secondary">Settings</button>
+                <!-- <button (click)="bShowSettingsModal = true" type="button"
+                    class="gameview-modal-btn btn btn-secondary">Settings</button> -->
                 <button (click)="playNextChunk(); bShowStartModal = false;" type="button"
                     class="gameview-modal-btn btn btn-success">
                     Start
@@ -85,7 +89,7 @@
     </div>
 
     <!--Settings Modal-->
-    <div [ngClass]="{'modal-active': bShowSettingsModal}" class="gameview-modal-bg">
+    <div [ngClass]="{'modal-active': false}" class="gameview-modal-bg">
         <div class="gameview-modal settings-modal">
             <span></span>
             <span></span>
@@ -117,7 +121,7 @@
             <div class="gameview-modal-content text-white">
                 <h1 class="text-gamelet white-stroke">
                     <img src="../../assets/img/kitty.svg" width="90" height="90"
-                        class="d-inline-block align-center rounded p-1"> You found a mistake!
+                        class="d-inline-block align-center rounded p-1"> {{ t('foundmistake') }}
                 </h1>
                 <div *ngVar="book.textChunks[currentTextChunk].question as question">
                     <div class="row">
@@ -130,7 +134,7 @@
                         <div *ngIf="!bHasAnswered">
                             <div class="row">
                                 <div class="col-12 mb-4">
-                                    <h4 class="text-center">What is the mistake?</h4>
+                                    <h4 class="text-center">{{ t('whatistheerror') }}</h4>
                                 </div>
                                 <div class="col-md-6 col-sm-6">
                                     <button (click)="onGameBtnClick(0)"
@@ -152,19 +156,17 @@
                         <div *ngIf="bHasAnswered">
                             <div class="row">
                                 <div class="col-12 mb-4">
-                                    <h2 *ngIf="bAnsweredCorrect" class="text-center text-success white-stroke">Correct
-                                        answer!</h2>
-                                    <h2 *ngIf="!bAnsweredCorrect" class="text-center text-danger white-stroke">Wrong
-                                        answer...</h2>
+                                    <h2 *ngIf="bAnsweredCorrect" class="text-center text-success white-stroke">{{ t('correctanswer') }}</h2>
+                                    <h2 *ngIf="!bAnsweredCorrect" class="text-center text-danger white-stroke">{{ t('wronganswer') }}</h2>
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <button class="btn mx-auto  game-button hidden"></button>
                                 </div>
                                 <div class="col-md-4 col-sm-6 justify-content-center">
-                                    <h5 *ngIf="!bAnsweredCorrect" class="text-center text-danger">Correct is:</h5>
+                                    <h5 *ngIf="!bAnsweredCorrect" class="text-center text-danger">{{ t('correctis') }}</h5>
                                     <h5 class="text-center"> <u>{{ question.answers[question.correctIndex] }}</u></h5>
                                     <h6 class="text-center">{{ question.explanation }}</h6><br>
-                                    <h6 class="text-center">You earned {{ coinsToAdd }} credits!</h6>
+                                    <h6 class="text-center">{{ t('earned', {amount: coinsToAdd}) }}</h6>
                                 </div>
                                 <div class="col-md-4 col-sm-12">
                                     <button class="btn mx-auto game-button hidden"></button>
@@ -191,17 +193,18 @@
                 <h1 class="text-gamelet white-stroke">
                     Reading finished!
                 </h1>
-                <h6 class="font-weight-bold text-center">Thank you for playing!</h6>
-                <p class="font-weight-bold text-center">You earned {{ earnedCoins }} Credits!</p>
+                <h6 class="font-weight-bold text-center">{{t('thanksforplaying')}}</h6>
+                <p class="font-weight-bold text-center">{{t('earnedtotal', {earnedCoins: earnedCoins})}}</p>
                 <br>
-                <h4 class="text-gamelet text-center"> You missed {{ chunksMissed }} mistakes!</h4>
-                <button class="btn btn-info d-block mx-auto" (click)="bShowEndModal = false; displayMissedChunks()">Show
-                    missed mistakes</button>
+                <h4 class="text-gamelet text-center"> {{t('missedmistakes', { chunksMissed: chunksMissed})}}</h4>
+                <button class="btn btn-info d-block mx-auto" (click)="bShowEndModal = false; displayMissedChunks()">
+                    {{t('showmissed')}}
+                </button>
                 <ng-container *ngIf="earnedCoins >= book.creditTarget || chunksMissed === 0">
-                    <h2 class="text-success text-center">Congratulations!<br> You completed the book!</h2>
+                    <h2 class="text-success text-center">{{t('congratulations')}}<br> {{t('completed')}}</h2>
                     <br>
                     <button type="button" class="btn btn-lg btn-primary"
-                        (click)="bShowEndModal = false; handleBookCompletion()">Continue</button>
+                        (click)="bShowEndModal = false; handleBookCompletion()">{{t('continue')}}</button>
                 </ng-container>
             </div>
         </div>

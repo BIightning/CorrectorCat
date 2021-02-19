@@ -21,6 +21,22 @@
     },
 
     "game-view": {
-        "error": "There is no error in this snippet. You loose {{ count }} credits!"
+        "error": "There is no error in this snippet. You loose {{ count }} credits!",
+        "continue": "continue",
+        "difficulty": "Difficulty: {{ difficulty }}",
+        "foundmistake": "You found a mistake!",
+        "whatistheerror": "What is the mistake?",
+        "correctanswer": "Correct answer!",
+        "wronganswer": "Wrong answer...",
+        "correctis": "Correct is:",
+        "earned": "You earned {{ amount }} credits!",
+        "earntocomplete": "Earn {{ amount }}",
+        "findeachmistake": "or find each mistake to complete the level",
+        "thanksforplaying": "Thank you for playing!",
+        "earnedtotal": "You earned {{ earnedCoins }} credits!",
+        "missedmistakes": "You missed {{ chunksMissed }} mistakes!",
+        "showmissed": "Show missed mistakes",
+        "congratulations": "Congratulations!",
+        "completed": "You completed the book!"
     }
 }
