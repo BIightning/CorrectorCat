@@ -21,18 +21,4 @@ the implementation of other languages is preferable.
 
 =======================================================================
 
-Installation:
-You need Node.js and NPM installed.
-Open a Terminal/Windows command prompt/Powershell.
-and navigate to the project root directory. (correctorcat/correctorcat/)
-Run "npm install".
-After that run "node server/app"
-Open another Terminal and run "ng serve".
-
-After compiling you can access the webpage in your webbrowser via localhost:4200
-
-Login Credentials for the test user: 
-max@mustermann.de
-123456
-
 If you have questions, contact johannes.franzen@hsrw.org
