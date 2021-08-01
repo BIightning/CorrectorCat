@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'dist/correctorcat/assets/classes/users';
+import { User } from 'src/assets/classes/users';
 import { Router, UrlTree } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
