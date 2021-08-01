@@ -1,44 +1,46 @@
 <h1 class="mb-0 pb-0">Tutorial Editor</h1>
-<div *ngIf="bLoaded" class="window container-fluid">
-    <div class="row user-tile heading-tile">
-        <div class="col-4 pl-0 ml-0">
-            <button (click)="onSaveClick()" class="create-button">
-                <i class="fa fa-save fa-lg"></i> 
-                Save Tutorial
-            </button>
-        </div>
-        <div class="col-4">
-            <h2 class="text-center">{{tutorial?.tutorialTitle}}</h2>
-        </div>
-        <div class="col-4"></div>
-    </div>
-    <h4 class="input-heading mt-2">&nbsp;Title:</h4>
-    <input [(ngModel)]="tutorial.tutorialTitle" name="title" type="text" required>
-    <h4 class="input-heading mt-2">&nbsp;position:</h4>
-    <input [(ngModel)]="tutorial.position" name="Position" type="number" required>
-    <h4 class="input-heading mt-2">&nbsp;Target Text:</h4>
-    <input [(ngModel)]="tutorial.targetTextTitle" name="position" type="text" required>
 
-    <div class="chunk-wrapper mt-2 mb-3">
-        <div class="user-tile ml-1 heading-tile row">
-            <div class="col-4">
-                <button type="button" (click)="onNewSlideClick()" class="create-button">
-                    <span><i class="fa fa-list-alt fa-lg"></i><i class="ml-1 fa fa-sm fa-plus"></i></span>
-                    New Slide
-                </button>
-            </div>
-            <div class="col-4">
-                <h3 class="text-center">Tutorial Slides</h3>
-            </div>
-            <div class="col-4">
-            </div>
+
+<div *ngIf="bLoaded" class="container-fluid">
+    <button (click)="onSaveClick()" class="create-button mt-2">
+        <i class="fa fa-save fa-lg"></i>
+        Save Tutorial
+    </button>
+    <div class="row">
+        <div class="tile-green tile p-3">
+            <h2 class="text-center">General Information</h2>
         </div>
-        <div class="chunk-tile shadow" *ngFor="let slide of tutorial?.slides; let i=index" [ngClass]="{'pb-4 pl-1': slideExtended[i]}">
+    </div>
+    <div class="window p-3">
+        <h4 class="input-heading mt-2">&nbsp;Title:</h4>
+        <input [(ngModel)]="tutorial.tutorialTitle" name="title" type="text" required>
+        <h4 class="input-heading mt-2 mb-2">&nbsp;Target Texts:</h4>
+        <ng-container *ngFor="let lang of languages; index as i">
+            <h5 class="input-heading mt-2 mb-2">&nbsp;{{ lang | countryFromIso}}:</h5>
+            <select [(ngModel)]="tutorial.targetText[i]" name="TargetText" type="text">
+                <option *ngFor="let book of getBooksOfLang(lang)" value="{{book._id}}" [selected]="book._id == tutorial.targetText[i]" >{{ book.title }} ({{ book.language | countryFromIso }})</option>
+            </select>
+        </ng-container>
+    </div>
+    <div class="row mt-5">
+        <div class="tile-blue tile p-3">
+            <h2 class="text-center">Tutorial Slides</h2>
+        </div>
+    </div>
+    <div class="window p-3">
+        <button type="button" (click)="onNewSlideClick()" class="create-button">
+            <span><i class="fa fa-list-alt fa-lg"></i><i class="ml-1 fa fa-sm fa-plus"></i></span>
+            New Slide
+        </button>
+        <div class="chunk-tile shadow" *ngFor="let slide of tutorial?.slides; let i=index"
+            [ngClass]="{'pb-4 pl-1 extended': slideExtended[i]}">
             <h3 class="input-heading m-0 mt-2 ">
-                <button type="button" (click)="slideExtended[i]= !slideExtended[i] " class="expand-btn fa text-white " [ngClass]="{ 'fa-chevron-right': !slideExtended[i], 'fa-chevron-down': slideExtended[i]} "></button>
+                <button type="button" (click)="slideExtended[i]= !slideExtended[i] " class="expand-btn fa text-white "
+                    [ngClass]="{ 'fa-chevron-right': !slideExtended[i], 'fa-chevron-down': slideExtended[i]} "></button>
                 <span>&nbsp; Slide {{i +1}}</span>
-                <small class="ml-5 text-center">"{{ slide?.slideTitle}}"</small>
-                <a type="button" *ngIf="tutorial.slides.length > 1" (click)="onDeleteClick(i)" class="trash-btn float-right mr-1 p-1 text-right text-danger"><i class="fa fa-trash"></i></a>
+                <small class="ml-5 text-center">"{{ slide?.slideTitle }}"</small>
+                <a type="button" *ngIf="tutorial.slides.length > 1" (click)="onDeleteClick(i)"
+                    class="trash-btn float-right mr-1 p-1 text-right text-danger"><i class="fa fa-trash"></i></a>
             </h3>
             <ng-container *ngIf="slideExtended[i]">
                 <h4 class="input-heading mt-2">&nbsp;Slide Title:</h4>
@@ -46,33 +48,41 @@
                 <h4 class="input-heading mt-2">&nbsp;Scene Type:</h4>
                 <div class="row pt-2 pl-5 pr-5">
                     <div class="col-md-3">
-                        <div class="p-1 rounded d-flex justify-content-center align-items-center" style="flex-direction: column;">
+                        <div class="p-1 rounded d-flex justify-content-center align-items-center"
+                            style="flex-direction: column;">
                             <label>
-                                <input [(ngModel)]="slide.sceneType" [checked]="slide.sceneType === 0" type="radio" [value]="0" name="scenetype">
+                                <input [(ngModel)]="slide.sceneType" [checked]="slide.sceneType === 0" type="radio"
+                                    [value]="0" name="scenetype">
                                 <img class="scene-image shadow" src="../../../../assets/img/cat-center.png">
                             </label>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="p-1 rounded d-flex justify-content-center align-items-center" style="flex-direction: column;">
+                        <div class="p-1 rounded d-flex justify-content-center align-items-center"
+                            style="flex-direction: column;">
                             <label>
-                                <input [(ngModel)]="slide.sceneType" [checked]="slide.sceneType === 1" type="radio" [value]="1" name="scenetype">
+                                <input [(ngModel)]="slide.sceneType" [checked]="slide.sceneType === 1" type="radio"
+                                    [value]="1" name="scenetype">
                                 <img class="scene-image shadow" src="../../../../assets/img/cat-left.png">
                             </label>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="p-1 rounded d-flex justify-content-center align-items-center" style="flex-direction: column;">
+                        <div class="p-1 rounded d-flex justify-content-center align-items-center"
+                            style="flex-direction: column;">
                             <label>
-                                <input [(ngModel)]="slide.sceneType" [checked]="slide.sceneType === 2" type="radio" [value]="2" name="scenetype">
+                                <input [(ngModel)]="slide.sceneType" [checked]="slide.sceneType === 2" type="radio"
+                                    [value]="2" name="scenetype">
                                 <img class="scene-image shadow" src="../../../../assets/img/cat-right.png">
                             </label>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="p-1 rounded d-flex justify-content-center align-items-center" style="flex-direction: column;">
+                        <div class="p-1 rounded d-flex justify-content-center align-items-center"
+                            style="flex-direction: column;">
                             <label>
-                                <input [(ngModel)]="slide.sceneType" [checked]="slide.sceneType === 3" type="radio" [value]="3" name="scenetype">
+                                <input [(ngModel)]="slide.sceneType" [checked]="slide.sceneType === 3" type="radio"
+                                    [value]="3" name="scenetype">
                                 <img class="scene-image shadow" src="../../../../assets/img/widget-only.png">
                             </label>
                         </div>
@@ -83,18 +93,23 @@
                     <div class="col-6">
                         <h4 class="input-heading mt-2">&nbsp;Cat Image:</h4>
                         <select name="catImage" type="string" [(ngModel)]="slide.catImage">
-                            <option *ngFor="let image of catImages" value="{{image}}" [selected]="image === slide.catImage">{{image}}</option>
+                            <option *ngFor="let image of catImages" value="{{image}}"
+                                [selected]="image === slide.catImage">{{image}}</option>
                         </select>
                         <h4 class="input-heading mt-2">&nbsp;Cat Animation:</h4>
                         <select name="catAnimation" type="string" [(ngModel)]="slide.catAnimation" required>
-                            <option *ngFor="let animation of catAnimations" value="{{animation}}" [selected]="animation === slide.catAnimation">{{animation}}</option>
+                            <option *ngFor="let animation of catAnimations" value="{{animation}}"
+                                [selected]="animation === slide.catAnimation">{{animation}}</option>
                         </select>
                     </div>
                     <div class="col-6 rounded">
                         <label class="text-primary font-weight-bold">Cat Preview
-                            <div class="max-width pt-1 d-flex position-relative justify-content-center align-items-center">
+                            <div
+                                class="max-width pt-1 d-flex position-relative justify-content-center align-items-center">
                                 <div class="bg-info p-5 shadow rounded">
-                                    <img class="{{slide?.catAnimation}}" src="../../../../assets/img/kitty-avatars/svg/{{slide.catImage}}" width="100%" height="125px" alt="">
+                                    <img class="{{slide?.catAnimation}}"
+                                        src="{{baseUrl}}/assets/img/kitty-avatars/svg/{{slide.catImage}}" width="100%"
+                                        height="125px" alt="">
                                 </div>
                             </div>
                         </label>
@@ -112,10 +127,12 @@
                     <input [(ngModel)]="slide.slideText.greek" name="title" type="text">
                 </div>
                 <h4 class="input-heading mt-2">&nbsp;Widget:</h4>
-                <h5 *ngIf="slide.sceneType == 0" class="text-primary">&nbsp;The current Scene Type does not support widgets.</h5>
-                <div class="inner-tile p-2" *ngIf="!slide.sceneType == 0">
+                <h5 *ngIf="slide.sceneType == 0" class="text-primary">&nbsp;The current Scene Type does not support
+                    widgets.</h5>
+                <div class="inner-tile p-2" *ngIf="!(slide.sceneType == 0)">
                     <select name="Widget" type="string" [(ngModel)]="slide.widgetID" placeholder="none" required>
-                        <option *ngFor="let widget of widgets" [ngValue]="widget.id" [selected]="widget.id === slide.widgetID">{{widget.name}}</option>
+                        <option *ngFor="let widget of widgets" [ngValue]="widget.id"
+                            [selected]="widget.id === slide.widgetID">{{widget.name}}</option>
                     </select><br>
                     <ng-container [ngSwitch]="slide.widgetID">
                         <ng-container *ngSwitchCase="-1">
@@ -151,19 +168,25 @@
                         <ng-container *ngSwitchCase="4">
                             <ng-container *ngIf="uploadProgress < 0">
                                 <label for="file-upload-{{i}}" class="custom-file-upload mt-4">
-                                    <i class="fa fa-upload"></i><ng-container *ngIf="!singleFile; else selectedTemplate">
+                                    <i class="fa fa-upload"></i>
+                                    <ng-container *ngIf="!singleFile; else selectedTemplate">
                                         Select audio file
                                     </ng-container>
                                     <ng-template #selectedTemplate>
                                         {{singleFile.name}}
                                     </ng-template>
                                 </label>
-                                <input accept=".mp3" id="file-upload-{{i}}" type="file" (change)="selectSingleFileForUpload($event)">
-                                <button class="btn ml-1 btn-info" [disabled]="!singleFile" (click)="singleFileUpload()">upload</button>
+                                <input accept=".mp3" id="file-upload-{{i}}" type="file"
+                                    (change)="selectSingleFileForUpload($event)">
+                                <button class="btn ml-1 btn-info" [disabled]="!singleFile"
+                                    (click)="singleFileUpload()">upload</button>
                             </ng-container>
                             <div *ngIf="uploadProgress >= 0" class="m-2 progress-wrap rounded shadow position-relative">
-                                <div *ngIf="uploadProgress >= 0" class="p-1 position-absolute rounded progress-bar progress-bar-striped text-center bg-success" role="progressbar" [style.width.%]="uploadProgress">&nbsp;</div>
-                                <span class="text-white position-absolute left-0 top-0 p-1">Uploading: {{uploadProgress}}%</span>
+                                <div *ngIf="uploadProgress >= 0"
+                                    class="p-1 position-absolute rounded progress-bar progress-bar-striped text-center bg-success"
+                                    role="progressbar" [style.width.%]="uploadProgress">&nbsp;</div>
+                                <span class="text-white position-absolute left-0 top-0 p-1">Uploading:
+                                    {{uploadProgress}}%</span>
                             </div>
                             <h4 class="input-heading mt-2 ">&nbsp;Audio to play:</h4>
                             <select>
@@ -189,17 +212,21 @@
     </div>
 </div>
 <app-loading-animation *ngIf="!bLoaded"></app-loading-animation>
-<app-feedback-message [feedbackMessage]="feedbackMessage" (durationReached)="resetFeedbackMessage()"></app-feedback-message>
+<app-feedback-message [feedbackMessage]="feedbackMessage" (durationReached)="resetFeedbackMessage()">
+</app-feedback-message>
 
 <div [ngClass]="{'modal-active': bShowModal}" class="admin-modal-bg">
     <div *ngIf="tutorial?.slides" class="admin-modal shadow">
         <h3>
-            Do you really want to delete Slide {{currentSlide +1}}: "{{tutorial?.slides[currentSlide]?.slideTitle}}"?
+            Do you really want to delete Slide {{currentSlide +1}}:
+            "{{tutorial?.slides[currentSlide]?.slideTitle}}"?
         </h3>
         <div class="row mt-4">
             <div class="col-sm-1 col-md-4"></div>
-            <div class="col-sm-5 col-md-2"><button (click)="hideModal(); onDeleteConfirm()" class="shadow m-1 yes-button admin-button">Yes</button></div>
-            <div class="col-sm-5 col-md-2"><button (click)="hideModal()" class="shadow m-1 no-button admin-button">No</button></div>
+            <div class="col-sm-5 col-md-2"><button (click)="hideModal(); onDeleteConfirm()"
+                    class="shadow m-1 yes-button admin-button">Yes</button></div>
+            <div class="col-sm-5 col-md-2"><button (click)="hideModal()"
+                    class="shadow m-1 no-button admin-button">No</button></div>
             <div class="col-sm-1 col-md-4"></div>
         </div>
     </div>

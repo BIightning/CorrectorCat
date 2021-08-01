@@ -1,106 +1,138 @@
 const ObjectID = require('mongodb').ObjectID;
+const axios = require('axios');
+const bcrypt = require('bcryptjs');
 const { User, userValidation } = require('../dbModels/user.js');
+const SettingsController = require('./settingsController.js')
 const emailValidation = require('../utils/emailValidation.js');
 const idValidation = require('../utils/objectidValidation');
 
+/**
+ * Gets all users from the database
+ */
 async function getUsers() {
-    return new Promise(async(resolve, reject) => {
-
-        await User
-            .find()
-            .then(result => resolve(result))
-            .catch((reason) => {
-                console.log(reason);
-                reject({ code: 500, msg: "internal server error" });
-            });
-    });
+    return await User.find().select("-password");;
 }
-
+/**
+ * RGets the user with the passed id
+ * @param {string} id the id of the user we want to retrieve
+ */
 async function getUserById(id) {
-    return new Promise(async(resolve, reject) => {
-        let { error } = idValidation(id);
-        if (error)
-            reject({ code: 400, msg: error.details[0].message });
 
-        await User
-            .findById(id)
-            .then(result => resolve(result))
-            .catch((reason) => {
-                console.log(reason);
-                reject({ code: 500, msg: "internal server error" });
-            });
-    });
+    let { error } = idValidation(id);
+    if (error)
+        if (error) {
+            let err = new Error(error.details[0].message);
+            err.code = 400;
+            throw err;
+        }
+    return await User.findById(id).select("-password");
 }
 
+/**
+ * Gets the progress of the user with the passed email
+ * @param {string} email the email of the user whose progress we want to retrieve
+ */
 async function getUserProgress(email) {
-    return new Promise(async(resolve, reject) => {
 
-        let { error } = emailValidation(email);
-        if (error)
-            reject({ code: 400, msg: error.details[0].message });
+    let { error } = emailValidation(email);
+    if (error) {
+        let err = new Error(error.details[0].message);
+        err.code = 400;
+        throw err;
+    }
 
-        await User
-            .findOne({ email: email }).select('completedLevels')
-            .then(result => {
-                if (result === null) reject({ code: 404, msg: "User not found" });
-                else {
-                    resolve(result);
-                }
-            })
-            .catch((reason) => {
-                console.log(reason);
-                reject({ code: 500, msg: "internal server error" });
-            });
-    })
+    let result = await User.findOne({ email: email }).select('completedLevels');
+
+    if (result === null) {
+        let err = new Error("User not found");
+        err.code = 404;
+        throw err;
+    }
+    return result;
 }
 
+/**
+ * Updates the user with the passed id with the passed data
+ * @param {string} id the id of the user we want to update
+ * @param {*} data the object with the new user data
+ */
 async function updateUser(id, data) {
 
-    return new Promise(async(resolve, reject) => {
+    let { error } = userValidation(data);
+    if (error) {
+        let err = new Error(error.details[0].message);
+        err.code = 400;
+        throw err;
+    }
+    let updatedUser = await User.findByIdAndUpdate(new ObjectID(id), data).select("-password");
 
-        let { error } = userValidation(data);
-        if (error)
-            reject({ code: 400, msg: error.details[0].message });
+    if (updatedUser === null) {
+        let err = new Error("User not found");
+        err.code = 404;
+        throw err;
+    }
 
-        await User
-            .findByIdAndUpdate(new ObjectID(id), data)
-            .then(result => {
-                if (result === null) reject({ code: 404, msg: "User not found" });
-                else if (result === data) reject({ code: 400, msg: "No data updated" });
-                else {
-                    resolve(result);
-                }
-            })
-            .catch((reason) => {
-                console.log(reason);
-                reject({ code: 500, msg: "internal server error" });
-            });
-    });
+    return updatedUser;
 }
 
-async function createUser(data) {
+/**
+ * Creates a native user based on the passed data
+ * @param {*} data the object with the user data
+ */
+async function createNativeUser(data) {
 
-    return new Promise(async(resolve, reject) => {
-        let { error } = userValidation(data);
-        if (error) {
-            reject({ code: 500, msg: error.details[0].message });
-        }
-        let user = await User.findOne({ email: data.email });
-        if (user) {
-            reject({ code: 400, msg: "User already exists" });
-        }
-        let newUser = new User(data);
-        await newUser
-            .save()
-            .then(result => resolve(result))
-            .catch((reason) => {
-                console.log(reason);
-                reject({ code: 500, msg: "internal server error" });
-            });
-    });
+    let { error } = userValidation(data);
+    if (error) {
+        let err = new Error(error.details[0].message);
+        err.code = 400;
+        throw err;
+    }
+
+    let user = await User.findOne({ email: data.email });
+    if (user) {
+        let err = new Error("A User with this email already exists");
+        err.code = 400;
+        throw err;
+    }
+    data.isNativeAccount = true;
+
+    const salt = await bcrypt.genSalt(10);
+    data.password = await bcrypt.hash(data.password, salt);
+
+    let newUser = new User(data);
+
+    return await newUser.save() //.select("-password");
+
 }
 
-exports.createUser = createUser;
+/**
+ * Creates a remote user based on the passed data
+ * @param {*} data the object with the user data
+ */
+async function createRemoteUser(data) {
+    let { error } = userValidation(data);
+
+    if (error) {
+        let err = new Error(error.details[0].message);
+        err.code = 400;
+        throw err;
+    }
+
+    let user = await User.findOne({ email: data.email })
+    if (user) {
+        let err = new Error("User already exists");
+        err.code = 400;
+        throw err;
+    }
+    data.password = "no native password";
+    data.isNativeUser = false;
+
+    let newUser = new User(data);
+    return await newUser.save()
+}
+
+exports.createNativeUser = createNativeUser;
+exports.createRemoteUser = createRemoteUser;
 exports.updateUser = updateUser;
 exports.getUsers = getUsers;
 exports.getUserById = getUserById;

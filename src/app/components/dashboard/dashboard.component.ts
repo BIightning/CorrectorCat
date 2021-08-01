@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from "../../services/user.service";
-import { User } from 'src/assets/classes/users';
+import { User } from 'src/app/classes/users';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
 
   onLevelSelected(eventArgs) {
     console.log(eventArgs);
-    this.router.navigate(["/game/tutorial/" + eventArgs.selectedLevel.toString()+"/"]);
+    this.router.navigate(["/game/tutorial/" + eventArgs.selectedLevel]);
   }
 
 }

@@ -1,6 +1,6 @@
 <h1 class="mb-0 pb-0">Admin Dashboard</h1>
 <br><br><br><br>
-<ng-container *ngIf="!loaded; else elseTemplate">
+<ng-container *ngIf="!bLoaded; else elseTemplate">
     <app-loading-animation></app-loading-animation>
 </ng-container>
 <ng-template #elseTemplate>
@@ -99,11 +99,11 @@
     <br><br><br><br>
     <h2>Settings</h2>
     <div class="row">
-        <div class="tile dynamic-tile">
+        <div [routerLink]="['/admin/settings']" class="tile dynamic-tile">
             <span><i class="fa fa-cog fa-3x"></i></span>
             <p>General Settings</p>
         </div>
-        <div class="tile dynamic-tile">
+        <div [routerLink]="['/admin/settings']" class="tile dynamic-tile">
             <span><i class="fa fa-globe fa-3x"></i><i class="ml-1 fa fa-link"></i></span>
             <p>App Environment</p>
         </div>

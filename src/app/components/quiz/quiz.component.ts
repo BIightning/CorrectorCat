@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Book } from "../../../assets/classes/book";
+import { Book } from 'src/app/classes/book';
 import * as jQuery from 'jquery';
 import { BookService } from "../../services/book.service";
 import { ActivatedRoute, Router } from '@angular/router';

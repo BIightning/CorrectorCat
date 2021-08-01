@@ -1,4 +1,4 @@
-import { AdminGuard } from './admin.guard';
+import { AdminGuard } from './guards/admin.guard';
 import { UserManagementComponent } from './components/admin/user-management/user-management.component';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { NgModule } from '@angular/core';
@@ -12,7 +12,7 @@ import { QuizComponent } from './components/quiz/quiz.component';
 import { WikiComponent } from './components/wiki/wiki.component';
 import { GameViewComponent } from './components/game-view/game-view.component';
 import { GamePageComponent } from './components/game-page/game-page.component';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 import { StartingPageComponent } from './components/starting-page/starting-page.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { TutorialComponent } from './components/tutorial/tutorial.component';
@@ -33,10 +33,6 @@ const routes: Routes = [
   {
     path: 'login',
     component: SignInComponent,
-  },
-  {
-    path: 'registrieren',
-    component: SignUpComponent,
   },
   {
     path: 'notfound',
@@ -132,7 +128,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

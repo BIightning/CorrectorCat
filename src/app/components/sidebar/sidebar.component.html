@@ -1,9 +1,9 @@
-<ul class="menu_items">
-    <li><a (click)="goDashboard()"><i class="icon fas fa-tachometer-alt fa-2x"></i>Dashboard</a></li>
-    <li><a (click)="goBookShelf()"><i class="icon fa fa-book fa-2x"></i> Bookshelf</a></li>
-    <li><a (click)="goBookStore()"><i class="icon fa fa-store fa-2x"></i> Bookstore</a></li>
-    <li><a (click)="goQuiz()"><i class="icon fa fa-bug fa-2x"></i>Debug Quiz</a></li>
-    <li><a (click)="goGameView()"><i class="icon fa fa-bug fa-2x"></i>Debug Game</a></li>
+<ul class="menu_items" *transloco="let t; read: 'sidebar'">
+    <li ><a (click)="goDashboard()"><i class="icon fas fa-tachometer-alt fa-2x"></i>{{t('dashboard')}}</a></li>
+    <li *ngIf="settings?.bMyBooksAccess" ><a (click)="goBookShelf()"><i class="icon fa fa-book fa-2x"></i>{{t('bookshelf')}}</a></li>
+    <li *ngIf="settings?.bMyBookStoreAccess"><a (click)="goBookStore()"><i class="icon fa fa-store fa-2x"></i>{{t('bookstore')}}</a></li>
+    <li *ngIf="settings?.bQuizAccess"><a (click)="goQuiz()"><i class="icon fa fa-bug fa-2x"></i>Debug Quiz</a></li>
+    <!-- <li><a (click)="goGameView()"><i class="icon fa fa-bug fa-2x"></i>Debug Game</a></li> -->
 </ul>
 <!-- !Sidebar old!
 <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">

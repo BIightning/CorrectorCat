@@ -1,0 +1,42 @@
+{
+    "sign_in": {
+        "signin": "Anmeldung",
+        "gameletaccount": "Mit Deinem Gamelet Account",
+        "passwordforgotten": "Passwort vergessen?"
+    },
+
+    "dashboard": {
+        "welcome": "Willkommen!"
+    },
+
+    "sidebar": {
+        "dashboard": "Dashboard",
+        "bookshelf": "Buchregal",
+        "bookstore": "Buchladen"
+    },
+
+    "not_found": {
+        "404": "Fehler 404 - nicht gefunden",
+        "contact": "Wenn dies Deiner Meinung nach ein Fehler ist, kontaktiere bitte einen Admin."
+    },
+
+    "game-view": {
+        "error": "In diesem Abschnitt war kein Fehler. Du verlierst {{ count }} Credits!",
+        "continue": "Weiter",
+        "difficulty": "Schwierigkeit: {{ difficulty }}",
+        "foundmistake": "Du hast einen Fehler gefunden",
+        "whatistheerror": "Was ist der Fehler?",
+        "correctanswer": "Richtige Antwort!",
+        "wronganswer": "Falsche Antwort...",
+        "correctis": "Richtig ist:",
+        "earned": "Du hast {{ amount }} Credits verdient!",
+        "earntocomplete": "Verdiene {{ amount }}",
+        "earnedtotal": "Du hast {{ earnedCoins }} Credits verdient!",
+        "findeachmistake": "oder finde jeden Fehler, um das Level abzuschließen!",
+        "thanksforplaying": "Danke für's spielen!",
+        "missedmistakes": "Du hast {{ chunksMissed }} Fehler nicht gefunden!",
+        "showmissed": "Zeige nicht gefundene Fehler",
+        "congratulations": "Gratulation!",
+        "completed": "Du hast das Level abgeschlossen!"
+    }
+}

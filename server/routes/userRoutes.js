@@ -1,6 +1,8 @@
 var router = require("express").Router();
 const userController = require('../controllers/userController.js');
 const auth = require('../middleware/auth.js');
+const settingsController = require('../controllers/settingsController');
+const adminPermission = require("../middleware/adminPermission.js");
 
 router
     .route('/me')
@@ -12,7 +14,7 @@ router
         await userController
             .getUserById(req.user._id)
             .then(result => res.status(200).send(result))
-            .catch(reason => res.status(reason.code).send(reason.msg));
+            .catch(reason => res.status(reason.code || 500).send(reason.message));
     });
 router
     .route('/progress')
@@ -20,38 +22,41 @@ router
         await userController
             .getUserProgress(req.body.email)
             .then(result => res.status(200).send(result))
-            .catch(reason => res.status(reason.code).send(reason.msg));
+            .catch(reason => res.status(reason.code || 500).send(reason.message));
     });
 router
     .route('/')
-    .get(async(req, res) => {
+    .get([auth, adminPermission], async(req, res) => {
         await userController
             .getUsers()
             .then(result => res.status(200).send(result))
-            .catch(reason => res.status(reason.code).send(reason.msg));
+            .catch(reason => res.status(reason.code || 500).send(reason.message));
     })
-    .post(async(req, res) => {
+    .post([auth, adminPermission], async(req, res) => {
+        if (!settingsController.getSettingsSync().bNativeAccountsActive)
+            return res.status(401).send("Creation of a native account is currently not allowed!");
+
         await userController
-            .createUser(req.body)
+            .createNativeUser(req.body)
             .then(result => {
                 let token = result.generateAuthToken();
                 res.status(200).header('x-auth-token', token).send(result);
             })
-            .catch(reason => res.status(reason.code).send(reason.msg));
+            .catch(reason => res.status(reason.code || 500).send(reason.message));
     })
-    .put(async(req, res) => {
+    .put([auth, adminPermission], async(req, res) => {
         await userController
             .updateUser(req.body)
             .then(result => res.status(200).send(result))
-            .catch(reason => res.status(reason.code).send(reason.msg));
+            .catch(reason => res.status(reason.code || 500).send(reason.message));
     });
 router
     .route('/:id')
-    .get(async(req, res) => {
+    .get([auth, adminPermission], async(req, res) => {
         await userController
             .getUserById(req.params.id)
             .then(result => res.status(200).send(result))
-            .catch(reason => res.status(reason.code).send(reason.msg));
+            .catch(reason => res.status(reason.code || 500).send(reason.message));
     })
 
 

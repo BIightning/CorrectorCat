@@ -1,166 +1,212 @@
-<div id="game-container" class="">
-    <div class="main-header">
-        <h5 class="mt-2 ml-2" id="textName">{{book.title}}
-            <span class="text-center text-danger"></span>
-            <span class="float-right">
-            <button (click)="openSettingsModal()" class="btn btn-sm align-top border btn-light"><i class="fas fa-cog"></i></button>
-            </span>
+<ng-container *transloco="let t; read: 'game-view'">
+    <div id="game-container" [attr.data-error]="t('error', {count: errorCount * 2})" [ngClass]="{'error-active': bShowError}">
+        <div class="main-header">
+            <h5 class="mt-2 ml-2" id="textName">{{book.title}}
+                <span class="text-center text-danger"></span>
+                <span class="float-right">
+                    <!-- <button (click)="bShowSettingsModal = true" class="btn btn-sm align-top border btn-light"><i
+                            class="fas fa-cog"></i></button> -->
+                </span>
 
-        </h5>
-    </div>
-    <div class="snippet-container rounded" id="hoerspiel-content">
-        <div #chunkPool *ngFor="let chunk of book.textChunks; let i = index" class="snippet container-fluid shadow normal-text rounded p-3 m-2 mt-2" id="chunk-{{i}}">
-            {{chunk.text}}
-            <div class="justify-content-center row border-top border-white pt-1 mt-1" *ngIf="chunksMissed > 0 && (wrongReadIndexes[i] && !foundWrongIndexes[i])">
-                <br>
-                <div class="col-sm-6 col-md-4 col-lg-2" id="player-container-{{i}}"></div>
-                <div class="col-sm-6 col-md-8 col-lg-6 text-left">
-                    <h5 id="error-container-{{i}}" class="p-3"></h5>
+            </h5>
+        </div>
+        <div class="snippet-container rounded" id="hoerspiel-content">
+            <div #chunkPool *ngFor="let chunk of book.textChunks; let i = index"
+                class="snippet container-fluid shadow normal-text rounded p-3 m-2 mt-2" id="chunk-{{i}}">
+                {{chunk.text}}
+                <div class="justify-content-center row border-top border-white pt-1 mt-1"
+                    *ngIf="chunksMissed > 0 && (wrongReadIndexes[i] && !foundWrongIndexes[i])">
+                    <br>
+                    <div class="col-sm-6 col-md-4 col-lg-2" id="player-container-{{i}}"></div>
+                    <div class="col-sm-6 col-md-8 col-lg-6 text-left">
+                        <h5 id="error-container-{{i}}" class="p-3"></h5>
+                    </div>
+                    <div class="d-none d-lg-block col-lg-4"></div>
                 </div>
-                <div class="d-none d-lg-block col-lg-4"></div>
+            </div>
+        </div>
+
+    </div>
+    <div id="controlbar" class="container-fluid m-0 bg-dark text-center text-light p-2 pb-3 controlbar">
+        <div class="row">
+            <div class="col-md-4 col-sm-3"></div>
+            <div class="col-md-4 col-sm-6">
+                <ng-container *ngIf="!bMissedErrorView;else afterGame">
+                <!--<span id="errorMessage" class="text-center rounded p-3" [ngClass]="showErrorMessage ? 'visible' : 'd-none'">The current snippet is being read correctly!</span>-->
+                <button (click)="onRepeatBtnClick()" [openDelay]="1000" ngbTooltip="Repeat the current textblock"
+                    class="btn btn-info secondaryBtns mr-2">
+                    <i id="btStopIcon" class="fa fa-redo"></i>
+                </button>
+                <button (click)="onStopBtnClick()" id="stopBtn" class="btn btn-lg">
+                    <img class="img-hover" src="../../assets/img/stop-4375936__340.png" width="90" height="90">
+                </button>
+                <button (click)="onNextBtnClick()" [openDelay]="1000"
+                    ngbTooltip="Pause/unpause the current textblock or jump to the next one if it already played"
+                    class="btn btn-light secondaryBtns ml-2 mr-5">
+                    <i [ngClass]="{ 'fa-pause': !audioplayer.paused, 'fa-play': audioplayer.paused && !audioplayer.ended, 'fa-angle-double-right' : audioplayer.ended}"
+                        class="fas text-dark"></i>
+                </button>
+                </ng-container>
+                <ng-template #afterGame>
+                    <button (click)="handleBookCompletion()" class="btn btn-lg btn-primary">{{ t('continue')}}</button>
+                </ng-template>
+            </div>
+            <div class="col-md-4 d-flex align-items-center col-sm-3">
+                <h4 class="ml-4 p-2 align-text-bottom"
+                    ngbTooltip="Your currently earned coins. Be careful, you can loose them!" id="coin-pool">
+                    <span>{{ earnedCoins }}</span><br>
+                    <img class="" src="../../assets/img/coin.svg" width="30" height="30">
+                </h4>
             </div>
         </div>
     </div>
 
-</div>
-<div id="controlbar" class="container-fluid m-0 bg-dark text-center text-light p-2 pb-3 controlbar">
-    <div class="row">
-        <div class="col-md-4 col-sm-3"></div>
-        <div class="col-md-4 col-sm-6">
-            <!--<span id="errorMessage" class="text-center rounded p-3" [ngClass]="showErrorMessage ? 'visible' : 'd-none'">The current snippet is being read correctly!</span>-->
-            <button (click)="onRepeatBtnClick()" [openDelay]="1000" ngbTooltip="Repeat the current textblock" class="btn btn-info secondaryBtns mr-2">
-                <i id="btStopIcon" class="fa fa-redo"></i> 
-            </button>
-            <button (click)="onStopBtnClick()" id="stopBtn" class="btn btn-lg">
-                <img class="img-hover" src="../../assets/img/stop-4375936__340.png" width="90" height="90">
-            </button>
-            <button (click)="onNextBtnClick()" [openDelay]="1000" ngbTooltip="Pause/unpause the current textblock or jump to the next one if it already played" class="btn btn-light secondaryBtns ml-2 mr-5">
-                    <i [ngClass]="{ 'fa-pause': !audioplayer.paused, 'fa-play': audioplayer.paused && !audioplayer.ended, 'fa-angle-double-right' : audioplayer.ended}" class="fas text-dark"></i>
-            </button>
-        </div>
-        <div class="col-md-4 d-flex align-items-center col-sm-3">
-            <h4 class="ml-4 p-2 align-text-bottom" ngbTooltip="Your currently earned coins. Be careful, you can loose them!" id="coin-pool">
-                <span>{{ earnedCoins }}</span><br>
-                <img class="" src="../../assets/img/coin.svg" width="30" height="30">
-            </h4>
+    <!--Start Modal-->
+    <div [ngClass]="{'modal-active': bShowStartModal}" class="gameview-modal-bg">
+        <div class="gameview-modal start-modal">
+            <span></span>
+            <span></span>
+            <span></span>
+            <div class="gameview-modal-content text-white">
+                <h1 class="mb-1">
+                    {{book.title}}
+                </h1>
+                <h6 class="font-weight-bold mb-3">{{ t('difficulty', { difficulty: book?.difficulty}) }}</h6>
+                <p class="mb-3 font-weight-bold">
+                    {{book.description}}
+                </p>
+                <h4 class="mb-3 ml-5 mr-5 p-1 bg-info rounded">
+                    {{t('earntocomplete', { amount: 30})}} <img class="" src="../../assets/img/coin.svg" width="30" height="30"> {{t('findeachmistake')}}
+                </h4>
+                <!-- <button (click)="bShowSettingsModal = true" type="button"
+                    class="gameview-modal-btn btn btn-secondary">Settings</button> -->
+                <button (click)="playNextChunk(); bShowStartModal = false;" type="button"
+                    class="gameview-modal-btn btn btn-success">
+                    Start
+                </button>
+            </div>
         </div>
     </div>
-</div>
-<ng-template #gameModal let-modal>
-    <div>
-        <div class="modal-header">
-            <h4 class="modal-title text-gamelet" id="modal-basic-title">
-                <img src="../../assets/img/kitty.svg" width="50" height="50" class="d-inline-block align-center rounded p-1" alt=""> You found an error!
-            </h4>
+
+    <!--Settings Modal-->
+    <div [ngClass]="{'modal-active': false}" class="gameview-modal-bg">
+        <div class="gameview-modal settings-modal">
+            <span></span>
+            <span></span>
+            <span></span>
+            <div class="gameview-modal-content">
+                <h1 class="modal-title text-gamelet mb-4">
+                    Settings
+                </h1>
+                <p class="align-baseline font-weight-bold mr-3">Autoplay: <input class="align-baseline"
+                        [(ngModel)]="bAutoPlay" type="checkbox"></p>
+                <p class="pb-2 font-weight-bold mr-3">
+                    Playback delay:
+                    <input class="align-center" [(ngModel)]="progressDelay" type="range" min="1" max="7" step="1.0">
+                    <small class="ml-1">
+                        {{progressDelay}}s
+                    </small>
+                </p>
+                <button type="button" class="btn btn-danger" (click)="bShowSettingsModal = false">Close</button>
+            </div>
         </div>
-        <div class="modal-body" *ngVar="book.textChunks[currentTextChunk].question as question">
-            <div class="row">
-                <div class="col-12">
-                    <h5 class="p-4 border text-center text-secondary rounded" id="dp-text">{{ modalDisplayText }}<br>
-                        <audio controls src="{{'./assets/books/' + book.id + '/wrong/' + book.textChunks[currentTextChunk].audioWrong}}"></audio>
-                    </h5>
-                </div>
-                <div *ngIf="!bHasAnswered">
+    </div>
+
+    <!--game modal-->
+    <div *ngIf="currentTextChunk > -1" [ngClass]="{'modal-active': bShowGameModal}" class="gameview-modal-bg">
+        <div class="gameview-modal question-modal">
+            <span></span>
+            <span></span>
+            <span></span>
+            <div class="gameview-modal-content text-white">
+                <h1 class="text-gamelet white-stroke">
+                    <img src="../../assets/img/kitty.svg" width="90" height="90"
+                        class="d-inline-block align-center rounded p-1"> {{ t('foundmistake') }}
+                </h1>
+                <div *ngVar="book.textChunks[currentTextChunk].question as question">
                     <div class="row">
-                        <div class="col-12 mb-4">
-                            <h4 class="text-center">What is the mistake?</h4>
+                        <div class="col-12">
+                            <h5 class="p-4 text-center rounded" id="dp-text">{{ modalDisplayText }}<br>
+                                <audio controls class="mt-2"
+                                    src="{{baseUrl + book.textChunks[currentTextChunk].audioWrong}}"></audio>
+                            </h5>
                         </div>
-                        <div class="col-md-6 col-sm-6">
-                            <button (click)="onGameBtnClick(0)" class="btn mx-auto d-block game-button btn-outline-info">{{question.answers[0]}}</button><br>
-                            <!--Semantic-->
-                            <button (click)="onGameBtnClick(1)" class="btn mx-auto d-block game-button btn-outline-success">{{question.answers[1]}}</button><br>
+                        <div *ngIf="!bHasAnswered">
+                            <div class="row">
+                                <div class="col-12 mb-4">
+                                    <h4 class="text-center">{{ t('whatistheerror') }}</h4>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <button (click)="onGameBtnClick(0)"
+                                        class="btn mx-auto d-block game-button">{{question.answers[0]}}</button><br>
+                                    <!--Semantic-->
+                                    <button (click)="onGameBtnClick(1)"
+                                        class="btn mx-auto d-block game-button">{{question.answers[1]}}</button><br>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <button (click)="onGameBtnClick(2)"
+                                        class="btn mx-auto d-block game-button">{{question.answers[2]}}</button><br>
+                                    <!--Kontext-->
+                                    <button (click)="onGameBtnClick(3)"
+                                        class="btn mx-auto d-block game-button">{{question.answers[3]}}</button><br>
+                                    <!--Betonung-->
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-6 col-sm-6">
-                            <button (click)="onGameBtnClick(2)" class="btn mx-auto d-block game-button btn-outline-primary">{{question.answers[2]}}</button><br>
-                            <!--Kontext-->
-                            <button (click)="onGameBtnClick(3)" class="btn mx-auto d-block game-button btn-outline-warning">{{question.answers[3]}}</button><br>
-                            <!--Betonung-->
+                        <div *ngIf="bHasAnswered">
+                            <div class="row">
+                                <div class="col-12 mb-4">
+                                    <h2 *ngIf="bAnsweredCorrect" class="text-center text-success white-stroke">{{ t('correctanswer') }}</h2>
+                                    <h2 *ngIf="!bAnsweredCorrect" class="text-center text-danger white-stroke">{{ t('wronganswer') }}</h2>
+                                </div>
+                                <div class="col-md-4 col-sm-6">
+                                    <button class="btn mx-auto  game-button hidden"></button>
+                                </div>
+                                <div class="col-md-4 col-sm-6 justify-content-center">
+                                    <h5 *ngIf="!bAnsweredCorrect" class="text-center text-danger">{{ t('correctis') }}</h5>
+                                    <h5 class="text-center"> <u>{{ question.answers[question.correctIndex] }}</u></h5>
+                                    <h6 class="text-center">{{ question.explanation }}</h6><br>
+                                    <h6 class="text-center">{{ t('earned', {amount: coinsToAdd}) }}</h6>
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <button class="btn mx-auto game-button hidden"></button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div *ngIf="bHasAnswered">
-                    <div class="row">
-                        <div class="col-12 mb-4">
-                            <h4 *ngIf="bAnsweredCorrect" class="text-center text-success">Correct answer!</h4>
-                            <h4 *ngIf="!bAnsweredCorrect" class="text-center text-danger">Wrong answer...</h4>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <button class="btn mx-auto  game-button hidden"></button>
-                        </div>
-                        <div class="col-md-4 col-sm-6 justify-content-center">
-                            <h5 *ngIf="!bAnsweredCorrect" class="text-center text-danger">Correct is:</h5>
-                            <h5 class="text-center"> <u>{{ question.answers[question.correctIndex] }}</u></h5>
-                            <h6 class="text-center">{{ question.explanation }}</h6><br>
-                            <h6 class="text-center">You earned {{ coinsToAdd }} credits!</h6>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <button class="btn mx-auto game-button hidden"></button>
-                        </div>
-                    </div>
+                    <button type="button" class="btn btn-lg btn-success"
+                        (click)="bShowGameModal = false; replayAfterStop();">Continue</button>
                 </div>
             </div>
         </div>
     </div>
-    <div *ngIf="bHasAnswered" class="modal-footer">
-        <button type="button" class="btn btn-success" (click)="modal.close('Continue click'); replayAfterStop();">Continue</button>
-    </div>
-</ng-template>
 
-<ng-template #settingsModal let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title text-gamelet" id="modal-basic-title">
-            Settings
-        </h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                    <span aria-hidden="true">&times;</span>
-            </button>
-    </div>
-    <div class="modal-body">
-        <div class="col-12 row text-secondary ml-2">
-            <div class="col-12">
-                <p class="align-baseline font-weight-bold mr-3">Autoplay: <input (change)="progessDelay()" class="align-baseline" [(ngModel)]="bAutoPlay" type="checkbox"></p>
-            </div>
-            <div class="col-12" id="delayBar">
-                <p class="pb-2 font-weight-bold mr-3">Playback delay: <input (change)="progessDelay()" class="align-center" [(ngModel)]="progressDelay" type="range" min="1" max="7" step="1.0"><span class="ml-1">{{progressDelay}}s</span></p>
+    <!--End Modal-->
+    <div [ngClass]="{'modal-active': bShowEndModal}" class="gameview-modal-bg">
+        <div class="gameview-modal end-modal">
+            <span></span>
+            <span></span>
+            <span></span>
+            <div class="gameview-modal-content text-white">
+                <h1 class="text-gamelet white-stroke">
+                    Reading finished!
+                </h1>
+                <h6 class="font-weight-bold text-center">{{t('thanksforplaying')}}</h6>
+                <p class="font-weight-bold text-center">{{t('earnedtotal', {earnedCoins: earnedCoins})}}</p>
+                <br>
+                <h4 class="text-gamelet text-center"> {{t('missedmistakes', { chunksMissed: chunksMissed})}}</h4>
+                <button class="btn btn-info d-block mx-auto" (click)="bShowEndModal = false; displayMissedChunks()">
+                    {{t('showmissed')}}
+                </button>
+                <ng-container *ngIf="earnedCoins >= book.creditTarget || chunksMissed === 0">
+                    <h2 class="text-success text-center">{{t('congratulations')}}<br> {{t('completed')}}</h2>
+                    <br>
+                    <button type="button" class="btn btn-lg btn-primary"
+                        (click)="bShowEndModal = false; handleBookCompletion()">{{t('continue')}}</button>
+                </ng-container>
             </div>
         </div>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-danger" (click)="modal.close('Skip click')">Close</button>
-    </div>
-</ng-template>
-
-<ng-template #startModal let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title text-gamelet" id="modal-basic-title">
-            {{book.title}}
-        </h4>
-    </div>
-    <div class="modal-body  text-center text-secondary">
-        <p class="font-weight-bold">Difficulty: {{book.difficulty}}</p>
-        {{book.description}}
-    </div>
-    <div class="modal-footer">
-        <button (click)="openSettingsModal();" type="button" class="btn game-modal btn-warning">Settings</button>
-        <button (click)="playNextChunk();" [ngClass]="bBookLoaded ? 'visible' : 'hidden'" type="button" class="btn game-modal btn-success" (click)="modal.close('Skip click')">Start</button>
-    </div>
-</ng-template>
-
-<ng-template #endModal let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title text-gamelet" id="modal-basic-title">
-            Reading finished!
-        </h4>
-    </div>
-    <div class="modal-body text-center">
-        <p class="font-weight-bold">Thank you for playing!</p>
-        You earned {{earnedCoins}} Credits!
-        <br>
-        <h4 class="text-warning text-center"> You missed {{chunksMissed}} errors!</h4>
-        <h2 *ngIf="chunksMissed === 0" class="text-success text-center">Congratulations!</h2>
-        <button class="btn btn-info d-block mx-auto" (click)="modal.close('ok click'); displayMissedChunks();">Display missed errors</button>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="modal.close('ok click'); navigateToBookshelf();">Back to Bookshelf</button>
-    </div>
-</ng-template>
+</ng-container>

@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -7,9 +8,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class StatusService {
 
-  url: string = "http://localhost:8080";
+  url: string;
   constructor(private http: HttpClient) {
-    this.url = "http://192.168.0.17:8080"; //for local debugging
+    this.url = environment.baseUrl;
   }
 
   public getDatabaseStatus(): Observable<boolean> {

@@ -1,5 +1,7 @@
+import { SettingsService } from './../../services/settings.service';
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router'
+import { Settings } from 'src/app/classes/settings';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,9 +10,20 @@ import {Router, ActivatedRoute} from '@angular/router'
 })
 export class SidebarComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute ,private router : Router) { }
+  settings: Settings
+
+  constructor(private route: ActivatedRoute,
+              private router : Router, 
+              private settingsService: SettingsService
+  ) 
+  { }
 
   ngOnInit() {
+    this.getSettings();
+  }
+  
+  async getSettings(){
+    this.settings = await this.settingsService.getSettings().toPromise();
   }
 
   goDashboard(){

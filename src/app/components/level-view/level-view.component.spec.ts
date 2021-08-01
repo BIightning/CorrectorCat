@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { LevelViewComponent } from './level-view.component';
 
@@ -6,7 +6,7 @@ describe('LevelViewComponent', () => {
   let component: LevelViewComponent;
   let fixture: ComponentFixture<LevelViewComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ LevelViewComponent ]
     })

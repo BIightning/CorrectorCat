@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Joi = require('@hapi/joi');
+Joi.objectId = require('joi-objectid')(Joi);
 
 const bookSchema = new mongoose.Schema({
     title: { type: String, required: true, minlength: 3 },
@@ -10,6 +11,8 @@ const bookSchema = new mongoose.Schema({
     cost: { type: Number, required: true },
     difficulty: { type: String, required: true, minlength: 3 },
     imagePath: { type: String, required: true, minlength: 3 },
+    creditTarget: { type: Number, required: true },
+    tutorialAfterCompletion: { type: String, minlength: 3 },
     description: { type: String, minlength: 3 },
     textChunks: [{
         text: { type: String, required: true },
@@ -42,6 +45,9 @@ function bookValidation(data) {
         cost: Joi.number().required(),
         difficulty: Joi.string().required(),
         imagePath: Joi.string().required(),
+        creditTarget: Joi.number().positive().required(),
+        tutorialAfterCompletion: Joi.objectId(),
+        description: Joi.string(),
 
         textChunks: Joi.array().items(
             Joi.object().keys({
@@ -74,6 +80,10 @@ function bookValidation(data) {
         cost: data.cost, // + my sanity
         difficulty: data.difficulty,
         imagePath: data.imagePath,
+
+        creditTarget: data.creditTarget,
+        tutorialAfterCompletion: data.tutorialAfterCompletion,
+        description: data.description,
 
         textChunks: data.textChunks,
         quiz: data.quiz

@@ -1,6 +1,5 @@
 import { StatusService } from './../../../services/status.service';
 import { Component, OnInit } from '@angular/core';
-import { flatten } from '@angular/compiler';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -9,7 +8,7 @@ import { flatten } from '@angular/compiler';
 })
 export class AdminDashboardComponent implements OnInit {
 
-  loaded: boolean = false;
+  bLoaded: boolean = false;
   dbConnected: boolean;
   gameletConnected: boolean;
   constructor(private statusService: StatusService) { }
@@ -17,10 +16,12 @@ export class AdminDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.statusService.getDatabaseStatus().subscribe(res => {
       this.dbConnected = res;
+
       this.statusService.getGameletServerStatus().subscribe(res => {
         this.gameletConnected = res;
-        this.loaded = true;
+        this.bLoaded = true;
       });
+
     });
 
   }

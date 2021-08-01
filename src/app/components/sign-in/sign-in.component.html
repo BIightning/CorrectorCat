@@ -1,14 +1,23 @@
-<div class="background position-relative">
+<div *transloco="let t; read: 'sign_in'" class="background position-relative" ngClass="'d-flex': bLoading">
     <app-intro-carousel></app-intro-carousel>
     <div id="logreg-forms" class="shadow">
-        <form class="form-signin">
-            <h1 class="h2 mb-3 font-weight-normal" style="text-align: center; color: rgb(70, 70, 70)"> Sign in</h1>
-            <h3 class="mb-3 font-weight-normal" style="text-align: center; color: rgb(70, 70, 70)"> with your Gamelet Account</h3>
+        <form *ngIf="!bLoading" class="form-signin">
+            <h1 class="h2 mb-3 font-weight-normal" style="text-align: center; color: rgb(70, 70, 70)">{{t('signin')}}</h1>
+            <h3 class="mb-3 font-weight-normal" style="text-align: center; color: rgb(70, 70, 70)"> {{t('gameletaccount')}}</h3>
             <br>
             <input [(ngModel)]="email" name="email" type="email" placeholder="Email" required="">
             <input [(ngModel)]="password" name="password" type="password" class="mt-1" placeholder="Password" required="">
-            <button (click)="checkUser()" class="btn btn-block" type="submit"><i class="fas fa-sign-in-alt"></i> Sign in</button>
-            <a href="#" class="text-center" id="forgot_pswd" style="color: #3C589C;">Forgot password?</a>
+            <p *ngIf="serverMessage" class="text-center font-weight-bold text-danger">{{serverMessage}}</p>
+            <button (click)="checkUser()" class="btn btn-block" type="submit"><i class="fas fa-sign-in-alt"></i>{{t('signin')}}</button>
+            <a href="#" class="text-center" id="forgot_pswd" style="color: #3C589C;">{{t('passwordforgotten')}}</a>
         </form>
+        <div *ngIf="bLoading" class="loading-container p-3">
+            <div class="box">
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            <h2 class="text-center">Loading...</h2>
+        </div>
     </div>
 </div>
+

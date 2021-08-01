@@ -1,0 +1,42 @@
+{
+    "sign_in": {
+        "signin": " Sign in",
+        "gameletaccount": "With your Gamelet Account",
+        "passwordforgotten": "Forgot password?"
+    },
+
+    "dashboard": {
+        "welcome": "Welcome!"
+    },
+
+    "sidebar": {
+        "dashboard": "Dashboard",
+        "bookshelf": "Bookshelf",
+        "bookstore": "Bookstore"
+    },
+
+    "not_found": {
+        "404": "Error 404 - not found",
+        "contact": "If you think this is an error, please contact your admin"
+    },
+
+    "game-view": {
+        "error": "There is no error in this snippet. You loose {{ count }} credits!",
+        "continue": "continue",
+        "difficulty": "Difficulty: {{ difficulty }}",
+        "foundmistake": "You found a mistake!",
+        "whatistheerror": "What is the mistake?",
+        "correctanswer": "Correct answer!",
+        "wronganswer": "Wrong answer...",
+        "correctis": "Correct is:",
+        "earned": "You earned {{ amount }} credits!",
+        "earntocomplete": "Earn {{ amount }}",
+        "findeachmistake": "or find each mistake to complete the level",
+        "thanksforplaying": "Thank you for playing!",
+        "earnedtotal": "You earned {{ earnedCoins }} credits!",
+        "missedmistakes": "You missed {{ chunksMissed }} mistakes!",
+        "showmissed": "Show missed mistakes",
+        "congratulations": "Congratulations!",
+        "completed": "You completed the book!"
+    }
+}

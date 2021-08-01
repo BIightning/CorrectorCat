@@ -1,12 +1,16 @@
-import { FileMeta } from './../../../../assets/classes/fileMeta';
+import { BookService } from 'src/app/services/book.service';
+import { TranslocoService } from '@ngneat/transloco';
+import { FileMeta } from 'src/app/classes/fileMeta';
 import { FileService } from './../../../services/file.service';
-import { CatImages } from '../../../../assets/classes/CatImages';
+import { CatImages } from 'src/app/classes/CatImages';
 import { TutorialSequenceService } from './../../../services/tutorial-sequence.service';
-import { TutorialSequence } from './../../../../assets/classes/tutorialSequence';
+import { TutorialSequence } from 'src/app/classes/tutorialSequence';
 import { Component, OnInit } from '@angular/core';
-import { FeedbackMessage, MessageType } from 'src/assets/classes/feedbackMessage';
+import { FeedbackMessage, MessageType } from 'src/app/classes/feedbackMessage';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { Book } from 'src/app/classes/book';
 
 @Component({
   selector: 'app-tutorial-editor',
@@ -20,6 +24,8 @@ export class TutorialEditorComponent implements OnInit {
   bIsNew: boolean = false;
   feedbackMessage: FeedbackMessage = new FeedbackMessage();
   slideExtended: boolean[];
+  baseUrl: string;
+  languages: unknown; //Can't use string because of transloco.getAvailableLangs() theoretical varying return type
 
   
   bShowModal: boolean;
@@ -37,13 +43,20 @@ export class TutorialEditorComponent implements OnInit {
   widgets: any[] = [{name: 'None', id: -1},{name: 'Start Button', id: 0}, 
                     {name: 'Image', id: 2}, {name: 'quiz', id: 3}, 
                     {name: 'audio player', id: 4}]
+  books: Book[];
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private tutorialService: TutorialSequenceService,
-    private fileService: FileService
-  ) { }
+    private fileService: FileService,
+    private bookService: BookService,
+    private translocoService: TranslocoService
+  ) 
+  {
+    this.baseUrl = environment.baseUrl;
+    this.languages = this.translocoService.getAvailableLangs();
+  }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -54,7 +67,8 @@ export class TutorialEditorComponent implements OnInit {
     let delay = (Math.floor(Math.random() * 5) + 2) *  1000;
     setTimeout(()=> {this.loadTutorial()}, delay);
   }
-  loadTutorial(): void {
+
+  private async loadTutorial() {
     let id = this.route.snapshot.paramMap.get("id");
     if (id === "new") {
       this.createEmptyTutorialTemplate();
@@ -68,14 +82,20 @@ export class TutorialEditorComponent implements OnInit {
         this.tutorial = res;
         this.slideExtended = new Array(this.tutorial.slides.length).fill(false);
         this.bIsNew = false;
-        this.loadPossessedFileMeta();
+        this.loadBooks();
       },
       err => {
         this.showFeedback(`${err.error}`, MessageType.Error, 3000);
       });
     }
   }
-  loadPossessedFileMeta(): void {
+
+  private async loadBooks(): Promise<void> {
+    this.books = await this.bookService.getAllBooks().toPromise();
+    this.loadPossessedFileMeta();
+  }
+
+  private loadPossessedFileMeta(): void {
     this.fileService
       .getPossessedFiles(this.tutorial._id)
       .subscribe(res => {
@@ -98,9 +118,8 @@ export class TutorialEditorComponent implements OnInit {
   createEmptyTutorialTemplate():void {
     this.tutorial = {
       tutorialTitle: 'New Tutorial',
-      position: -1,
       slides: null,
-      targetTextTitle: ''  
+      targetText: ['none', 'none', 'none', 'none']
     }
   }
 
@@ -186,6 +205,14 @@ export class TutorialEditorComponent implements OnInit {
       this.bIsNew = false;
     }, 
     err => this.processError(err))
+  }
+
+  getBooksOfLang(lang): Book[] {
+    
+    if(!this.books)
+      return [];
+
+    return this.books.filter(book => book.language === lang);
   }
 
   onDeleteClick(slideIndex: number): void {

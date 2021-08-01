@@ -1,4 +1,4 @@
-import { FeedbackMessage } from './../../../../assets/classes/feedbackMessage';
+import { FeedbackMessage } from 'src/app/classes/feedbackMessage';
 import { Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 @Component({
   selector: 'app-feedback-message',

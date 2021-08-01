@@ -1,7 +1,7 @@
 import { TutorialSequenceService } from './../../../services/tutorial-sequence.service';
-import { TutorialSequence } from './../../../../assets/classes/tutorialSequence';
+import { TutorialSequence } from 'src/app/classes/tutorialSequence';
 import { Component, OnInit } from '@angular/core';
-import { FeedbackMessage, MessageType } from 'src/assets/classes/feedbackMessage';
+import { FeedbackMessage, MessageType } from 'src/app/classes/feedbackMessage';
 
 @Component({
   selector: 'app-tutorial-management',

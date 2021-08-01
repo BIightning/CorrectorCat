@@ -2,48 +2,50 @@
     <h2 *ngIf="bIsPreview" class="pt-2 pl-2 position-absolute left-0 top-0 text-white">[Slide {{currentSlide + 1}} PREVIEW] </h2>
     <span id="scaling-bg" class="intro-animation"></span>
     <!--NgVar is a custom Directive to shorten a variable name-->
-    <div *ngVar="sequence.slides[currentSlide] as slide" class="fade-in slide-container" id="slide-{{currentSlide}}">
-        <ng-container [ngSwitch]="slide.sceneType">
-            <ng-container *ngSwitchCase="0">
-                <div class="container-fluid center-content">
-                    <p class="text-center tutorial-text bg-white p-3 rounded shadow d-inline-block slide-upper" [innerHTML]="slide.slideText.german"></p>
-                </div>
-                <div class="d-flex mt-3 justify-content-center position-relative">
-                    <img src="../../assets/img/kitty-avatars/svg/{{slide.catImage}}" width="15%" height="15%" class="{{slide.catAnimation}} mt-4" id="welcome-cat">
-                </div>
-            </ng-container>
-            <ng-container *ngSwitchCase="1">
-                <div class="row">
-                    <div class="col-md-3">
-                        <img src="../../assets/img/kitty-avatars/svg/{{slide.catImage}}" class="{{slide.catAnimation}} mt-4">
+    <ng-container *ngIf="bIsLoaded || bIsPreview">
+        <div *ngVar="sequence.slides[currentSlide] as slide" class="fade-in slide-container" id="slide-{{currentSlide}}">
+            <ng-container [ngSwitch]="slide.sceneType">
+                <ng-container *ngSwitchCase="0">
+                    <div class="container-fluid center-content">
+                        <p class="text-center tutorial-text bg-white p-3 rounded shadow d-inline-block slide-upper" [innerHTML]="getLocalizedText()"></p>
                     </div>
-                    <div class="col-md-9">
-                        <p class="text-center full-width tutorial-text bg-white rounded p-3 shadow slide-right" [innerHTML]="slide.slideText.german"></p>
-                        <app-tutorial-widgets [isPreview]="bIsPreview" (allowContinue)="allowContinue()" [widgetData]="slide.widgetData" [widgetID]="slide.widgetID" [targetText]="sequence.targetTextTitle"></app-tutorial-widgets>
+                    <div class="d-flex mt-3 justify-content-center position-relative">
+                        <img src="../../assets/img/kitty-avatars/svg/{{slide.catImage}}" width="15%" height="15%" class="{{slide.catAnimation}} mt-4" id="welcome-cat">
                     </div>
-                </div>
-            </ng-container>
-            <ng-container *ngSwitchCase="2">
-                <div class="row">
-                    <div class="col-md-9">
-                        <p class="text-center full-width tutorial-text bg-white p-3 rounded shadow d-block slide-left" [innerHTML]="slide.slideText.german"></p>
-                        <app-tutorial-widgets [isPreview]="bIsPreview" (allowContinue)="allowContinue()" [widgetID]="slide.widgetID" [targetText]="sequence.targetTextTitle"></app-tutorial-widgets>
-                    </div>
-                    <div class="col-md-3">
-                        <div class=" container-fluid cat-right">
-                            <img [isPreview]="bIsPreview" src="../../assets/img/kitty-avatars/svg/{{slide.catImage}}" class="mt-4 {{slide.catAnimation}}">
+                </ng-container>
+                <ng-container *ngSwitchCase="1">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <img src="../../assets/img/kitty-avatars/svg/{{slide.catImage}}" class="{{slide.catAnimation}} mt-4">
+                        </div>
+                        <div class="col-md-9">
+                            <p class="text-center full-width tutorial-text bg-white rounded p-3 shadow slide-right" [innerHTML]="getLocalizedText()"></p>
+                            <app-tutorial-widgets [isPreview]="bIsPreview" (allowContinue)="allowContinue()" [widgetData]="slide.widgetData" [widgetID]="slide.widgetID" [targetText]="sequence.targetText"></app-tutorial-widgets>
                         </div>
                     </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="2">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <p class="text-center full-width tutorial-text bg-white p-3 rounded shadow d-block slide-left" [innerHTML]="getLocalizedText()"></p>
+                            <app-tutorial-widgets [isPreview]="bIsPreview" (allowContinue)="allowContinue()" [widgetID]="slide.widgetID" [targetText]="sequence.targetText"></app-tutorial-widgets>
+                        </div>
+                        <div class="col-md-3">
+                            <div class=" container-fluid cat-right">
+                                <img src="../../assets/img/kitty-avatars/svg/{{slide.catImage}}" class="mt-4 {{slide.catAnimation}}">
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="3">
+                    <app-tutorial-widgets (allowContinue)="allowContinue()" [widgetID]="slide.widgetID" [targetText]="sequence.targetText"></app-tutorial-widgets>
+                </ng-container>
+            </ng-container>
+            <div class=" mt-5 pt-4 button-wrapper center-content">
+                <div class="container-fluid center-content">
+                    <button *ngIf="currentSlide > 0" (click)="clickBack()" class="shadow m-5 btn btn-lg btn-secondary">Back <i class="fa fa-chevron-circle-left"></i></button>
+                    <button *ngIf="sequence.slides.length -1 > currentSlide" [disabled]="!bCanContinue" (click)="clickNext()" class="shadow m-5 btn btn-lg btn-success">&nbsp;<i class="fa fa-chevron-circle-right"></i> Next&nbsp;</button>
                 </div>
-            </ng-container>
-            <ng-container *ngSwitchCase="3">
-                <app-tutorial-widgets (allowContinue)="allowContinue()" [widgetID]="slide.widgetID" [targetText]="sequence.targetTextTitle"></app-tutorial-widgets>
-            </ng-container>
-        </ng-container>
-        <div class=" mt-5 pt-4 button-wrapper center-content">
-            <div class="container-fluid center-content">
-                <button *ngIf="currentSlide > 0" (click)="clickBack()" class="shadow m-5 btn btn-lg btn-secondary">Back <i class="fa fa-chevron-circle-left"></i></button>
-                <button *ngIf="sequence.slides.length -1 > currentSlide" [disabled]="!bCanContinue" (click)="clickNext()" class="shadow m-5 btn btn-lg btn-success">&nbsp;<i class="fa fa-chevron-circle-right"></i> Next&nbsp;</button>
             </div>
         </div>
-    </div>
+    </ng-container>

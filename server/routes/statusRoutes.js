@@ -9,7 +9,7 @@ router
         await statusController
             .getDatabaseStatus()
             .then(result => res.status(200).send(result))
-            .catch(reason => res.status(reason.code).send(reason.msg));
+            .catch(reason => res.status(reason.code || 500).send(reason.message));
     });
 
 router
@@ -18,7 +18,7 @@ router
         await statusController
             .getRemoteUserServerStatus()
             .then(result => res.status(200).send(result))
-            .catch(reason => res.status(reason.code).send(reason.msg));
+            .catch(reason => res.status(reason.code || 500).send(reason.msg));
     });
 
 module.exports = router;

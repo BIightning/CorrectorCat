@@ -1,0 +1,146 @@
+.window {
+    padding: 0;
+    background: rgba(221, 221, 221, 0.35);
+    box-shadow: 0 1rem 1rem rgba(0, 0, 0, .15);
+    backdrop-filter: blur(4px);
+    margin-top: 0.5rem;
+    border-radius: 14px;
+    display: inline-flex;
+    flex-direction: column;
+}
+
+ .icon-span {
+    font-size: 1rem;
+}
+
+.dynamic-tile.active {
+    background: rgba(202, 251, 169, 0.55);
+}
+
+.tile.dynamic-tile:hover {
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.55);
+    color: #FF8300;
+    transform: scale(0.94);
+}
+
+.status-text {
+    font-size: 1.3rem;
+}
+
+.tile-blue {
+    background: rgba(0, 89, 255, 0.3);
+}
+
+.tile-red {
+    background: rgba(255, 51, 0, 0.3);
+}
+
+.tile-yellow {
+    background: rgba(255, 187, 0, 0.3);
+}
+
+.tile-green {
+    background: rgba(115, 255, 0, 0.3);
+}
+
+.dynamic-tile {
+    background: rgba(221, 221, 221, 0.3);
+}
+
+
+
+.text-input {
+    min-width: 95%;
+    text-align: left;
+    padding: 14px;
+    border: 0;
+    background: rgba(68, 68, 68, 0.151);
+    border: none;
+    border-radius: 14px;
+    outline: none;
+    font-size: 20px;
+    transition: 0.25s;
+}
+
+.text-input:focus {
+    min-width: 98%;
+    color: white;
+    background-color: rgba(68, 68, 68, 0.356);
+    border: none;
+}
+
+input[type="checkbox"] {
+    position: relative;
+    width: 50px;
+    height: 25px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #c7c7c7;
+    outline: none;
+    border-radius: 16px;
+    box-shadow: inset 0 0 px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+}
+
+.create-button {
+    padding: 12px;
+    display: block;
+    text-align: center;
+    background-color: rgba(4, 216, 4, 0.534);
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-weight: 700;
+    transition: 0.25s;
+}
+
+.create-button:hover {
+    background-color: rgba(4, 216, 4, 0.904);
+}
+
+
+
+input:checked[type="checkbox"] {
+    background: #FF8300;
+}
+
+label h3 {
+    vertical-align: bottom;
+}
+
+input[type="checkbox"]:before {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+    background: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+}
+
+input:checked[type="checkbox"]:before {
+    left: 26px;
+}
+
+select {
+    text-align: left;
+    padding: 14px;
+    border: 0;
+    background: rgba(68, 68, 68, 0.151);
+    border: none;
+    border-radius: 14px;
+    outline: none;
+    font-size: 16px;
+    transition: 0.25s;
+}
+
+select:focus {
+    color: white;
+    background-color: rgba(68, 68, 68, 0.356);
+    border: none;
+}

@@ -47,7 +47,7 @@ export class WorldCanvasComponent implements OnInit {
 
 
   async drawMain(): Promise<void> {
-    await new Promise(resolve => setTimeout(() => resolve(), (1000 / 60))).then(() => {
+    await new Promise(resolve => setTimeout(() => resolve({}), (1000 / 60))).then(() => {
       this.measurePerformance();
       //this.context.clearRect(0,0, this.worldCanvas.nativeElement.width, this.worldCanvas.nativeElement.height)
       this.drawCanvas();  

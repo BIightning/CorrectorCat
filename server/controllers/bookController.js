@@ -1,135 +1,150 @@
 const { Book, bookValidation } = require('../dbModels/book');
 const idValidation = require('../utils/objectidValidation');
 
+/**
+ * Retrieves all existing books from the database
+ */
 async function getBooks() {
-    return new Promise(async(resolve, reject) => {
-        await Book
-            .find()
-            .then(result => resolve(result))
-            .catch(reason => {
-                console.error(reason);
-                reject({
-                    code: 500,
-                    msg: 'internal server error!'
-                });
-            });
-    });
+
+    const books = await Book.find();
+    return books;
+
 }
 
+/**
+ * Looks for a book with the given id and returns it.
+ * @param {string} id The object id of the book we want to retrieve
+ */
 async function getBookById(id) {
-    return new Promise(async(resolve, reject) => {
-        let { error } = idValidation(id);
-        if (error)
-            reject({ code: 400, msg: error.details[0].message });
+    let { error } = idValidation(id);
+    if (error) {
+        let err = new Error(error.details[0].message);
+        err.code = 400;
+        throw err;
+    }
 
-        await Book
-            .findById(id)
-            .then(result => {
-                if (result === null)
-                    reject({ code: 404, msg: "Book not found" });
-                else
-                    resolve(result);
-            })
-            .catch(reason => {
-                console.error(reason);
-                reject({
-                    code: 500,
-                    msg: 'internal server error!'
-                });
-            });
-    });
+    const book = await Book.findById(id);
+
+    if (book === null) {
+        let err = new Error("Book not found");
+        err.code = 404;
+        throw err;
+    } else
+        return book;
+
 }
+
+/**
+ * Looks for a book with the given title and returns it.
+ * @deprecated avoid usage, book names aren't necessarily unique. Will be removed in the future.
+ * @param {string} title The title of the book we want to retrieve
+ */
 
 async function getBookByTitle(title) {
-    return new Promise(async(resolve, reject) => {
-        if (!title)
-            reject({ code: 400, msg: 'No book title provided' });
+    if (!title || typeof(title) !== 'string') {
+        let err = new Error('Title not provided or not a string');
+        err.code = 400;
+        throw err;
+    }
 
-        await Book
-            .findOne({ title: title })
-            .then(result => {
-                if (result === null) reject({ code: 404, msg: "Book not found" });
-                else
-                    resolve(result);
-            })
-            .catch(reason => {
-                console.log(reason);
-                reject({ code: 500, msg: 'internal server error!' });
-            });
-    });
+    const book = await Book.findOne({ title: title });
+
+    if (book === null) {
+        let err = new Error("Book not found");
+        err.code = 404;
+        throw err;
+    } else
+        return book;
 }
 
+/**
+ * Looks for a book with the given id and updates it with the given data
+ * @param {string} id The object id of the book we want to update
+ * @param {*} data the data we want to update the book with
+ */
 async function updateBook(id, data) {
 
-    return new Promise(async(resolve, reject) => {
-        //Validate data before accessing db
-        let { idError } = idValidation(id);
-        if (idError)
-            reject({ code: 400, msg: idError.details[0].message });
-
-        let { bookError } = bookValidation(data);
-        if (bookError)
-            reject({ code: 400, msg: bookError.details[0].message });
-
-        await Book
-            .findByIdAndUpdate(id, {
-                title: data.title,
-                author: data.author,
-                series: data.series,
-                language: data.language,
-                starting: data.starting,
-                cost: data.cost,
-                difficulty: data.difficulty,
-                imagePath: data.imagePath,
-                description: data.description,
-                textChunks: data.textChunks,
-                quiz: data.quiz
-            })
-            .then(result => {
-                if (result === null) reject({ code: 404, msg: "Book not found" });
-                else if (result === data) reject({ code: 400, msg: "No data updated" });
-                else {
-                    resolve(result);
-                }
-            })
-            .catch((reason) => {
-                console.log(reason);
-                reject({ code: 500, msg: "internal server error" });
-            });
-    });
-}
-
-async function createBook(data) {
     //Validate data before accessing db
-    return new Promise(async(resolve, reject) => {
-        let { error } = bookValidation(data);
-        if (error)
-            reject({ code: 400, msg: error.details[0].message });
+    let { idError } = idValidation(id);
+    if (idError) {
+        let err = new Error(idError.details[0].message);
+        err.code = 400;
+        throw err;
+    }
 
-        let newBook = new Book(data);
-        await newBook
-            .save()
-            .then(result => resolve(result))
-            .catch((reason) => {
-                console.log(reason);
-                reject({ code: 500, msg: "internal server error" });
-            });
+    let { bookError } = bookValidation(data);
+    if (bookError) {
+        let err = new Error(bookError.details[0].message);
+        err.code = 400;
+        throw err;
+    }
+
+    const book = await Book.findByIdAndUpdate(id, {
+        title: data.title,
+        author: data.author,
+        series: data.series,
+        language: data.language,
+        starting: data.starting,
+        cost: data.cost,
+        difficulty: data.difficulty,
+        imagePath: data.imagePath,
+
+        creditTarget: data.creditTarget,
+        tutorialAfterCompletion: data.tutorialAfterCompletion,
+        description: data.description,
+
+        textChunks: data.textChunks,
+        quiz: data.quiz
     });
+    if (book === null) {
+        let err = new Error("Book not found");
+        err.code = 404;
+        throw err;
+    } else if (book === data) {
+        let err = new Error("No data updated");
+        err.code = 400;
+        throw err;
+    } else
+        return book;
 }
 
+/**
+ * Creates a new book with the given data
+ * @param {object} data the data we want to create the book with
+ */
+async function createBook(data) {
+
+    let { error } = bookValidation(data);
+    if (error) {
+        let err = new Error(error.details[0].message);
+        err.code = 400;
+        throw err;
+    }
+
+    let newBook = new Book(data);
+    newBook = await newBook.save();
+    return newBook;
+}
+
+/**
+ * Looks for a book with the given id and deletes it permamently
+ * @param {string} id The object id of the book we want to delete
+ */
 async function deleteBook(id) {
-    return new Promise(async(resolve, reject) => {
-        let { error } = idValidation(id);
-        if (error)
-            reject({ code: 400, msg: error.details[0].message });
-        await Book
-            .findByIdAndRemove(id)
-            .then(result => resolve(result))
-            .catch((reason) => {
-                console.log(reason);
-                reject({ code: 500, msg: "internal server error" });
-            });
-    })
+    let { error } = idValidation(id);
+    if (error) {
+        let err = new Error(error.details[0].message);
+        err.code = 400;
+        throw err;
+    }
+    let book = await Book.findByIdAndRemove(id);
+    if (book === null) {
+        let err = new Error("Book not found");
+        err.code = 404;
+        throw err;
+    }
+
+    return book;
 }
 
 exports.createBook = createBook;

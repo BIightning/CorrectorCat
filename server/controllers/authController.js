@@ -1,36 +1,68 @@
 const Joi = require('@hapi/joi');
+const bcrypt = require('bcryptjs');
 const { User } = require('../dbModels/user.js');
+const settingsController = require('../controllers/settingsController');
 
-//TODO Request to recording studio for authentification 
-// !This is not safe, no real authentification happens!
-function authenticate(data) {
-    return new Promise(async(resolve, reject) => {
-        let { error } = authValidation(data);
-        if (error)
-            reject({ code: 400, msg: error.details[0].message });
+/**
+ * Attempts to login the user with the passed credentials.
+ * This function handles both native and remote users.
+ * Returns a jwt and a few information about the user if authentication succeeds
+ * @param {object} data the username + password
+ */
+async function authenticate(data) {
 
-        await User
-            .findOne({ email: data.email })
-            .then(result => {
-                if (!result)
-                    reject({ code: 404, msg: "Invalid Email or password" })
-                    //TODO: Send email and password to recording studio.
-                    //Redirect for new users
-                let token = result.generateAuthToken();
-                resolve({ jwt: token, user: result });
-            })
-            .catch(reason => reject({ code: 500, msg: 'internal server error!' }));
-    });
+    let { error } = authValidation(data);
+    if (error) {
+        let err = new Error(error.details[0].message);
+        err.code = 400;
+        throw err;
+    }
+
+    const settings = settingsController.getSettingsSync();
+
+    let user = await User.findOne({ email: data.email })
+    if (user === null) {
+        //TODO: Send email and password to recording studio if remote login is enabled.
+        //Redirect for new users
+        let err = new Error("Invalid Email or password");
+        err.code = 400;
+        throw err;
+    }
+    if (user.isNativeAccount) {
+        const validPassword = await bcrypt.compare(data.password, user.password);
+
+        if (!validPassword) {
+            let err = new Error("Invalid Email or password");
+            err.code = 400;
+            throw err;
+        }
+
+    } else if (settings.bRemoteAccountsActive && data.activityId) {
+
+    } else {
+        let err = new Error("Invalid Email or password");
+        err.code = 400;
+        throw err;
+    }
+
+    return result = {
+        jwt: user.generateAuthToken(),
+        user: {
+            email: user.email,
+            _id: user._id
+        }
+    }
 }
-
 
 function authValidation(data) {
     const schema = Joi.object().keys({
-        email: Joi.string().email().required()
+        email: Joi.string().email().required(),
+        password: Joi.string().min(3).required()
     });
 
     return schema.validate({
-        email: data.email
+        email: data.email,
+        password: data.password
     });
 }
 

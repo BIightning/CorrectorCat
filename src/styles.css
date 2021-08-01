@@ -19,6 +19,10 @@ body {
     max-height: 90vh;
 }
 
+.white-stroke {
+    -webkit-text-stroke: 2px #fff;
+}
+
 .max-width {
     width: 100%;
 }
@@ -101,6 +105,26 @@ body {
     max-height: 40vh;
 }
 
+
+.tile-blue {
+    background: rgba(0, 89, 255, 0.3);
+}
+
+.tile-red {
+    background: rgba(255, 51, 0, 0.3);
+}
+
+.tile-yellow {
+    background: rgba(255, 187, 0, 0.3);
+}
+
+.tile-green {
+    background: rgba(115, 255, 0, 0.3);
+}
+
+.dynamic-tile {
+    background: rgba(221, 221, 221, 0.3);
+}
 
 /*Modal*/
 

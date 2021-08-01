@@ -1,19 +1,19 @@
+import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
-import { User } from '../../assets/classes/users';
-import { HttpClient} from '@angular/common/http';
+import { User } from 'src/app/classes/users';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable, from } from 'rxjs';
-import {CreateResponse} from "../../assets/classes/createResponse";
-import {UpdateResponse} from "../../assets/classes/updateResponse";
+import {UpdateResponse} from 'src/app/classes/updateResponse';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  url: string = "http://localhost:8080";
+  url: string;
 
   constructor(private http: HttpClient) { 
-    this.url = "http://192.168.0.17:8080"; //for local debugging
+    this.url = environment.baseUrl;
   }
   public getUserbyId(userId: string) : Observable<User>{
     console.log(userId);
@@ -21,24 +21,32 @@ export class UserService {
   }
 
   public getAllUsers(): Observable<User[]>{
-    return this.http.get<User[]>(this.url+"/api/users");
+    const header = this.generateHeader();
+    return this.http.get<User[]>(this.url+"/api/users", {headers: header } );
   }
 
   public getCurrentUser(): Observable<User>{
-    let userId = localStorage.getItem("user");
-    return this.http.get<User>(this.url+"/api/users/" + String(userId));
+    const header = this.generateHeader();
+    return this.http.get<User>(this.url+"/api/users/me", {headers: header});
   }
 
   public getUserbyUsername(userName: string) : Observable<User>{
     return this.http.get<User>(this.url+"/api/userByUserName/" + userName);
   }
 
-  public createUser(user : User): Observable<CreateResponse>{
-    return this.http.post<CreateResponse>(this.url+"/api/users", user);
+  public createUser(user : User): Observable<User>{
+    return this.http.post<User>(this.url+"/api/users", user);
   }
 
   public updateUser(user :User): Observable<User>{
     return this.http.put<User>(this.url+"/api/users/" + user._id , user);
+  }
+
+  private generateHeader(): HttpHeaders{
+    return new HttpHeaders({
+      "Content-Type": "application/json; charset=utf-8",
+      "x-auth-token": localStorage.getItem('jwt')
+    });
   }
 
 }

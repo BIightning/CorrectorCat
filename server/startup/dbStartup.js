@@ -8,11 +8,9 @@ module.exports = function(dbPath = Text) {
         .then(() => {
             console.log('Connected to mongoDB');
             g_dbConnected = true;
-            mongoose.connection.on('disconnected', handleDisconnect)
+            mongoose.connection.on('disconnected', () => {
+                g_dbConnected = false;
+            })
         })
         .catch(err => console.log(err));
-}
-
-function handleDisconnect() {
-    g_dbConnected = false;
 }

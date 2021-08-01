@@ -10,9 +10,6 @@
         <div [ngClass]="{'uneven-tile': !isEven}" class="user-tile">
             <ul class="detail-list">
                 <li class="detail">
-                    <h4>{{user.name}}</h4>
-                </li>
-                <li class="detail">
                     <h4>{{user.email}}</h4>
                 </li>
                 <li class="detail">
@@ -32,7 +29,7 @@
 
 <div [ngClass]="{'modal-active': bShowModal}" class="admin-modal-bg">
     <div class="admin-modal shadow">
-        <h3>Do you really want to delete the user "{{currentUser?.name}}"? You can't restore the data afterwards!</h3>
+        <h3>Do you really want to delete the user "{{currentUser?.email}}"? You can't restore the data afterwards!</h3>
         <div class="row mt-4">
             <div class="col-sm-1 col-md-4"></div>
             <div class="col-sm-5 col-md-2"><button (click)="hideModal()" class="shadow m-1 yes-button admin-button">Yes</button></div>
