@@ -10,8 +10,8 @@
                 </div>
         </label>
     </h4>
-    <div *ngIf="!bAnswered; else elseTemplate" class="center-content mt-2 text-center">
-        <button *ngFor="let answer of quiz.answers; index as i" (click)="answerQuestion(i)" [ngClass]="{'btn-success': i === 0, 'btn-primary': i === 1, 'btn-warning': i === 2, 'btn-dark': i ===3}" class="btn btn-lg p-4 m-2">
+    <div *ngIf="!bAnswered; else elseTemplate" class="answer-container">
+        <button *ngFor="let answer of quiz.answers; index as i" (click)="answerQuestion(i)" class="quiz-btn p-1 m-1">
             {{answer}}
         </button>
     </div>
@@ -23,7 +23,7 @@
             </ng-container>
             <ng-template #answeredWrong>
                 <h3 class="text-danger text-center">Wrong...</h3>
-                <button (click)="tryAgain()" class="btn btn-lg p-4 m-2 btn-primary">
+                <button (click)="tryAgain()" class="quiz-btn p-1 m-2 btn-primary">
                     Try again!
                 </button>
             </ng-template>

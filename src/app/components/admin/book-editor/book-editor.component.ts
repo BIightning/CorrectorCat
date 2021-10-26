@@ -181,6 +181,7 @@ export class BookEditorComponent implements OnInit {
     this.book.difficulty = "Easy";
     this.book.imagePath = "/assets/placeholder_image.jpg";
     this.book.description = "";
+    this.book.creditTarget = 10;
   }
 
   trackByFn(index: any, item: any): any {

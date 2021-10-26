@@ -19,23 +19,15 @@ export class StartingPageComponent implements OnInit {
   }
 
   public isUserKnown(){
-  /*  let userId = localStorage.getItem("user");
-    this.authService.loginOverId(userId).subscribe((data)=>{
-      if(data.isFound){
-        console.log("User Found");
-        this.router.navigateByUrl(this.UrlName + "/" + userId);
-      }
-      else{
-        console.log("User not Found");
-      }
-    });*/
+    if(localStorage.getItem('currLevel'))
+      this.router.navigate(['/game'])
   }
 
   async onSuperCatClick() {
     if (!this.catFlying) {
       this.catFlying = true;
-      await new Promise(resolve => setTimeout(() => resolve(), 1600)).then(() => this.changeImage());
-      await new Promise(resolve => setTimeout(() => resolve(), 1400)).then(() => this.catFlying = false);
+      await new Promise(resolve => setTimeout(() => resolve({}), 1600)).then(() => this.changeImage());
+      await new Promise(resolve => setTimeout(() => resolve({}), 1400)).then(() => this.catFlying = false);
     }
 
   }

@@ -16,12 +16,10 @@ export class DashboardComponent implements OnInit {
   constructor( private router: Router, private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit() {  
-    console.log("ngoninit");
-    this.user = new User();
-    this.userService.getCurrentUser().subscribe((data) => {
-      this.user = data;
-      this.currLevel += this.user.completedLevels;
-    });
+    const level = +localStorage.getItem('currLevel');
+    if(!level)
+      return localStorage.setItem('currLevel', this.currLevel.toString());
+    this.currLevel = level;
   }
 
   onLevelSelected(eventArgs) {

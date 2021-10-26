@@ -14,12 +14,10 @@ export class LevelViewComponent implements OnInit {
   user : User;
   settings: Settings;
   numbers: number[];
+  bShowActivePrompt: boolean = false;
   
 
-  constructor( 
-    private router: Router, 
-    private route: ActivatedRoute,
-  ) { }
+  constructor() {}
 
   ngOnInit(): void {
     this.numbers = Array(4).fill(1).map((x,i)=>i+1); // [1,2,3,4]
@@ -27,23 +25,25 @@ export class LevelViewComponent implements OnInit {
   }
 
   async markActivePrompt(){
-    await new Promise(resolve => setTimeout(()=> resolve({}), 500)).then(()=> {
-      document.getElementsByClassName("level-" +this.currLevel.toString())[0].classList.add("active-prompt");
+    setTimeout(()=> {
+      this.bShowActivePrompt = true;
     });
   }
 
-  async navigateToTutorial(promptId: number) {
+  navigateToTutorial(promptId: number) {
 
-    if(this.currLevel < promptId || !this.currLevel) return;
+    if(this.currLevel < promptId || !this.currLevel) 
+      return;
 
     document.getElementById("scaling-bg-"+ promptId.toString()).classList.add("prompt-animation");
     document.getElementById("super-cat").classList.add("super-cat-fly");
     document.getElementById("prompt-text").classList.add("fade-out");
 
-     await new Promise(resolve => setTimeout(()=> resolve({}), 1300)).then(()=> {
-       //this.router.navigate(["/LbT/" + this.user.id+ "/tutorial/" + promptId.toString()+"/"]);
-       this.levelSelect.emit({selectedLevel: promptId, animationPlayed: true});
-     });
+    setTimeout(
+      ()=> this.levelSelect.emit({selectedLevel: promptId, animationPlayed: true}), 
+      1300
+    );
+ 
    }
 
 }

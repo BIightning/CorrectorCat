@@ -8,8 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "devmode": " ng build && node ./server/server.js",
-    "prodmode": "ng build --prod && node ./server/server.js"
+    "dev": " ng build && node ./server/server.js",
+    "prod": "ng build --prod && node ./server/server.js"
   },
   "private": true,
   "dependencies": {
@@ -25,7 +25,6 @@
     "@hapi/joi": "^17.1.1",
     "@ng-bootstrap/ng-bootstrap": "^8.0.0",
     "@ngneat/transloco": "^2.20.0",
-    "angular": "^1.8.2",
     "angular-shepherd": "^0.7.0",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",

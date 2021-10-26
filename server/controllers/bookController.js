@@ -113,7 +113,6 @@ async function updateBook(id, data) {
  * @param {object} data the data we want to create the book with
  */
 async function createBook(data) {
-
     let { error } = bookValidation(data);
     if (error) {
         let err = new Error(error.details[0].message);

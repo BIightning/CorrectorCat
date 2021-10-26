@@ -65,10 +65,10 @@ export class SignInComponent implements OnInit {
             console.log(userLang)
             this.setLanguage(userLang);
           }
-          this.router.navigate(["/game"]);
+          this.router.navigate(["/admin"]);
           return;
         }
-        this.router.navigate(["/game"]);
+        this.router.navigate(["/admin"]);
       },
       err => {
         console.log(err.error)

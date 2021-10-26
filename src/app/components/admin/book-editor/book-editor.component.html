@@ -15,7 +15,8 @@
         <input [(ngModel)]="book.author" name="author" type="text" required>
         <h4 class="input-heading mt-2">&nbsp;Series:</h4>
         <input [(ngModel)]="book.series" name="series" type="text" required>
-
+        <h4 class="input-heading mt-2">&nbsp;Series:</h4>
+        <textarea [(ngModel)]="book.description" name="series" type="text" required></textarea>
         <h4 class="input-heading mt-2">&nbsp;Language:</h4>
         <div class="flex-start mt-1">
             <select name="language" type="string" [(ngModel)]="book.language" required>
@@ -152,6 +153,8 @@
                             {{tutorial.tutorialTitle}}
                         </option>
                     </select>
+                    <h4 class="input-heading mt-2">&nbsp;Credit Target:</h4>
+                    <input [(ngModel)]="book.creditTarget" name="cost" type="number" required>
                 </ng-container>
             </ng-container>
         </div>

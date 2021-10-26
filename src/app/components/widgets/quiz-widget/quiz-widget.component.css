@@ -1,9 +1,21 @@
-.center-content {
+.answer-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
 .script {
     font-size: 1.2rem;
+}
+
+.quiz-btn {
+    border: 3px solid #f80;
+    border-radius: 15px;
+    width: 50%;
+    font-weight: 500;
+    font-size: 1.3em;
+    background-color: white;
+    color: #00a;
+
 }

@@ -41,7 +41,6 @@ const routes: Routes = [
   {
     path: 'game',
     component: GamePageComponent,
-    canActivateChild: [AuthGuard],
     children: [
       {
         path: 'dashboard',

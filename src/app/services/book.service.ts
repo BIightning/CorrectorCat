@@ -30,7 +30,6 @@ export class BookService {
   public createBook(book: Book): Observable<Book>{
     const headerOption = { headers: this.generateHeader() };
     const body = JSON.stringify(book);
-    
     return this.http.post<Book>(`${this.url}/api/books/`, body, headerOption);
   }
 

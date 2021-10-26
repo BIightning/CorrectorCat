@@ -141,6 +141,12 @@ export class GameViewComponent implements OnInit, AfterViewInit {
     this.lookForMissedChunks();
     this.addCreditsToPlayerAccount();
     this.bShowEndModal = true;
+
+    if(this.earnedCoins >= this.book.creditTarget || this.chunksMissed === 0) {
+      let level = +localStorage.getItem('currLevel');
+      level++;
+      localStorage.setItem('currLevel', level.toString());
+    }
   }
 
   public handleBookCompletion(): void {

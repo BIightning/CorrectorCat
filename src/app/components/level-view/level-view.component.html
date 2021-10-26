@@ -1,7 +1,7 @@
 <div class="row">
     <div *ngFor="let number of numbers" class="col-md-6 col-lg-3">
         <div id="prompt-{{number}}" class="d-flex justify-content-center" (click)="navigateToTutorial(number)">
-            <div class="prompt level-{{number}}">
+            <div class="prompt level-{{number}}" [ngClass]="{'active-prompt': currLevel === number && bShowActivePrompt}">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -14,7 +14,9 @@
                         <img src="../../assets/img/kitty-avatars/svg/036-kitty-superhero.svg" id="super-cat">
                     </div>
                     <i *ngIf="!(this.currLevel === number)"
-                        [ngClass]="this.currLevel > number ?  'fa-check-circle' : 'fa-lock'" class="fa fa-5x"></i>
+                        [ngClass]="this.currLevel > number ? 'fa-check-circle' : 'fa-lock'"
+                        class="fa fa-5x"
+                    ></i>
                 </div>
             </div>
         </div>

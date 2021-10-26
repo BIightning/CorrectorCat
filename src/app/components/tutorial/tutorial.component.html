@@ -41,11 +41,12 @@
                     <app-tutorial-widgets (allowContinue)="allowContinue()" [widgetID]="slide.widgetID" [targetText]="sequence.targetText"></app-tutorial-widgets>
                 </ng-container>
             </ng-container>
-            <div class=" mt-5 pt-4 button-wrapper center-content">
-                <div class="container-fluid center-content">
-                    <button *ngIf="currentSlide > 0" (click)="clickBack()" class="shadow m-5 btn btn-lg btn-secondary">Back <i class="fa fa-chevron-circle-left"></i></button>
-                    <button *ngIf="sequence.slides.length -1 > currentSlide" [disabled]="!bCanContinue" (click)="clickNext()" class="shadow m-5 btn btn-lg btn-success">&nbsp;<i class="fa fa-chevron-circle-right"></i> Next&nbsp;</button>
-                </div>
-            </div>
         </div>
     </ng-container>
+    <div class="mt-5 pt-4 button-wrapper center-content">
+        <div class="container-fluid center-content">
+            <button *ngIf="currentSlide > 0" (click)="clickBack()" class="shadow m-5 btn btn-lg btn-secondary">Back <i class="fa fa-chevron-circle-left"></i></button>
+            <button *ngIf="sequence.slides.length -1 > currentSlide" [disabled]="!bCanContinue" (click)="clickNext()" class="shadow m-5 btn btn-lg btn-success">&nbsp;<i class="fa fa-chevron-circle-right"></i> Next&nbsp;</button>
+        </div>
+    </div>
+</div>
